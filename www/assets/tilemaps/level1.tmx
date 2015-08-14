@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="20" tilewidth="16" tileheight="16" nextobjectid="14">
+ <tileset firstgid="1" name="tiles" tilewidth="16" tileheight="16" tilecount="3520">
+  <image source="../images/tiles.png" width="705" height="1280"/>
+ </tileset>
+ <layer name="backgroundLayer" width="10" height="20" visible="0">
+  <data encoding="csv">
+3081,3081,3081,3081,3081,3081,3081,3081,3081,3081,
+3081,3081,3081,3081,3081,3081,3081,3081,3081,3081,
+3081,3081,3081,1321,1321,1321,1321,3081,3081,3081,
+3081,3081,1321,1321,1321,1321,1321,1321,3081,3081,
+3081,3081,1321,1321,1321,1321,1321,1321,3081,3081,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,3081,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,3081,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321,
+1321,1321,1321,1321,1321,1321,1321,1321,1321,1321
+</data>
+ </layer>
+ <layer name="blockedLayer" width="10" height="20">
+  <data encoding="csv">
+1550,1550,1550,1550,1550,1550,1550,1550,1550,1550,
+1550,1550,0,0,0,1550,1550,1550,1550,1550,
+1550,0,0,0,0,0,0,1550,1550,1550,
+1550,0,0,0,0,0,0,0,0,1550,
+1550,0,0,0,0,0,0,0,0,1550,
+618,0,0,0,0,0,0,0,0,1550,
+618,0,0,0,0,0,0,0,0,1550,
+618,0,0,0,0,0,0,0,0,618,
+618,0,0,0,0,0,0,0,0,618,
+618,0,0,0,0,0,0,618,618,618,
+618,0,0,0,0,618,618,0,0,618,
+618,0,0,0,618,0,0,0,0,618,
+618,0,0,0,618,0,0,0,0,618,
+618,0,0,0,618,0,0,0,0,618,
+618,0,0,0,618,0,0,0,0,618,
+618,0,0,0,618,0,0,618,618,618,
+618,0,0,0,0,0,0,0,0,618,
+618,0,0,0,0,0,0,0,0,618,
+618,0,0,0,0,0,0,0,0,618,
+618,618,618,618,618,618,618,618,618,618
+</data>
+ </layer>
+ <objectgroup name="objectsLayer" visible="0">
+  <object id="1" gid="115" x="64" y="48" width="16" height="16">
+   <properties>
+    <property name="type" value="playerStart"/>
+   </properties>
+  </object>
+  <object id="4" name="bluecup" type="item" gid="1216" x="32" y="96" width="16" height="16">
+   <properties>
+    <property name="sprite" value="bluecup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="7" type="item" gid="1260" x="80" y="144" width="16" height="16">
+   <properties>
+    <property name="sprite" value="greencup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="8" gid="447" x="112" y="208" width="16" height="16">
+   <properties>
+    <property name="sprite" value="browndoor"/>
+    <property name="targetTilemap" value="level2"/>
+    <property name="targetX" value="20"/>
+    <property name="targetY" value="30"/>
+    <property name="type" value="door"/>
+   </properties>
+  </object>
+  <object id="9" name="bluecup" type="item" gid="1216" x="16" y="192" width="16" height="16">
+   <properties>
+    <property name="sprite" value="bluecup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="10" name="bluecup" type="item" gid="1216" x="96" y="240" width="16" height="16">
+   <properties>
+    <property name="sprite" value="bluecup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="11" type="item" gid="1260" x="32" y="288" width="16" height="16">
+   <properties>
+    <property name="sprite" value="greencup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="12" type="item" gid="1260" x="48" y="288" width="16" height="16">
+   <properties>
+    <property name="sprite" value="greencup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+  <object id="13" type="item" gid="1260" x="64" y="288" width="16" height="16">
+   <properties>
+    <property name="sprite" value="greencup"/>
+    <property name="type" value="item"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
