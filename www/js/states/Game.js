@@ -7,19 +7,40 @@ HachiBowl.Game.prototype = {
   preload: function() {},
   
   create: function() {
-    var ball = this.game.add.sprite(300, 300, 'ball1');
+    this.game.physics.p2.setImpactEvents(true);
+    this.game.physics.p2.restitution = 0.8;
+        
+    //  Create our collision groups. One for the ball, one for the pins
+    var ballCollisionGroup = this.game.physics.p2.createCollisionGroup();
+    var pinsCollisionGroup = this.game.physics.p2.createCollisionGroup();
+    //this.game.physics.p2.updateBoundsCollisionGroup();
+    
+    this.bpins = this.game.add.group();
+    this.bpins.enableBody = true;
+    this.bpins.physicsBodyType = Phaser.Physics.P2JS;
+    
+    var bpin = this.bpins.create(128, 40, 'bpin', 0);
+    bpin.body.setRectangle(24, 32);
+    bpin.body.setCollisionGroup(pinsCollisionGroup);
+    bpin.body.collides([pinsCollisionGroup, ballCollisionGroup]);
+    bpin.body.angularDamping = 0.5;
+    bpin.body.mass = 5;
+    
+    this.ball = new Ball(this.game, 192, this.game.height - 40, 0);
+    this.game.add.existing(this.ball);
+
+    // Set the ships collision group
+    this.ball.body.setCollisionGroup(ballCollisionGroup);
+    this.ball.body.collides(pinsCollisionGroup);
+    
     this.game.stage.backgroundColor = '#000';
-
-    //  Input Enable the sprites
-    ball.inputEnabled = true;
-    ball.input.allowVerticalDrag = false;
-
-    //  Allow dragging - the 'true' parameter will make the sprite snap to the center
-    ball.input.enableDrag(false);
+    
+    this.portraitWindow = this.game.add.sprite(224, 0, 'windowsmall');
+    this.scoreWindow = this.game.add.sprite(224, 96, 'windowbig');
   },
   
   update: function() {
-    
+    //this.game.physics.P2.collide(this.ball, this.bpin);
   },
   
   //find objects in a Tiled layer that containt a property called "type" equal to a certain value
@@ -53,5 +74,5 @@ HachiBowl.Game.prototype = {
     result.forEach(function(element){
       this.createFromTiledObject(element, this.items);
     }, this);
-  },
+  }
 };

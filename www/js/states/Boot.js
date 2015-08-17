@@ -24,7 +24,7 @@ HachiBowl.Boot.prototype = {
     this.game.scale.updateLayout(true);
 
     //physics system for movement
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.physics.startSystem(Phaser.Physics.P2JS);
     
     this.state.start('Preload');
     this.game.plugin=this.game.plugins.add(Phaser.Plugin.FadePlugin);
