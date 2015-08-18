@@ -4,6 +4,8 @@ var Ball = function(game, x, y, frame) {
 
   // set the sprite's anchor to the center
   this.anchor.setTo(0.5, 0.5);
+  this.originX = x;
+  this.originY = y;
 
   // add and play animations
   //this.animations.add('roll');
@@ -21,14 +23,14 @@ var Ball = function(game, x, y, frame) {
   this.game.physics.p2.enable(this, false);
   this.body.setCircle(12);
   this.body.fixedRotation = true;
-  this.body.mass = 10;
+  this.body.mass = 20;
+  this.accelVal = 0;
+  //this.body.damping = 0.6;
   //this.body.mass = 10;
   // this.body.friction = 0.97;
   // this.body.setCircle(12);
   // this.body.damping = 0.5;
   // this.body.fixedRotation = true;
-  //this.body.collideWorldBounds = true;
-  //this.body.allowGravity = false;
   
   this.onTrack = true;
   this.rolling = false;
@@ -42,7 +44,7 @@ Ball.prototype = Object.create(Phaser.Sprite.prototype);
 Ball.prototype.constructor = Ball;
 
 Ball.prototype.update = function() {
-  if(this.body.y <= 0) {
+  if(this.body.y <= -32) {
     this.onTrack = false;
     this.body.velocity.y = 0;
   }
@@ -53,7 +55,11 @@ Ball.prototype.update = function() {
   if(this.body.x >  212){
     this.body.x = 212;
     this.body.velocity.x = 0;
-  }
+  }else if(this.body.x <  0){
+    this.body.x = 0;
+    this.body.velocity.x = 0;
+  }//else this.body.velocity.x += this.accelVal;
+  if(this.rolling===true) this.body.velocity.y = -300;
 };
 
 Ball.prototype.onBallDragUpdate = function(sprite, pointer) {
@@ -63,11 +69,31 @@ Ball.prototype.onBallDragUpdate = function(sprite, pointer) {
 
 Ball.prototype.onBallDragStop = function(sprite, pointer) {
   this.rolling = true;
-  this.body.velocity.y = -200;
   this.input.disableDrag();
 };
 
-Ball.prototype.revived = function() { 
+Ball.prototype.reset = function() {
+  this.input.enableDrag(false);
+  
+  this.onTrack = true;
+  this.rolling = false;
+  this.changedDir = false;
+  this.accelVal = 0;
+  
+  this.body.reset(this.originX,this.originY);
+};
+
+Ball.prototype.listenChangeDirection = function() {
+  if(this.changedDir === false && this.rolling === true){
+    if(this.game.input.activePointer.x < this.body.x && this.game.input.activePointer.isDown){
+      this.body.velocity.x = -80;
+      this.changedDir = true;
+    }
+    if(this.game.input.activePointer.x >= this.body.x && this.game.input.activePointer.isDown){
+      this.body.velocity.x = 80;
+      this.changedDir = true;
+    }
+  }
 };
 
 Ball.prototype.onKilled = function() {

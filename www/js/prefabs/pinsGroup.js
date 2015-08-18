@@ -1,37 +1,44 @@
-var PipeGroup = function(game, parent) {  
+var BowlingPins = function(game, parent,pinsCollisionGroup,ballCollisionGroup) {  
   Phaser.Group.call(this, game, parent);
   
-  this.topPipe = new Pipe(this.game, 0, 0, 0);
-  this.bottomPipe = new Pipe(this.game, 0, 440, 1);
-  this.add(this.topPipe);
-  this.add(this.bottomPipe);
-  this.hasScored = false;
+  this.enableBody = true;
+  this.physicsBodyType = Phaser.Physics.P2JS;
   
-  // this.topPipe.body.velocity.x = -200;  
-  // this.bottomPipe.body.velocity.x = -200;  
-  this.setAll('body.velocity.x', -160);
+  this.pinsPosition = [
+                       [64,40],[96,40],[128,40],[160,40],
+                          [80,72],[112,72],[144,72],
+                              [96,104],[128,104],
+                                  [112,136]
+                      ];
   
-  this.hasScored = false;
+  for (var i = 0; i < 10; i++) {
+    var bpin = this.create(this.pinsPosition[i][0], this.pinsPosition[i][1], 'bpin', 0);
+    bpin.body.setRectangle(24, 32);
+    bpin.body.setCollisionGroup(pinsCollisionGroup);
+    bpin.body.collides([pinsCollisionGroup, ballCollisionGroup]);
+    bpin.body.angularDamping = 0.5;
+    bpin.body.mass = 5;
+  }
 };
 
-PipeGroup.prototype = Object.create(Phaser.Group.prototype);  
-PipeGroup.prototype.constructor = PipeGroup;
+BowlingPins.prototype = Object.create(Phaser.Group.prototype);  
+BowlingPins.prototype.constructor = BowlingPins;
 
-PipeGroup.prototype.update = function() {
+BowlingPins.prototype.update = function() {
   this.checkWorldBounds(); 
 };
 
-PipeGroup.prototype.checkWorldBounds = function() {  
+BowlingPins.prototype.checkWorldBounds = function() {  
   if(!this.topPipe.inWorld) {
     this.exists = false;
   }
 };
 
-PipeGroup.prototype.stop = function() {
+BowlingPins.prototype.stop = function() {
   this.setAll('body.velocity.x', 0);
 };
 
-PipeGroup.prototype.reset = function(x, y) {
+BowlingPins.prototype.reset = function(x, y) {
   // Reset Pipes
   this.topPipe.reset(0,0); 
   this.bottomPipe.reset(0,440);

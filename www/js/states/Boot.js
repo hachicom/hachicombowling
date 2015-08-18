@@ -1,6 +1,6 @@
 var HachiBowl = {
 	_WIDTH: 320,
-	_HEIGHT: 400
+	_HEIGHT: 568
 };
 
 HachiBowl.Boot = function(){};
