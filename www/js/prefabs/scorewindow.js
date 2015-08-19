@@ -1,42 +1,52 @@
-var Scoreboard = function(game) {
+var ScoreWindow = function(game) {
   var gameover;
   Phaser.Group.call(this, game);
   
-  //create gameover sprite
-  gameover = this.create(this.game.width / 2, 100, 'gameover');
-  gameover.anchor.setTo(0.5, 0.5);
-
   //create board sprite
-  this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
-  this.scoreboard.anchor.setTo(0.5, 0.5);
+  this.window = this.create(0, 0, 'windowbig');
 
-  this.scoreText = this.game.add.bitmapText(this.scoreboard.width, 180, 'flappyfont', '', 18);
+  this.scoreLabelText = this.game.add.text(10, 10, "Score", medstyle);
+  this.add(this.scoreLabelText);
+  this.scoreText = this.game.add.text(10, 30, "0", medstyle);
   this.add(this.scoreText);
 
-  this.bestScoreText = this.game.add.bitmapText(this.scoreboard.width, 230, 'flappyfont', '', 18);
-  this.add(this.bestScoreText);
+  this.strikeLabelText = this.game.add.text(10, 74, "Strikes", medstyle);
+  this.add(this.strikeLabelText);
+  this.strikeText = this.game.add.text(10, 94, "0", medstyle);
+  this.add(this.strikeText);
 
-  // add our start button with a callback
-  this.startButton = this.game.add.button(this.game.width/2, 300, 'startButton', this.startClick, this);
-  this.startButton.anchor.setTo(0.5,0.5);
+  this.spareLabelText = this.game.add.text(10, 128, "Spares", medstyle);
+  this.add(this.spareLabelText);
+  this.spareText = this.game.add.text(10, 148, "0", medstyle);
+  this.add(this.spareText);
 
-  this.add(this.startButton);
+  // TODO: this will be the pause button
+  // this.startButton = this.game.add.button(this.game.width/2, 300, 'startButton', this.startClick, this);
+  // this.startButton.anchor.setTo(0.5,0.5);
 
-  this.y = this.game.height;
-  this.x = 0;
+  // this.add(this.startButton);
+
+  this.y = 96;
+  this.x = 224;
 
 };
 
-Scoreboard.prototype = Object.create(Phaser.Group.prototype);  
-Scoreboard.prototype.constructor = Scoreboard;
+ScoreWindow.prototype = Object.create(Phaser.Group.prototype);  
+ScoreWindow.prototype.constructor = ScoreWindow;
 
-Scoreboard.prototype.startClick = function() {  
+ScoreWindow.prototype.updateInfo = function(score,strike,spare) {
+  this.scoreText.setText(score.toString());
+  this.strikeText.setText(strike.toString());
+  this.spareText.setText(spare.toString());
+};
+
+ScoreWindow.prototype.pauseClick = function() {  
   //stageMusic.resume();
-  this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Play");
+  this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Game");
   // this.game.state.start('Play');
 };
 
-Scoreboard.prototype.show = function(score) {  
+ScoreWindow.prototype.show = function(score) {  
   var medal, bestScore;
 
   // Step 1

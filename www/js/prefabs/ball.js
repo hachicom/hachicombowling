@@ -11,20 +11,11 @@ var Ball = function(game, x, y, frame) {
   //this.animations.add('roll');
   //this.animations.play('roll', 12, true);
   
-  //  Input Enable the sprites
-  this.inputEnabled = true;
-  this.input.allowVerticalDrag = false;
-
-  //  Allow dragging - the 'true' parameter will make the sprite snap to the center
-  this.input.enableDrag(false);
-  this.events.onDragUpdate.add(this.onBallDragUpdate,this);
-  this.events.onDragStop.add(this.onBallDragStop, this);
-  
   this.game.physics.p2.enable(this, false);
   this.body.setCircle(12);
   this.body.fixedRotation = true;
   this.body.mass = 20;
-  this.accelVal = 0;
+  //this.accelVal = 0;
   //this.body.damping = 0.6;
   //this.body.mass = 10;
   // this.body.friction = 0.97;
@@ -48,10 +39,6 @@ Ball.prototype.update = function() {
     this.onTrack = false;
     this.body.velocity.y = 0;
   }
-  if(this.input.isDragged){
-    this.body.x = this.game.input.activePointer.worldX;
-    //this.body.y = this.game.input.activePointer.worldY;
-  }
   if(this.body.x >  212){
     this.body.x = 212;
     this.body.velocity.x = 0;
@@ -62,19 +49,11 @@ Ball.prototype.update = function() {
   if(this.rolling===true) this.body.velocity.y = -300;
 };
 
-Ball.prototype.onBallDragUpdate = function(sprite, pointer) {
-  if(sprite.body.x < 0) sprite.body.x = 0;
-  if(sprite.body.x > 212) sprite.body.x = 212;
-};
-
-Ball.prototype.onBallDragStop = function(sprite, pointer) {
+Ball.prototype.roll = function() {
   this.rolling = true;
-  this.input.disableDrag();
 };
 
 Ball.prototype.reset = function() {
-  this.input.enableDrag(false);
-  
   this.onTrack = true;
   this.rolling = false;
   this.changedDir = false;
@@ -86,11 +65,11 @@ Ball.prototype.reset = function() {
 Ball.prototype.listenChangeDirection = function() {
   if(this.changedDir === false && this.rolling === true){
     if(this.game.input.activePointer.x < this.body.x && this.game.input.activePointer.isDown){
-      this.body.velocity.x = -80;
+      this.body.velocity.x = -90;
       this.changedDir = true;
     }
     if(this.game.input.activePointer.x >= this.body.x && this.game.input.activePointer.isDown){
-      this.body.velocity.x = 80;
+      this.body.velocity.x = 90;
       this.changedDir = true;
     }
   }

@@ -18,22 +18,26 @@ HachiBowl.Game.prototype = {
     this.score = 0;
     this.lasthits = [];
     this.strikes = 0;
+    this.totalStrikes = 0;
     this.spares = 0;
+    this.totalSpares = 0;
+    this.paused = false;
         
     //  Create our collision groups. One for the ball, one for the pins
     this.ballCollisionGroup = this.game.physics.p2.createCollisionGroup();
     this.pinsCollisionGroup = this.game.physics.p2.createCollisionGroup();
     //this.game.physics.p2.updateBoundsCollisionGroup();
     
+    //10-pin creation    
     this.bpins = this.game.add.group();
     this.bpins.enableBody = true;
     this.bpins.physicsBodyType = Phaser.Physics.P2JS;
     
     this.pinsPosition = [
-                       [32,40],[80,40],[128,40],[176,40],
-                          [56,72],[104,72],[152,72],
-                              [80,104],[128,104],
-                                  [104,136]
+                       [42,40],[90,40],[138,40],[186,40],
+                          [66,72],[114,72],[162,72],
+                              [90,104],[138,104],
+                                  [114,136]
                       ];
     
     for (var i = 0; i < 10; i++) {
@@ -43,49 +47,78 @@ HachiBowl.Game.prototype = {
       this.bpins.add(bpin);
     }
     
-    this.ball = new Ball(this.game, 192, this.game.height - 40, 0);
+    //bowling ball creation
+    this.ball = new Ball(this.game, 192, this.game.height - 64, 0);
     this.game.add.existing(this.ball);
-
-    // Set the ships collision group
+    this.ball.visible = false;
+    
     this.ball.body.setCollisionGroup(this.ballCollisionGroup);
     this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);
     
-    this.game.stage.backgroundColor = '#000';
+    this.playerSpr = new Player(this.game, 192, this.game.height - 32, 0, this.ball);
+    this.game.add.existing(this.playerSpr);
     
+    //UI creation
+    this.game.stage.backgroundColor = '#aaaaaa';
+    this.rightBar = this.game.add.tileSprite(224, 0, 96, this.game.height, 'barbgm');
+
     this.portraitWindow = this.game.add.sprite(224, 0, 'windowsmall');
-    this.scoreWindow = this.game.add.sprite(224, 96, 'windowbig');
+    this.scoreWindow = new ScoreWindow(this.game);
+    this.game.add.existing(this.scoreWindow);
+    this.startMessage = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "READY!", bigstyle);
+    this.startMessage.anchor.setTo(0.5,0.5);
+    
+    this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 20, 'pause');
+    this.pauseButton.inputEnabled = true;
+    this.pauseButton.events.onInputUp.add(this.pauseGame, this);
+    
+    //TODO: Ao sair da tela de jogo, esse evento deve ser removido!
+    // this.game.input.onDown.add(function(){
+      // if(this.paused===true){
+        // this.startMessage.visible = false;
+        // this.game.paused = false;
+        // this.paused = false;
+      // }
+    // }, this);
+    
+    //Timers
+    this.startTimer = this.game.time.create(false);
+    this.startTimer.add(2000, this.hideStartMessage, this);
+    this.startTimer.start();
   },
   
   update: function() {
-    //this.game.physics.P2.collide(this.ball, this.bpin);
     if(this.ball.onTrack===false){
       if(this.bpins.total<=0){
         //strike or spare
-        this.checkStrikeSpare();
+        this.checkSpareScore();
         if(this.turn==0){
           //strike
-          console.log('strike!');
-          this.lasthits.push(10);
           if(this.strikes>0){
-            this.lasthits.splice(0,1);
-          }else this.lasthits = [];
+            this.lasthits.push(10);
+          }
           this.strikes++;
+          this.totalStrikes++;
         }else{
           //spare
-          console.log('spare!');
-          this.lasthits.push(this.lasthit);
+          if(this.strikes>0){
+            this.lasthits.push(this.lasthit);
+          }
           this.spares++;
+          this.totalSpares++;
         }
+        this.checkStrikeScore();
         this.turn = 0;
         this.round++;
         this.resetPins();
         this.lasthit = 0;
-        this.ball.reset();
+        this.playerSpr.reset();
       }else if(10 - this.pinsHit == this.bpins.total){
         this.turn++;
-        this.checkStrikeSpare();
-        this.lasthits.splice(0,1);
-        this.lasthits.push(this.lasthit);
+        this.checkSpareScore();
+        if(this.strikes>0){
+          this.lasthits.push(this.lasthit);
+        }
         if(this.turn>1){
           this.score+=this.pinsHit;
           this.lastscore = '';
@@ -94,17 +127,18 @@ HachiBowl.Game.prototype = {
           this.resetPins();
           this.score+=this.pinsHit;
         }
+        this.checkStrikeScore();
         this.lasthit = 0;
-        this.ball.reset();
+        this.playerSpr.reset();
       }
     }
     this.ball.listenChangeDirection();
+    this.scoreWindow.updateInfo(this.score,this.strikes,this.spares);
   },
   
   render: function(){
     this.game.debug.text("Hit Total: " + this.pinsHit + " Actual: " + this.lasthit, 0, 10);
-    this.game.debug.text("strikes: " + this.strikes + " spares: " + this.spares, 0, 20);
-    this.game.debug.text("Score: " + this.score + " => " + this.lasthits[0] + "|" + this.lasthits[1], 0, 400);
+    this.game.debug.text("lasthits: " + this.lasthits[0] + "|" + this.lasthits[1], 0, 20);
   },
   
   hitPin: function(body1,body2) {
@@ -126,13 +160,19 @@ HachiBowl.Game.prototype = {
     }
   },
   
-  checkStrikeSpare: function() {
+  checkStrikeScore: function() {
     if(this.strikes>0){
       if(this.lasthits.length >= 2){
         this.score+=10 + this.lasthits[0] + this.lasthits[1];
-        this.strikes--;        
+        this.strikes--;
+        if(this.strikes>0){
+          this.lasthits.splice(0,1);
+        }else this.lasthits = [];
       }
     }
+  },
+  
+  checkSpareScore: function() {
     if(this.spares>0){
       this.score+=10 + this.lasthit;
       this.spares--;
@@ -170,5 +210,25 @@ HachiBowl.Game.prototype = {
     result.forEach(function(element){
       this.createFromTiledObject(element, this.items);
     }, this);
-  }
+  },
+  
+  hideStartMessage: function() {
+    this.startMessage.visible = false;
+    this.ball.visible = true;
+    this.playerSpr.input.enableDrag();
+  },
+  
+  pauseGame: function() {
+    //console.log("clicked pause button");
+    this.startMessage.setText("PAUSED");
+    this.startMessage.visible = true;
+    this.game.paused = true;
+    this.paused = true;
+    this.input.onDown.add(function(){
+        this.startMessage.visible = false;
+        this.game.paused = false;
+        this.paused = false;
+        this.input.onDown.removeAll();
+    }, this);
+  },
 };
