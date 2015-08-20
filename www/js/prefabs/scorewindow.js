@@ -15,10 +15,13 @@ var ScoreWindow = function(game) {
   this.strikeText = this.game.add.text(10, 94, "0", medstyle);
   this.add(this.strikeText);
 
-  this.spareLabelText = this.game.add.text(10, 128, "Spares", medstyle);
+  this.spareLabelText = this.game.add.text(10, 138, "Spares", medstyle);
   this.add(this.spareLabelText);
-  this.spareText = this.game.add.text(10, 148, "0", medstyle);
+  this.spareText = this.game.add.text(10, 158, "0", medstyle);
   this.add(this.spareText);
+  
+  this.timerText = this.game.add.text(10, 222, "00:00", medstyle);
+  this.add(this.timerText);
 
   // TODO: this will be the pause button
   // this.startButton = this.game.add.button(this.game.width/2, 300, 'startButton', this.startClick, this);
@@ -34,10 +37,16 @@ var ScoreWindow = function(game) {
 ScoreWindow.prototype = Object.create(Phaser.Group.prototype);  
 ScoreWindow.prototype.constructor = ScoreWindow;
 
-ScoreWindow.prototype.updateInfo = function(score,strike,spare) {
+ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer) {
+  var timersec = timer/1000;
+  var minutes = Math.floor(timersec / 60);
+  var seconds = timersec - minutes * 60;
+  if(seconds<10) seconds = '0'+seconds;
+  
   this.scoreText.setText(score.toString());
   this.strikeText.setText(strike.toString());
   this.spareText.setText(spare.toString());
+  this.timerText.setText(minutes+':'+seconds);
 };
 
 ScoreWindow.prototype.pauseClick = function() {  

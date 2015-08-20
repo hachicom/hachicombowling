@@ -53,6 +53,12 @@ Ball.prototype.roll = function() {
   this.rolling = true;
 };
 
+Ball.prototype.freeze = function() {
+  this.rolling = false;
+  this.body.velocity.x = 0;
+  this.body.velocity.y = 0;
+};
+
 Ball.prototype.reset = function() {
   this.onTrack = true;
   this.rolling = false;

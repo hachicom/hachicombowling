@@ -22,6 +22,7 @@ HachiBowl.Game.prototype = {
     this.spares = 0;
     this.totalSpares = 0;
     this.paused = false;
+    this.gameTimer = 120000;
         
     //  Create our collision groups. One for the ball, one for the pins
     this.ballCollisionGroup = this.game.physics.p2.createCollisionGroup();
@@ -68,7 +69,7 @@ HachiBowl.Game.prototype = {
     this.startMessage = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "READY!", bigstyle);
     this.startMessage.anchor.setTo(0.5,0.5);
     
-    this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 20, 'pause');
+    this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');
     this.pauseButton.inputEnabled = true;
     this.pauseButton.events.onInputUp.add(this.pauseGame, this);
     
@@ -85,34 +86,28 @@ HachiBowl.Game.prototype = {
     this.startTimer = this.game.time.create(false);
     this.startTimer.add(2000, this.hideStartMessage, this);
     this.startTimer.start();
+    
+    this.matchTimer = this.game.time.create(false);
+    this.matchTimer.loop(1000, this.countMatchTime, this);
+    
+    this.tenpinTimer = this.game.time.create(false);
+    this.tenpinTimer.loop(3000, this.hideTenpinWin, this);
+    
+    this.gameoverTimer = this.game.time.create(false);
+    this.gameoverTimer.add(4000, this.showResults, this);
   },
   
   update: function() {
     if(this.ball.onTrack===false){
       if(this.bpins.total<=0){
         //strike or spare
-        this.checkSpareScore();
         if(this.turn==0){
           //strike
-          if(this.strikes>0){
-            this.lasthits.push(10);
-          }
-          this.strikes++;
-          this.totalStrikes++;
+          this.showTenpinWin("STRIKE!!!");
         }else{
           //spare
-          if(this.strikes>0){
-            this.lasthits.push(this.lasthit);
-          }
-          this.spares++;
-          this.totalSpares++;
+          this.showTenpinWin("SPARE!");
         }
-        this.checkStrikeScore();
-        this.turn = 0;
-        this.round++;
-        this.resetPins();
-        this.lasthit = 0;
-        this.playerSpr.reset();
       }else if(10 - this.pinsHit == this.bpins.total){
         this.turn++;
         this.checkSpareScore();
@@ -133,7 +128,7 @@ HachiBowl.Game.prototype = {
       }
     }
     this.ball.listenChangeDirection();
-    this.scoreWindow.updateInfo(this.score,this.strikes,this.spares);
+    this.scoreWindow.updateInfo(this.score,this.totalStrikes,this.totalSpares,this.gameTimer);
   },
   
   render: function(){
@@ -216,6 +211,66 @@ HachiBowl.Game.prototype = {
     this.startMessage.visible = false;
     this.ball.visible = true;
     this.playerSpr.input.enableDrag();
+    this.matchTimer.start();
+  },
+  
+  countMatchTime: function() {
+    this.gameTimer-=1000;
+    if(this.gameTimer<=0) {
+      this.matchTimer.stop();
+      this.endGame();
+    }
+  },
+  
+  endGame: function() {
+    this.startMessage.setText("TIME UP!");
+    this.startMessage.visible = true;
+    //this.playerSpr.reset();
+    this.ball.freeze();
+    this.playerSpr.input.disableDrag();
+    this.score+=this.pinsHit;
+    this.gameoverTimer.start();
+  },
+  
+  showResults: function() {
+    var paramArr = [this.score,this.strikes,this.totalStrikes,this.spares,this.totalSpares]
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Gameover",paramArr);
+  },
+  
+  showTenpinWin: function(text) {
+    this.startMessage.setText(text);
+    this.startMessage.visible = true;
+    this.matchTimer.pause();
+    this.tenpinTimer.start();
+  },
+  
+  hideTenpinWin: function() {
+    this.startMessage.setText("");
+    this.startMessage.visible = false;
+    this.checkSpareScore();
+    if(this.turn==0){
+      //strike
+      if(this.strikes>0){
+        this.lasthits.push(10);
+      }
+      this.strikes++;
+      this.totalStrikes++;
+    }else{
+      //spare
+      if(this.strikes>0){
+        this.lasthits.push(this.lasthit);
+      }
+      this.spares++;
+      this.totalSpares++;
+    }
+    this.checkStrikeScore();
+    this.turn = 0;
+    this.round++;
+    this.resetPins();
+    this.lasthit = 0;
+    this.playerSpr.reset();
+    this.matchTimer.resume();
+    this.tenpinTimer.stop(false);
   },
   
   pauseGame: function() {

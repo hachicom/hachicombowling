@@ -1,6 +1,7 @@
 var HachiBowl = HachiBowl || {};
-var medstyle = { font: "20px Arial", fill: "#55ffff", stroke: "#000000", strokeThickness: 3, align: "center", wordWrap: true, wordWrapWidth: 212 };
-var bigstyle = { font: "48px Arial", fill: "#ffff00", stroke: "#000000", strokeThickness: 8, align: "center", wordWrap: true, wordWrapWidth: 212 };
+var medstyle = { font: "20px Arial", fill: "#ffffff", stroke: "#55ffff", strokeThickness: 2, align: "center", wordWrap: true, wordWrapWidth: 212 };
+var calcstyle = { font: "20px Arial", fill: "#55ffff", stroke: "#000000", strokeThickness: 5, align: "center", wordWrap: true, wordWrapWidth: 212 };
+var bigstyle = { font: "48px Arial", fill: "#ffff00", stroke: "#000000", strokeThickness: 8, align: "center", wordWrap: true, wordWrapWidth: 300 };
 var curlevel = 'level1';
 var startpos;
 
