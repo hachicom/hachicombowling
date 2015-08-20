@@ -29,10 +29,10 @@ HachiBowl.Gameover.prototype = {
     this.spareText = this.game.add.text(64, 254, (this.totalSpares * 50), calcstyle);
     this.spareText.anchor.setTo(0,0.5);
     
-    this.spareText = this.game.add.text(64, 320, "FINAL SCORE: "+this.finalScore, calcstyle);
-    this.spareText.anchor.setTo(0,0.5);
-    this.spareText = this.game.add.text(this.game.world.centerX, 360, "FINAL SCORE: "+this.finalScore, bigstyle);
-    this.spareText.anchor.setTo(0.5,0.5);
+    this.scorelabelText = this.game.add.text(64, 320, "FINAL SCORE:", calcstyle);
+    this.scorelabelText.anchor.setTo(0,0.5);
+    this.scoreText = this.game.add.text(this.game.world.centerX, 360, this.finalScore, bigstyle);
+    this.scoreText.anchor.setTo(0.5,0.5);
     
     // this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');
     // this.pauseButton.inputEnabled = true;
