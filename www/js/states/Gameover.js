@@ -24,7 +24,7 @@ HachiBowl.Gameover.prototype = {
     this.strikeText = this.game.add.text(64, 190, (this.totalStrikes * 100), calcstyle);
     this.strikeText.anchor.setTo(0,0.5);
     
-    this.spareCalcText = this.game.add.text(64, 224, "SPARES: "+this.totalSpares+" x100", calcstyle);
+    this.spareCalcText = this.game.add.text(64, 224, "SPARES: "+this.totalSpares+" x50", calcstyle);
     this.spareCalcText.anchor.setTo(0,0.5);
     this.spareText = this.game.add.text(64, 254, (this.totalSpares * 50), calcstyle);
     this.spareText.anchor.setTo(0,0.5);
