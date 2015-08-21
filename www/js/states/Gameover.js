@@ -9,6 +9,8 @@ HachiBowl.Gameover.prototype = {
     this.totalStrikes = paramArr[2];
     this.spares       = paramArr[3];
     this.totalSpares  = paramArr[4];
+    
+    this.scoretable = playerData.scoretable.scores;
   },
   
   preload: function() {},
@@ -41,7 +43,15 @@ HachiBowl.Gameover.prototype = {
   
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
-      this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Game");
+      registerName = false;
+      for(var i=0;i<5;i++){
+        if (this.scoretable[i]<this.finalScore) {
+          registerName = true;
+          break;
+        }
+      }
+      if(registerName === true) this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Register",[this.finalScore]);
+      else this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Highscore");
     }
   },
 };

@@ -1,5 +1,5 @@
 var HachiBowl = HachiBowl || {};
-var medstyle = { font: "20px Arial", fill: "#ffffff", stroke: "#55ffff", strokeThickness: 2, align: "center", wordWrap: true, wordWrapWidth: 212 };
+var medstyle = { font: "20px Arial", fill: "#ffff00", stroke: "#ffaa00", strokeThickness: 2, align: "left", wordWrap: true, wordWrapWidth: 212 };
 var calcstyle = { font: "20px Arial", fill: "#55ffff", stroke: "#000000", strokeThickness: 5, align: "center", wordWrap: true, wordWrapWidth: 212 };
 var bigstyle = { font: "48px Arial", fill: "#ffff00", stroke: "#000000", strokeThickness: 8, align: "center", wordWrap: true, wordWrapWidth: 300 };
 var curlevel = 'level1';
@@ -48,7 +48,7 @@ HachiBowl.Preload.prototype = {
   update: function() {
     if(!!this.ready) {
       //this.state.start('Game');
-      this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Game");
+      this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
     }
   },
   onLoadComplete: function() {

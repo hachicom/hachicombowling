@@ -22,6 +22,7 @@ HachiBowl.Game.prototype = {
     this.spares = 0;
     this.totalSpares = 0;
     this.paused = false;
+    this.gameover = false;
     this.gameTimer = 120000;
         
     //  Create our collision groups. One for the ball, one for the pins
@@ -60,7 +61,6 @@ HachiBowl.Game.prototype = {
     this.game.add.existing(this.playerSpr);
     
     //UI creation
-    this.game.stage.backgroundColor = '#aaaaaa';
     this.rightBar = this.game.add.tileSprite(224, 0, 96, this.game.height, 'barbgm');
 
     this.portraitWindow = this.game.add.sprite(224, 0, 'windowsmall');
@@ -73,6 +73,9 @@ HachiBowl.Game.prototype = {
     this.pauseButton.inputEnabled = true;
     this.pauseButton.events.onInputUp.add(this.pauseGame, this);
     
+    this.bonusMessage = this.game.add.text(224, this.pauseButton.y + 40, "", medstyle);
+    //this.bonusMessage.anchor.setTo(0,0.5);
+    
     //TODO: Ao sair da tela de jogo, esse evento deve ser removido!
     // this.game.input.onDown.add(function(){
       // if(this.paused===true){
@@ -82,7 +85,9 @@ HachiBowl.Game.prototype = {
       // }
     // }, this);
     
-    //Timers
+    /****************************
+     ********** TIMERS **********
+     ****************************/
     this.startTimer = this.game.time.create(false);
     this.startTimer.add(2000, this.hideStartMessage, this);
     this.startTimer.start();
@@ -93,13 +98,16 @@ HachiBowl.Game.prototype = {
     this.tenpinTimer = this.game.time.create(false);
     this.tenpinTimer.loop(3000, this.hideTenpinWin, this);
     
+    this.bonusTimer = this.game.time.create(false);
+    this.bonusTimer.loop(3000, this.hideBonusMessage, this);
+    
     this.gameoverTimer = this.game.time.create(false);
     this.gameoverTimer.add(4000, this.showResults, this);
   },
   
   update: function() {
-    if(this.ball.onTrack===false){
-      if(this.bpins.total<=0){
+    if(this.ball.onTrack===false && this.gameover===false){
+      if(this.pinsHit == 10){
         //strike or spare
         if(this.turn==0){
           //strike
@@ -115,12 +123,11 @@ HachiBowl.Game.prototype = {
           this.lasthits.push(this.lasthit);
         }
         if(this.turn>1){
-          this.score+=this.pinsHit;
+          //this.score+=this.pinsHit * 10;
           this.lastscore = '';
           this.turn = 0;
           this.round++;
           this.resetPins();
-          this.score+=this.pinsHit;
         }
         this.checkStrikeScore();
         this.lasthit = 0;
@@ -141,6 +148,7 @@ HachiBowl.Game.prototype = {
       body2.sprite.gotHit = true;
       this.pinsHit++;
       this.lasthit++;
+      this.score+=10;
     }
   },
   
@@ -158,7 +166,10 @@ HachiBowl.Game.prototype = {
   checkStrikeScore: function() {
     if(this.strikes>0){
       if(this.lasthits.length >= 2){
-        this.score+=10 + this.lasthits[0] + this.lasthits[1];
+        var bonus = (this.lasthits[0] + this.lasthits[1]) * 10;
+        this.score+=bonus;
+        this.bonusMessage.setText("STRIKE\nBONUS\n"+bonus);
+        this.bonusTimer.start();
         this.strikes--;
         if(this.strikes>0){
           this.lasthits.splice(0,1);
@@ -169,7 +180,10 @@ HachiBowl.Game.prototype = {
   
   checkSpareScore: function() {
     if(this.spares>0){
-      this.score+=10 + this.lasthit;
+      var bonus = (this.lasthit)*10;
+      this.score+=bonus;
+      this.bonusMessage.setText("SPARE\nBONUS\n"+bonus);
+      this.bonusTimer.start();
       this.spares--;
     }
   },
@@ -225,16 +239,22 @@ HachiBowl.Game.prototype = {
   endGame: function() {
     this.startMessage.setText("TIME UP!");
     this.startMessage.visible = true;
+    this.gameover = true;
     //this.playerSpr.reset();
     this.ball.freeze();
     this.playerSpr.input.disableDrag();
-    this.score+=this.pinsHit;
+    //this.score+=this.pinsHit * 10;
     this.gameoverTimer.start();
   },
   
   showResults: function() {
     var paramArr = [this.score,this.strikes,this.totalStrikes,this.spares,this.totalSpares]
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Gameover",paramArr);
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Gameover",paramArr);
+  },
+  
+  hideBonusMessage: function() {
+    this.bonusMessage.setText("");
+    this.bonusTimer.stop(false);
   },
   
   showTenpinWin: function(text) {

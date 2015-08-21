@@ -15,7 +15,7 @@ var Ball = function(game, x, y, frame) {
   this.body.setCircle(12);
   this.body.fixedRotation = true;
   this.body.mass = 20;
-  //this.accelVal = 0;
+  this.accelVal = 0;
   //this.body.damping = 0.6;
   //this.body.mass = 10;
   // this.body.friction = 0.97;
@@ -45,7 +45,11 @@ Ball.prototype.update = function() {
   }else if(this.body.x <  0){
     this.body.x = 0;
     this.body.velocity.x = 0;
-  }//else this.body.velocity.x += this.accelVal;
+  }else {
+    this.body.velocity.x += this.accelVal;
+    if(this.body.velocity.x > 150) this.body.velocity.x = 150;
+    if(this.body.velocity.x < -150) this.body.velocity.x = -150;
+  }
   if(this.rolling===true) this.body.velocity.y = -300;
 };
 
@@ -57,6 +61,7 @@ Ball.prototype.freeze = function() {
   this.rolling = false;
   this.body.velocity.x = 0;
   this.body.velocity.y = 0;
+  this.accelVal = 0;
 };
 
 Ball.prototype.reset = function() {
@@ -71,11 +76,13 @@ Ball.prototype.reset = function() {
 Ball.prototype.listenChangeDirection = function() {
   if(this.changedDir === false && this.rolling === true){
     if(this.game.input.activePointer.x < this.body.x && this.game.input.activePointer.isDown){
-      this.body.velocity.x = -90;
+      //this.body.velocity.x = -150;
+      this.accelVal = -8;
       this.changedDir = true;
     }
     if(this.game.input.activePointer.x >= this.body.x && this.game.input.activePointer.isDown){
-      this.body.velocity.x = 90;
+      //this.body.velocity.x = 150;
+      this.accelVal = 8;
       this.changedDir = true;
     }
   }
