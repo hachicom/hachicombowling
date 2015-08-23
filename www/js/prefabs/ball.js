@@ -46,7 +46,7 @@ Ball.prototype.update = function() {
     this.body.x = 0;
     this.body.velocity.x = 0;
   }else {
-    this.body.velocity.x += this.accelVal;
+    //this.body.velocity.x += this.accelVal;
     if(this.body.velocity.x > 150) this.body.velocity.x = 150;
     if(this.body.velocity.x < -150) this.body.velocity.x = -150;
   }
@@ -76,13 +76,13 @@ Ball.prototype.reset = function() {
 Ball.prototype.listenChangeDirection = function() {
   if(this.changedDir === false && this.rolling === true){
     if(this.game.input.activePointer.x < this.body.x && this.game.input.activePointer.isDown){
-      //this.body.velocity.x = -150;
-      this.accelVal = -8;
+      this.body.velocity.x = -150;
+      //this.accelVal = -8;
       this.changedDir = true;
     }
     if(this.game.input.activePointer.x >= this.body.x && this.game.input.activePointer.isDown){
-      //this.body.velocity.x = 150;
-      this.accelVal = 8;
+      this.body.velocity.x = 150;
+      //this.accelVal = 8;
       this.changedDir = true;
     }
   }
