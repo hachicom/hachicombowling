@@ -23,6 +23,7 @@ HachiBowl.Game.prototype = {
     this.totalSpares = 0;
     this.paused = false;
     this.gameover = false;
+    this.showingMessage = false;
     this.gameTimer = 120000;
     this.choseAngle = false;
         
@@ -124,16 +125,10 @@ HachiBowl.Game.prototype = {
         //strike or spare
         if(this.turn==0){
           //strike
-          this.showTenpinWin("STRIKE!!!");
-          if("vibrate" in window.navigator) {
-            window.navigator.vibrate(1000);
-          }
+          if(this.showingMessage === false) this.showTenpinWin("STRIKE!!!");
         }else{
           //spare
-          this.showTenpinWin("SPARE!");
-          if("vibrate" in window.navigator) {
-            window.navigator.vibrate(500);
-          }
+          if(this.showingMessage === false) this.showTenpinWin("SPARE!");
         }
       }else if(10 - this.pinsHit == this.bpins.total){
         this.turn++;
@@ -285,6 +280,10 @@ HachiBowl.Game.prototype = {
     this.startMessage.visible = true;
     this.matchTimer.pause();
     this.tenpinTimer.start();
+    if("vibrate" in window.navigator) {
+      window.navigator.vibrate(500);
+    }
+    this.showingMessage = true;
   },
   
   hideTenpinWin: function() {
@@ -315,6 +314,7 @@ HachiBowl.Game.prototype = {
     this.choseAngle = false;
     this.matchTimer.resume();
     this.tenpinTimer.stop(false);
+    this.showingMessage = false;
   },
   
   pauseGame: function() {
