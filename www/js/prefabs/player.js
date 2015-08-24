@@ -1,4 +1,4 @@
-var Player = function(game, x, y, frame, ball) {
+var Player = function(game, x, y, frame, ball, anglebar) {
   // The super call to Phaser.Sprite
   Phaser.Sprite.call(this, game, x, y, 'player', frame);
 
@@ -12,6 +12,7 @@ var Player = function(game, x, y, frame, ball) {
   //this.animations.play('roll', 12, true);
   
   this.ball = ball;
+  this.anglebar = anglebar;
   this.launched = false;
   
   //  Input Enable the sprites
@@ -53,7 +54,8 @@ Player.prototype.onPlayerDragUpdate = function(sprite, pointer) {
 Player.prototype.onPlayerDragStop = function(sprite, pointer) {
   this.input.disableDrag();
   this.launched = true;
-  this.ball.roll();
+  this.anglebar.visible = true;
+  this.anglebar.startCursor();
 };
 
 Player.prototype.reset = function() {
@@ -62,6 +64,8 @@ Player.prototype.reset = function() {
   this.x = this.originX;
   this.y = this.originY;
   this.ball.reset();
+  this.anglebar.reset();
+  this.anglebar.visible = false;
 };
 
 Player.prototype.onKilled = function() {

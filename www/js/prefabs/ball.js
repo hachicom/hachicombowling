@@ -53,8 +53,9 @@ Ball.prototype.update = function() {
   if(this.rolling===true) this.body.velocity.y = -300;
 };
 
-Ball.prototype.roll = function() {
+Ball.prototype.roll = function(velx) {
   this.rolling = true;
+  this.body.velocity.x = velx;
 };
 
 Ball.prototype.freeze = function() {
@@ -74,14 +75,14 @@ Ball.prototype.reset = function() {
 };
 
 Ball.prototype.listenChangeDirection = function() {
-  if(this.changedDir === false && this.rolling === true){
-    if(this.game.input.activePointer.x < this.body.x && this.game.input.activePointer.isDown){
-      this.body.velocity.x = -80;
+  if(this.changedDir === false && this.rolling === true && this.body.y < this.game.height/2 + 64){
+    if(this.game.input.activePointer.x < 112 && this.game.input.activePointer.isDown){
+      this.body.velocity.x -= 80;
       //this.accelVal = -8;
       this.changedDir = true;
     }
-    if(this.game.input.activePointer.x >= this.body.x && this.game.input.activePointer.isDown){
-      this.body.velocity.x = 80;
+    if(this.game.input.activePointer.x >= 112 && this.game.input.activePointer.isDown){
+      this.body.velocity.x += 80;
       //this.accelVal = 8;
       this.changedDir = true;
     }

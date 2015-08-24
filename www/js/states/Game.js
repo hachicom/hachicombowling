@@ -24,6 +24,7 @@ HachiBowl.Game.prototype = {
     this.paused = false;
     this.gameover = false;
     this.gameTimer = 120000;
+    this.choseAngle = false;
         
     //  Create our collision groups. One for the ball, one for the pins
     this.ballCollisionGroup = this.game.physics.p2.createCollisionGroup();
@@ -57,11 +58,15 @@ HachiBowl.Game.prototype = {
     this.ball.body.setCollisionGroup(this.ballCollisionGroup);
     this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);
     
-    this.playerSpr = new Player(this.game, 192, this.game.height - 32, 0, this.ball);
+    this.angleBar = new AngleBar(this.game);
+    this.game.add.existing(this.angleBar);
+    this.angleBar.visible = false;
+    
+    this.playerSpr = new Player(this.game, 192, this.game.height - 32, 0, this.ball, this.angleBar);
     this.game.add.existing(this.playerSpr);
     
     //UI creation
-    this.rightBar = this.game.add.tileSprite(224, 0, 96, this.game.height, 'barbgm');
+    this.rightBar = this.game.add.tileSprite(224, 0, 96, this.game.height, 'barbg');
 
     this.portraitWindow = this.game.add.sprite(224, 0, 'windowsmall');
     this.scoreWindow = new ScoreWindow(this.game);
@@ -106,15 +111,29 @@ HachiBowl.Game.prototype = {
   },
   
   update: function() {
+    if(this.game.input.activePointer.justPressed()) {
+      if(this.playerSpr.launched === true && this.choseAngle === false){
+        var ballVelo = this.angleBar.stopCursor();
+        this.choseAngle = true;
+        this.ball.roll(ballVelo);
+      }      
+    }
+    
     if(this.ball.onTrack===false && this.gameover===false){
       if(this.pinsHit == 10){
         //strike or spare
         if(this.turn==0){
           //strike
           this.showTenpinWin("STRIKE!!!");
+          if("vibrate" in window.navigator) {
+            window.navigator.vibrate(1000);
+          }
         }else{
           //spare
           this.showTenpinWin("SPARE!");
+          if("vibrate" in window.navigator) {
+            window.navigator.vibrate(500);
+          }
         }
       }else if(10 - this.pinsHit == this.bpins.total){
         this.turn++;
@@ -132,6 +151,7 @@ HachiBowl.Game.prototype = {
         this.checkStrikeScore();
         this.lasthit = 0;
         this.playerSpr.reset();
+        this.choseAngle = false;
       }
     }
     this.ball.listenChangeDirection();
@@ -149,6 +169,9 @@ HachiBowl.Game.prototype = {
       this.pinsHit++;
       this.lasthit++;
       this.score+=10;
+      if("vibrate" in window.navigator) {
+        window.navigator.vibrate(100);
+      }
     }
   },
   
@@ -289,6 +312,7 @@ HachiBowl.Game.prototype = {
     this.resetPins();
     this.lasthit = 0;
     this.playerSpr.reset();
+    this.choseAngle = false;
     this.matchTimer.resume();
     this.tenpinTimer.stop(false);
   },

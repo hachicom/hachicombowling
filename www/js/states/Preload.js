@@ -35,7 +35,9 @@ HachiBowl.Preload.prototype = {
     this.load.image('pause', 'assets/images/pause.png');
     this.load.image('windowsmall', 'assets/images/windowSmall.png');
     this.load.image('windowbig', 'assets/images/windowBig.png');
-    this.load.image('barbgm', 'assets/images/barBgm.png');
+    this.load.image('barbg', 'assets/images/barBg.png');
+    this.load.image('cursor', 'assets/images/cursor.png');
+    this.load.image('barmeter', 'assets/images/meterbar.png');
   },
   
   create: function() {
