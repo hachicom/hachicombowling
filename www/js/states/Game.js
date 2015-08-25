@@ -21,6 +21,7 @@ HachiBowl.Game.prototype = {
     this.totalStrikes = 0;
     this.spares = 0;
     this.totalSpares = 0;
+    this.diamonds = 0;
     this.paused = false;
     this.gameover = false;
     this.showingMessage = false;
@@ -51,17 +52,35 @@ HachiBowl.Game.prototype = {
       this.bpins.add(bpin);
     }
     
-    //bowling ball creation
+    //bowling track objects creation    
+    this.angleBar = new AngleBar(this.game);
+    this.game.add.existing(this.angleBar);
+    this.angleBar.visible = false;
+    
+    this.leftButton = this.game.add.sprite(64, this.angleBar.y + 120, 'arrow');
+    this.leftButton.anchor.setTo(0.5,0.5);
+    this.leftButton.inputEnabled = true;   
+    this.leftButton.visible = false;
+    
+    this.rightButton = this.game.add.sprite(160, this.angleBar.y + 120, 'arrow');
+    this.rightButton.anchor.setTo(0.5,0.5);
+    this.rightButton.inputEnabled = true;
+    this.rightButton.scale.x = -1; 
+    this.rightButton.visible = false;
+    
+    this.diamondChanceSpr = this.game.add.sprite(112, this.angleBar.y - 64, 'diamondbig');
+    this.diamondChanceSpr.anchor.setTo(0.5,0.5);
+    this.diamondChanceSpr.visible = false;
+    this.diamondChanceSpr.animations.add('shine');
+        
     this.ball = new Ball(this.game, 192, this.game.height - 64, 0);
     this.game.add.existing(this.ball);
     this.ball.visible = false;
     
     this.ball.body.setCollisionGroup(this.ballCollisionGroup);
     this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);
-    
-    this.angleBar = new AngleBar(this.game);
-    this.game.add.existing(this.angleBar);
-    this.angleBar.visible = false;
+    this.leftButton.events.onInputUp.add(function(){this.ball.changeDirection('left');},this); 
+    this.rightButton.events.onInputUp.add(function(){this.ball.changeDirection('right');},this);   
     
     this.playerSpr = new Player(this.game, 192, this.game.height - 32, 0, this.ball, this.angleBar);
     this.game.add.existing(this.playerSpr);
@@ -112,13 +131,17 @@ HachiBowl.Game.prototype = {
   },
   
   update: function() {
-    if(this.game.input.activePointer.justPressed()) {
+    if(this.game.input.activePointer.justPressed() && this.gameTimer>0) {
       if(this.playerSpr.launched === true && this.choseAngle === false){
         var ballVelo = this.angleBar.stopCursor();
         this.choseAngle = true;
         this.ball.roll(ballVelo);
+        this.showDpad(true);
+        //console.log(ballVelo);
       }      
     }
+    
+    if(this.ball.changedDir>=2) this.showDpad(false);
     
     if(this.ball.onTrack===false && this.gameover===false){
       if(this.pinsHit == 10){
@@ -146,16 +169,22 @@ HachiBowl.Game.prototype = {
         this.checkStrikeScore();
         this.lasthit = 0;
         this.playerSpr.reset();
+        this.showDpad(false);
         this.choseAngle = false;
       }
     }
-    this.ball.listenChangeDirection();
-    this.scoreWindow.updateInfo(this.score,this.totalStrikes,this.totalSpares,this.gameTimer);
+    //this.ball.listenChangeDirection();
+    this.scoreWindow.updateInfo(this.score,this.totalStrikes,this.totalSpares,this.gameTimer,this.diamonds);
   },
   
   render: function(){
     //this.game.debug.text("Hit Total: " + this.pinsHit + " Actual: " + this.lasthit, 0, 10);
     //this.game.debug.text("lasthits: " + this.lasthits[0] + "|" + this.lasthits[1], 0, 20);
+  },
+  
+  showDpad(bool){
+    this.leftButton.visible = bool;
+    this.rightButton.visible = bool;
   },
   
   hitPin: function(body1,body2) {
@@ -178,6 +207,13 @@ HachiBowl.Game.prototype = {
       bpin.body.collides(this.ballCollisionGroup);
       bpin.body.collides(this.pinsCollisionGroup,this.hitPin,this);
       this.bpins.add(bpin);
+    }
+    if(this.round%5 == 0){
+      this.diamondChanceSpr.visible = true;
+      this.diamondChanceSpr.animations.play('shine', 12, true);
+    }else{
+      this.diamondChanceSpr.visible = false;
+      this.diamondChanceSpr.animations.stop('shine', true);
     }
   },
   
@@ -261,6 +297,8 @@ HachiBowl.Game.prototype = {
     //this.playerSpr.reset();
     this.ball.freeze();
     this.playerSpr.input.disableDrag();
+    this.showDpad(false);
+    this.angleBar.freeze();
     //this.score+=this.pinsHit * 10;
     this.gameoverTimer.start();
   },
@@ -305,12 +343,16 @@ HachiBowl.Game.prototype = {
       this.spares++;
       this.totalSpares++;
     }
+    if(this.round%5==0){
+      this.diamonds++;
+    }
     this.checkStrikeScore();
     this.turn = 0;
     this.round++;
     this.resetPins();
     this.lasthit = 0;
     this.playerSpr.reset();
+    this.showDpad(false);
     this.choseAngle = false;
     this.matchTimer.resume();
     this.tenpinTimer.stop(false);

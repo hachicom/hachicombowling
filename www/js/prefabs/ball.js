@@ -25,7 +25,7 @@ var Ball = function(game, x, y, frame) {
   
   this.onTrack = true;
   this.rolling = false;
-  this.changedDir = false;
+  this.changedDir = 0;
   
   //this.flapSound = this.game.add.audio('flap');
   this.events.onKilled.add(this.onKilled, this);
@@ -68,24 +68,23 @@ Ball.prototype.freeze = function() {
 Ball.prototype.reset = function() {
   this.onTrack = true;
   this.rolling = false;
-  this.changedDir = false;
+  this.changedDir = 0;
   this.accelVal = 0;
   
   this.body.reset(this.originX,this.originY);
 };
 
-Ball.prototype.listenChangeDirection = function() {
-  if(this.changedDir === false && this.rolling === true && this.body.y < this.game.height/2 + 64){
-    if(this.game.input.activePointer.x < 112 && this.game.input.activePointer.isDown){
+Ball.prototype.changeDirection = function(direction) {
+  if(this.changedDir < 2 && this.rolling === true){
+    if(direction=='left'){
       this.body.velocity.x -= 80;
       //this.accelVal = -8;
-      this.changedDir = true;
     }
-    if(this.game.input.activePointer.x >= 112 && this.game.input.activePointer.isDown){
+    if(direction=='right'){
       this.body.velocity.x += 80;
       //this.accelVal = 8;
-      this.changedDir = true;
     }
+    this.changedDir += 1;
   }
 };
 

@@ -10,15 +10,19 @@ var ScoreWindow = function(game) {
   this.scoreText = this.game.add.text(10, 30, "0", medstyle);
   this.add(this.scoreText);
 
-  this.strikeLabelText = this.game.add.text(10, 74, "Strikes", medstyle);
+  this.strikeLabelText = this.game.add.text(10, 60, "Strikes", medstyle);
   this.add(this.strikeLabelText);
-  this.strikeText = this.game.add.text(10, 94, "0", medstyle);
+  this.strikeText = this.game.add.text(10, 80, "0", medstyle);
   this.add(this.strikeText);
 
-  this.spareLabelText = this.game.add.text(10, 138, "Spares", medstyle);
+  this.spareLabelText = this.game.add.text(10, 110, "Spares", medstyle);
   this.add(this.spareLabelText);
-  this.spareText = this.game.add.text(10, 158, "0", medstyle);
+  this.spareText = this.game.add.text(10, 130, "0", medstyle);
   this.add(this.spareText);
+
+  this.diamondicon = this.create(10, 168, 'diamondsmall');
+  this.diamondLabelText = this.game.add.text(30, 160, "x0", medstyle);
+  this.add(this.diamondLabelText);
   
   this.timerText = this.game.add.text(10, 222, "00:00", medstyle);
   this.add(this.timerText);
@@ -37,7 +41,7 @@ var ScoreWindow = function(game) {
 ScoreWindow.prototype = Object.create(Phaser.Group.prototype);  
 ScoreWindow.prototype.constructor = ScoreWindow;
 
-ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer) {
+ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer,diamond) {
   var timersec = timer/1000;
   var minutes = Math.floor(timersec / 60);
   var seconds = timersec - minutes * 60;
@@ -46,6 +50,7 @@ ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer) {
   this.scoreText.setText(score.toString());
   this.strikeText.setText(strike.toString());
   this.spareText.setText(spare.toString());
+  this.diamondLabelText.setText("x"+diamond.toString());
   this.timerText.setText(minutes+':'+seconds);
 };
 

@@ -29,9 +29,12 @@ HachiBowl.Preload.prototype = {
     // this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);
     // this.load.tilemap('level2', 'assets/tilemaps/level2.json', null, Phaser.Tilemap.TILED_JSON);
     // this.load.image('gameTiles', 'assets/images/tiles.png');
-    this.load.image('ball', 'assets/images/ball1.png');
-    this.load.image('bpin', 'assets/images/pin.png');
-    this.load.image('player', 'assets/images/player.png');
+    this.load.spritesheet('ball', 'assets/images/ball1.png', 24, 24);
+    this.load.spritesheet('bpin', 'assets/images/pin.png', 24, 32);
+    this.load.spritesheet('player', 'assets/images/player.png', 64, 64);
+    this.load.spritesheet('arrow', 'assets/images/arrow.png', 64, 64);
+    this.load.spritesheet('diamondsmall', 'assets/images/diamondSmall.png', 16, 13);
+    this.load.spritesheet('diamondbig', 'assets/images/diamondBig.png', 64, 50);
     this.load.image('pause', 'assets/images/pause.png');
     this.load.image('windowsmall', 'assets/images/windowSmall.png');
     this.load.image('windowbig', 'assets/images/windowBig.png');
