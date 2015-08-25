@@ -9,6 +9,7 @@ HachiBowl.Gameover.prototype = {
     this.totalStrikes = paramArr[2];
     this.spares       = paramArr[3];
     this.totalSpares  = paramArr[4];
+    this.diamonds     = paramArr[5];
     
     this.scoretable = playerData.scoretable.scores;
   },
@@ -16,24 +17,29 @@ HachiBowl.Gameover.prototype = {
   preload: function() {},
   
   create: function() {
-    this.finalScore = this.score + (100*this.totalStrikes) + (50*this.totalSpares);
+    this.finalScore = this.score + (100*this.totalStrikes) + (50*this.totalSpares) + (500*this.diamonds);
     
     this.titleMessage = this.game.add.text(this.game.world.centerX, 64, "RESULTS", bigstyle);
     this.titleMessage.anchor.setTo(0.5,0.5);
     
-    this.strikeCalcText = this.game.add.text(64, 160, "STRIKES: "+this.totalStrikes+" x100", calcstyle);
-    this.strikeCalcText.anchor.setTo(0,0.5);
-    this.strikeText = this.game.add.text(64, 190, (this.totalStrikes * 100), calcstyle);
-    this.strikeText.anchor.setTo(0,0.5);
-    
-    this.spareCalcText = this.game.add.text(64, 224, "SPARES: "+this.totalSpares+" x50", calcstyle);
+    this.spareCalcText = this.game.add.text(64, 160, "SPARES: "+this.totalSpares+" x50", calcstyle);
     this.spareCalcText.anchor.setTo(0,0.5);
-    this.spareText = this.game.add.text(64, 254, (this.totalSpares * 50), calcstyle);
+    this.spareText = this.game.add.text(64, 190, (this.totalSpares * 50), calcstyle);
     this.spareText.anchor.setTo(0,0.5);
     
-    this.scorelabelText = this.game.add.text(64, 320, "FINAL SCORE:", calcstyle);
+    this.strikeCalcText = this.game.add.text(64, 224, "STRIKES: "+this.totalStrikes+" x100", calcstyle);
+    this.strikeCalcText.anchor.setTo(0,0.5);
+    this.strikeText = this.game.add.text(64, 254, (this.totalStrikes * 100), calcstyle);
+    this.strikeText.anchor.setTo(0,0.5);
+    
+    this.spareCalcText = this.game.add.text(64, 288, "DIAMONDS: "+this.totalSpares+" x500", calcstyle);
+    this.spareCalcText.anchor.setTo(0,0.5);
+    this.spareText = this.game.add.text(64, 318, (this.diamonds * 500), calcstyle);
+    this.spareText.anchor.setTo(0,0.5);
+    
+    this.scorelabelText = this.game.add.text(64, 384, "FINAL SCORE:", calcstyle);
     this.scorelabelText.anchor.setTo(0,0.5);
-    this.scoreText = this.game.add.text(this.game.world.centerX, 360, this.finalScore, bigstyle);
+    this.scoreText = this.game.add.text(this.game.world.centerX, 400, this.finalScore, bigstyle);
     this.scoreText.anchor.setTo(0.5,0.5);
     
     // this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');

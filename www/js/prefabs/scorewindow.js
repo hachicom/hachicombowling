@@ -10,16 +10,16 @@ var ScoreWindow = function(game) {
   this.scoreText = this.game.add.text(10, 30, "0", medstyle);
   this.add(this.scoreText);
 
-  this.strikeLabelText = this.game.add.text(10, 60, "Strikes", medstyle);
-  this.add(this.strikeLabelText);
-  this.strikeText = this.game.add.text(10, 80, "0", medstyle);
-  this.add(this.strikeText);
-
-  this.spareLabelText = this.game.add.text(10, 110, "Spares", medstyle);
+  this.spareLabelText = this.game.add.text(10, 60, "Spares", medstyle);
   this.add(this.spareLabelText);
-  this.spareText = this.game.add.text(10, 130, "0", medstyle);
+  this.spareText = this.game.add.text(10, 80, "0", medstyle);
   this.add(this.spareText);
 
+  this.strikeLabelText = this.game.add.text(10, 110, "Strikes", medstyle);
+  this.add(this.strikeLabelText);
+  this.strikeText = this.game.add.text(10, 130, "0", medstyle);
+  this.add(this.strikeText);
+  
   this.diamondicon = this.create(10, 168, 'diamondsmall');
   this.diamondLabelText = this.game.add.text(30, 160, "x0", medstyle);
   this.add(this.diamondLabelText);

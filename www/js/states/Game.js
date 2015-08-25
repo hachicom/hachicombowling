@@ -304,7 +304,7 @@ HachiBowl.Game.prototype = {
   },
   
   showResults: function() {
-    var paramArr = [this.score,this.strikes,this.totalStrikes,this.spares,this.totalSpares]
+    var paramArr = [this.score,this.strikes,this.totalStrikes,this.spares,this.totalSpares,this.diamonds]
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Gameover",paramArr);
   },
   
