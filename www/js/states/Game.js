@@ -12,6 +12,7 @@ HachiBowl.Game.prototype = {
     
     // Game variables
     this.round = 1; //current round
+    this.diamondround = 4; //diamond chance round
     this.turn = 0; //2 turns per round
     this.pinsHit = 0;
     this.lasthit = 0;
@@ -33,16 +34,19 @@ HachiBowl.Game.prototype = {
     this.pinsCollisionGroup = this.game.physics.p2.createCollisionGroup();
     //this.game.physics.p2.updateBoundsCollisionGroup();
     
+    //track creation
+    this.track = this.game.add.tileSprite(0, 0, 224, this.game.height, 'tracks', 0);
+    
     //10-pin creation    
     this.bpins = this.game.add.group();
     this.bpins.enableBody = true;
     this.bpins.physicsBodyType = Phaser.Physics.P2JS;
     
     this.pinsPosition = [
-                       [42,40],[90,40],[138,40],[186,40],
-                          [66,72],[114,72],[162,72],
-                              [90,104],[138,104],
-                                  [114,136]
+                       [46,40],[90,40],[134,40],[178,40],
+                          [68,72],[112,72],[156,72],
+                              [90,104],[134,104],
+                                  [112,136]
                       ];
     
     for (var i = 0; i < 10; i++) {
@@ -79,26 +83,23 @@ HachiBowl.Game.prototype = {
     
     this.ball.body.setCollisionGroup(this.ballCollisionGroup);
     this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);
-    this.leftButton.events.onInputUp.add(function(){this.ball.changeDirection('left');},this); 
-    this.rightButton.events.onInputUp.add(function(){this.ball.changeDirection('right');},this);   
+    this.leftButton.events.onInputDown.add(function(){this.ball.changeDirection('left');},this); 
+    this.rightButton.events.onInputDown.add(function(){this.ball.changeDirection('right');},this);   
     
     this.playerSpr = new Player(this.game, 192, this.game.height - 32, 0, this.ball, this.angleBar);
     this.game.add.existing(this.playerSpr);
     
     //UI creation
-    this.rightBar = this.game.add.tileSprite(224, 0, 96, this.game.height, 'barbg');
-
-    this.portraitWindow = this.game.add.sprite(224, 0, 'windowsmall');
     this.scoreWindow = new ScoreWindow(this.game);
     this.game.add.existing(this.scoreWindow);
-    this.startMessage = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "READY!", bigstyle);
+    this.startMessage = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'start36', "READY!", 36);
     this.startMessage.anchor.setTo(0.5,0.5);
     
     this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');
     this.pauseButton.inputEnabled = true;
     this.pauseButton.events.onInputUp.add(this.pauseGame, this);
     
-    this.bonusMessage = this.game.add.text(224, this.pauseButton.y + 40, "", medstyle);
+    this.bonusMessage = this.game.add.bitmapText(224, this.pauseButton.y + 40, 'start16', "", 14);
     //this.bonusMessage.anchor.setTo(0,0.5);
     
     //TODO: Ao sair da tela de jogo, esse evento deve ser removido!
@@ -148,7 +149,7 @@ HachiBowl.Game.prototype = {
         //strike or spare
         if(this.turn==0){
           //strike
-          if(this.showingMessage === false) this.showTenpinWin("STRIKE!!!");
+          if(this.showingMessage === false) this.showTenpinWin("STRIKE!!");
         }else{
           //spare
           if(this.showingMessage === false) this.showTenpinWin("SPARE!");
@@ -208,7 +209,7 @@ HachiBowl.Game.prototype = {
       bpin.body.collides(this.pinsCollisionGroup,this.hitPin,this);
       this.bpins.add(bpin);
     }
-    if(this.round%5 == 0){
+    if(this.round%this.diamondround == 0){
       this.diamondChanceSpr.visible = true;
       this.diamondChanceSpr.animations.play('shine', 12, true);
     }else{
@@ -343,7 +344,7 @@ HachiBowl.Game.prototype = {
       this.spares++;
       this.totalSpares++;
     }
-    if(this.round%5==0){
+    if(this.round%this.diamondround==0){
       this.diamonds++;
     }
     this.checkStrikeScore();

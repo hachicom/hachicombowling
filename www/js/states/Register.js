@@ -15,10 +15,10 @@ HachiBowl.Register.prototype = {
   create: function() {
     this.nameRegistered = false;
     
-    this.titleMessage = this.game.add.text(this.game.world.centerX, 10, "ENTER YOUR NAME", calcstyle);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 10, 'start16', "ENTER YOUR NAME", 16);
     this.titleMessage.anchor.setTo(0.5,0);
     
-    this.nameText = this.game.add.text(this.game.world.centerX, 74, '', medstyle);
+    this.nameText = this.game.add.bitmapText(this.game.world.centerX, 74, 'start16', '', 16);
     this.nameText.anchor.setTo(0.5,0);
     
     var digits = [['A','B','C','D','E','F','G'],
@@ -30,21 +30,21 @@ HachiBowl.Register.prototype = {
     
     for(var i=0;i<6;i++){
       for(var j=0;j<7;j++){
-        var scoreBtn = this.game.add.text((j * 40)+40, (i * 40)+140, digits[i][j], medstyle);
+        var scoreBtn = this.game.add.bitmapText((j * 40)+40, (i * 40)+140, 'start16', digits[i][j], 16);
         scoreBtn.txtVal = digits[i][j];
         scoreBtn.nameText = this.nameText;
         scoreBtn.inputEnabled = true; 
-        scoreBtn.events.onInputUp.add(function(){if(this.nameText.text.length<6) this.nameText.text+=this.txtVal;}, scoreBtn);
+        scoreBtn.events.onInputUp.add(function(){if(this.nameText.text.length<8) this.nameText.text+=this.txtVal;}, scoreBtn);
       }      
     }
     
-    this.backText = this.game.add.text(this.game.world.centerX - 80, 400, "BACK", medstyle);
+    this.backText = this.game.add.bitmapText(this.game.world.centerX - 80, 400, 'start16', "BACK", 16);
     this.backText.anchor.setTo(0.5,0);
     this.backText.inputEnabled = true; 
     this.backText.events.onInputUp.add(function(){
         this.nameText.text=this.nameText.text.slice(0,this.nameText.text.length-1);
       }, this);
-    this.doneText = this.game.add.text(this.game.world.centerX + 80, 400, "DONE", calcstyle);
+    this.doneText = this.game.add.bitmapText(this.game.world.centerX + 80, 400, 'start16', "DONE", 16);
     this.doneText.anchor.setTo(0.5,0);
     this.doneText.inputEnabled = true; 
     this.doneText.events.onInputUp.add(this.saveHighScore, this);
@@ -62,7 +62,7 @@ HachiBowl.Register.prototype = {
   
   saveHighScore: function(){
     if(this.nameRegistered === false){
-      for(var i=0;i<5;i++){
+      for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.score) {
           //removes last element
           this.scoretable.splice(4,1);

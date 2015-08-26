@@ -1,25 +1,32 @@
-var ScoreWindow = function(game) {
-  var gameover;
+var tileButtonMap = {
+  start: { //1-1
+      text: 'START',      
+      layout: [
+          [0,1,1,1,1,1,2],
+          [6,7,7,7,7,7,8],
+        ],
+      icon: ''
+  },
+
+  pause: { //1-1
+      text: 'START',      
+      layout: [
+          [0,1,2],
+          [6,7,8],
+        ],
+      icon: ''
+  },
+};
+
+var TileButton = function(game,mode) {
   Phaser.Group.call(this, game);
   
   //create board sprite
   //this.window = this.create(0, 0, 'windowbig');
-  this.tilewin = 	[
-				[0,1,2],
-				[3,4,5],
-				[6,7,8],
-				[0,1,2],
-				[3,4,5],
-				[3,4,5],
-				[3,4,5],
-				[3,4,5],
-				[6,7,8],
-        [0,1,2],
-				[6,7,8],
-			];
+  this.tilewin = tileButtonMap[mode]['layout'];
       
-  for(var i = 0; i<11; i++) {
-    for(var j = 0; j<3; j++) {
+  for(var i = 0; i<this.tilewin.length; i++) {
+    for(var j = 0; j<this.tilewin[i].length; j++) {
       var floor = this.create(j*32,i*32, 'windowtile', this.tilewin[i][j]);
     }
   }
@@ -59,23 +66,10 @@ var ScoreWindow = function(game) {
 
 };
 
-ScoreWindow.prototype = Object.create(Phaser.Group.prototype);  
-ScoreWindow.prototype.constructor = ScoreWindow;
+TileButton.prototype = Object.create(Phaser.Group.prototype);  
+TileButton.prototype.constructor = TileButton;
 
-ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer,diamond) {
-  var timersec = timer/1000;
-  var minutes = Math.floor(timersec / 60);
-  var seconds = timersec - minutes * 60;
-  if(seconds<10) seconds = '0'+seconds;
-  
-  this.scoreText.setText(score.toString());
-  this.strikeText.setText(strike.toString());
-  this.spareText.setText(spare.toString());
-  this.diamondLabelText.setText("x"+diamond.toString());
-  this.timerText.setText(minutes+':'+seconds);
-};
-
-ScoreWindow.prototype.pauseClick = function() {  
+TileButton.prototype.pauseClick = function() {  
   //stageMusic.resume();
   this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Game");
   // this.game.state.start('Play');

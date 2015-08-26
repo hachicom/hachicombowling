@@ -7,8 +7,8 @@
  
 var playerDataDefault = {
   scoretable: {
-    names: ['HACHI','PEPITO','NICKY','PUNK','YUKI'],
-    scores: [3000,2000,1000,500,250]
+    names: ['HACHI','PEPITO','NICKY','PUNK','MELODY','ROLF','YUKI','SNOW'],
+    scores: [4000,3000,2500,2000,1500,1000,750,500]
   },
   savedata: {
 		firstrun: true,
@@ -50,6 +50,7 @@ document.addEventListener("deviceready", function() {
   HachiBowl.game.state.add('Boot', HachiBowl.Boot);
   HachiBowl.game.state.add('Preload', HachiBowl.Preload);
   HachiBowl.game.state.add('Title', HachiBowl.Title);
+  HachiBowl.game.state.add('Credits', HachiBowl.Credits);
   HachiBowl.game.state.add('Menu', HachiBowl.Menu);
   HachiBowl.game.state.add('Game', HachiBowl.Game);
   HachiBowl.game.state.add('Gameover', HachiBowl.Gameover);

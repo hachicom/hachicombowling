@@ -28,7 +28,7 @@ HachiBowl.Title.prototype = {
     this.creditText = this.game.add.bitmapText(20, 298, 'start16', "[CREDITS]", 16);
     //this.creditText.anchor.setTo(0.5,0);
     this.creditText.inputEnabled = true;
-    this.creditText.events.onInputUp.add(this.showCredits, this);
+    this.creditText.events.onInputUp.add(this.startGame, this);
     
     this.copyrightText = this.game.add.bitmapText(this.game.world.centerX, this.game.height-86, 'start16', "© 2015 ADINAN BATISTA ALVES\n\n       HACHICOM SOFT", 10);
     this.copyrightText.anchor.setTo(0.5,0);
@@ -49,10 +49,6 @@ HachiBowl.Title.prototype = {
   
   startGame: function(){
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
-  },
-  
-  showCredits: function(){
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Credits");
   },
   
   showHighscore: function(){

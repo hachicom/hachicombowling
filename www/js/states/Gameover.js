@@ -19,38 +19,34 @@ HachiBowl.Gameover.prototype = {
   create: function() {
     this.finalScore = this.score + (100*this.totalStrikes) + (50*this.totalSpares) + (500*this.diamonds);
     
-    this.titleMessage = this.game.add.text(this.game.world.centerX, 64, "RESULTS", bigstyle);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 64, 'start36', "RESULTS", 36);
     this.titleMessage.anchor.setTo(0.5,0.5);
     
-    this.spareCalcText = this.game.add.text(64, 160, "SPARES: "+this.totalSpares+" x50", calcstyle);
+    this.spareCalcText = this.game.add.bitmapText(32, 160, 'start16', "SPARES: "+this.totalSpares.toString()+" x50", 16);
     this.spareCalcText.anchor.setTo(0,0.5);
-    this.spareText = this.game.add.text(64, 190, (this.totalSpares * 50), calcstyle);
+    this.spareText = this.game.add.bitmapText(32, 190, 'start16', (this.totalSpares * 50).toString(), 16);
     this.spareText.anchor.setTo(0,0.5);
     
-    this.strikeCalcText = this.game.add.text(64, 224, "STRIKES: "+this.totalStrikes+" x100", calcstyle);
+    this.strikeCalcText = this.game.add.bitmapText(32, 224, 'start16', "STRIKES: "+this.totalStrikes.toString()+" x100", 16);
     this.strikeCalcText.anchor.setTo(0,0.5);
-    this.strikeText = this.game.add.text(64, 254, (this.totalStrikes * 100), calcstyle);
+    this.strikeText = this.game.add.bitmapText(32, 254, 'start16', (this.totalStrikes * 100).toString(), 16);
     this.strikeText.anchor.setTo(0,0.5);
     
-    this.spareCalcText = this.game.add.text(64, 288, "DIAMONDS: "+this.totalSpares+" x500", calcstyle);
-    this.spareCalcText.anchor.setTo(0,0.5);
-    this.spareText = this.game.add.text(64, 318, (this.diamonds * 500), calcstyle);
-    this.spareText.anchor.setTo(0,0.5);
+    this.diamondCalcText = this.game.add.bitmapText(32, 288, 'start16', "DIAMONDS: "+this.diamonds.toString()+" x500", 16);
+    this.diamondCalcText.anchor.setTo(0,0.5);
+    this.diamondText = this.game.add.bitmapText(32, 318, 'start16', (this.diamonds * 500).toString(), 16);
+    this.diamondText.anchor.setTo(0,0.5);
     
-    this.scorelabelText = this.game.add.text(64, 384, "FINAL SCORE:", calcstyle);
+    this.scorelabelText = this.game.add.bitmapText(32, 384, 'start16', "FINAL SCORE:", 16);
     this.scorelabelText.anchor.setTo(0,0.5);
-    this.scoreText = this.game.add.text(this.game.world.centerX, 400, this.finalScore, bigstyle);
+    this.scoreText = this.game.add.bitmapText(this.game.world.centerX, 420, 'start36', this.finalScore.toString(), 36);
     this.scoreText.anchor.setTo(0.5,0.5);
-    
-    // this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');
-    // this.pauseButton.inputEnabled = true;
-    // this.pauseButton.events.onInputUp.add(this.restartGame, this);
   },
   
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
       registerName = false;
-      for(var i=0;i<5;i++){
+      for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.finalScore) {
           registerName = true;
           break;
