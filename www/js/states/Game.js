@@ -35,7 +35,8 @@ HachiBowl.Game.prototype = {
     //this.game.physics.p2.updateBoundsCollisionGroup();
     
     //track creation
-    this.track = this.game.add.tileSprite(0, 0, 224, this.game.height, 'tracks', 0);
+    this.track = this.game.add.tileSprite(0, 0, 224, this.game.height-64, 'tracks', 1);
+    this.trackstart = this.game.add.tileSprite(0, this.game.height-64, 224, 64, 'trackstart', 1);
     
     //10-pin creation    
     this.bpins = this.game.add.group();

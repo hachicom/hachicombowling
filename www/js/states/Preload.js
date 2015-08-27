@@ -35,12 +35,14 @@ HachiBowl.Preload.prototype = {
     this.load.spritesheet('arrow', 'assets/images/arrow.png', 64, 64);
     this.load.spritesheet('diamondsmall', 'assets/images/diamondSmall.png', 16, 13);
     this.load.spritesheet('diamondbig', 'assets/images/diamondBig.png', 64, 50);
-    this.load.spritesheet('tracks', 'assets/images/tracks.png', 224, 64);
+    this.load.spritesheet('tracks', 'assets/images/tracks.png', 224, 128);
+    this.load.spritesheet('trackstart', 'assets/images/tracks_start.png', 224, 128);
     this.load.spritesheet('windowtile', 'assets/images/windowSmall.png', 32, 32);
     this.load.image('pause', 'assets/images/pause.png');
     this.load.image('barbg', 'assets/images/barBg.png');
     this.load.image('cursor', 'assets/images/cursor.png');
     this.load.image('barmeter', 'assets/images/meterbar.png');
+    this.load.bitmapFont('start12', 'assets/fonts/start12.png', 'assets/fonts/start12.fnt');
     this.load.bitmapFont('start16', 'assets/fonts/start16.png', 'assets/fonts/start16.fnt');
     this.load.bitmapFont('start36', 'assets/fonts/start36.png', 'assets/fonts/start36.fnt');
   },

@@ -15,22 +15,22 @@ HachiBowl.Title.prototype = {
     this.titleMessage.align = 'center';
     this.titleMessage.anchor.setTo(0.5,0);
     
-    this.startText = this.game.add.bitmapText(20, 218, 'start16', "[START]", 16);
+    this.startText = this.game.add.bitmapText(20, 218, 'start16', glossary.UI.start[language], 16);
     //this.startText.anchor.setTo(0.5,0);
     this.startText.inputEnabled = true;
     this.startText.events.onInputUp.add(this.startGame, this);
     
-    this.configText = this.game.add.bitmapText(20, 258, 'start16', "[CONFIG]", 16);
+    this.configText = this.game.add.bitmapText(20, 258, 'start16', glossary.UI.settings[language], 16);
     //this.configText.anchor.setTo(0.5,0);
     this.configText.inputEnabled = true;
-    this.configText.events.onInputUp.add(this.startGame, this);
+    this.configText.events.onInputUp.add(this.showSettings, this);
     
-    this.creditText = this.game.add.bitmapText(20, 298, 'start16', "[CREDITS]", 16);
+    this.creditText = this.game.add.bitmapText(20, 298, 'start16', glossary.UI.credits[language], 16);
     //this.creditText.anchor.setTo(0.5,0);
     this.creditText.inputEnabled = true;
     this.creditText.events.onInputUp.add(this.showCredits, this);
     
-    this.copyrightText = this.game.add.bitmapText(this.game.world.centerX, this.game.height-86, 'start16', "© 2015 ADINAN BATISTA ALVES\n\n       HACHICOM SOFT", 10);
+    this.copyrightText = this.game.add.bitmapText(this.game.world.centerX, this.game.height-86, 'start12', "© 2015 ADINAN B. ALVES\n\n       HACHICOM SOFT", 12);
     this.copyrightText.anchor.setTo(0.5,0);
     
     /****************************
@@ -49,6 +49,10 @@ HachiBowl.Title.prototype = {
   
   startGame: function(){
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
+  },
+  
+  showSettings: function(){
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Setup");
   },
   
   showCredits: function(){

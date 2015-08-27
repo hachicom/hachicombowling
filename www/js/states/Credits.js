@@ -15,32 +15,34 @@ HachiBowl.Credits.prototype = {
     // this.titleMessage.align = 'center';
     // this.titleMessage.anchor.setTo(0.5,0);
     
-    this.creditText = this.game.add.bitmapText(this.game.world.centerX, this.game.height, 'start16', "", 12);
+    this.creditText = this.game.add.bitmapText(this.game.world.centerX, this.game.height, 'start12', "", 12);
     this.creditText.align = 'center';
     this.creditText.setText(
-      'THANKS GOD FOR\nANOTHER GAME\nRELEASED!\n\n\n\n'
-      +'*HACHICOM BOWLING*\n\nHACHICOM SOFT 3RD RELEASE\nPOWERED BY PHASER.IO\n\n\n\n'
+      'THANKS GOD FOR\n\nANOTHER GAME\n\nRELEASED!\n\n\n\n'
+      +'* HACHICOM BOWLING *\n\nHACHICOM SOFT\n\n3RD RELEASE\n\nPOWERED BY PHASER.IO\n\n\n\n'
       +'=======================\n\n\n* CODE, ART & DESIGN *\n\n'
-      +'Adinan Batista Alves\nhachicomsoft@gmail.com\n\n\n\n'
+      +'Adinan Batista Alves\n\nhachicomsoft@gmail.com\n\n\n\n'
       +'=======================\n\n\n* DEMOSCENE MUSIC *\n\n'
       +'Caramel Condition\n(ko0x)\n\n'
       +'My South West\n(WONDERBOY)\n\n'
       +'Spanish Candy\n(ARACHNO)\n\n'
       +'My Dirty Old Kamel\n(ZALZA)\n\n\n\n'
-      +'THESE TRACKS ARE\nPRESUMED TO BE FREE\nOR PUBLIC DOMAIN\n\n'
-      +'IF YOUR MUSIC IS HERE\nAND WANT IT REMOVED,\nPLEASE CONTACT ME!\n\n\n\n'
+      +'THESE TRACKS ARE\n\nPRESUMED TO BE FREE\n\nOR PUBLIC DOMAIN\n\n\n'
+      +'IF YOUR MUSIC IS HERE\n\nAND WANT IT REMOVED,\n\nPLEASE CONTACT ME!\n\n\n\n'
+      +'=======================\n\n\n* PHASER PROJECT TEMPLATE *\n\n'
+      +'PABLO FARIAS NAVARRO\n\n\n\n'      
       +'=======================\n\n\n* PHASER FADE PLUGIN *\n\n'
       +'EMANUELE FERONATO\n\n\n\n'
       +'=======================\n\n\n* SOUND EFFECTS *\n\n'
       +'CREATED IN BFXR.NET\n\n\n\n'
       +'=======================\n\n\n* 8BIT JINGLES *\n\n'
-      +'LittleRobotSound\nFactory.com\n\n\n\n'
-      +'=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\nROSEANE ALVES\nELTON BATISTA\nFELIPE NUNES\n\n\n\n'
+      +'LittleRobotSound\n\nFactory.com\n\n\n\n'
+      +'=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\n\nROSEANE ALVES\n\nELTON BATISTA\n\nFELIPE NUNES\n\n\n\n'
       +'=======================\n\n\nTHANKS FOR PLAYING!\n\nSEE YOU NEXT GAME!!'
     );
     this.creditText.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText, Phaser.Physics.ARCADE);
-    this.creditText.body.velocity.y=-40;
+    this.creditText.body.velocity.y=-32;
   },
   
   update: function() {

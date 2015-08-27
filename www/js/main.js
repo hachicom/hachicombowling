@@ -36,6 +36,9 @@ else
   playerData = playerDataDefault;
 }
 
+var sfxOn = playerData.settings.sfx;
+var language = playerData.settings.language;
+
 var HachiBowl = HachiBowl || {};
 
 document.addEventListener("deviceready", function() {
@@ -51,6 +54,7 @@ document.addEventListener("deviceready", function() {
   HachiBowl.game.state.add('Preload', HachiBowl.Preload);
   HachiBowl.game.state.add('Title', HachiBowl.Title);
   HachiBowl.game.state.add('Credits', HachiBowl.Credits);
+  HachiBowl.game.state.add('Setup', HachiBowl.Setup);
   HachiBowl.game.state.add('Menu', HachiBowl.Menu);
   HachiBowl.game.state.add('Game', HachiBowl.Game);
   HachiBowl.game.state.add('Gameover', HachiBowl.Gameover);

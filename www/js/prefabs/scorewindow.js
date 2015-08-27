@@ -24,19 +24,19 @@ var ScoreWindow = function(game) {
     }
   }
 
-  this.scoreLabelText = this.game.add.bitmapText(4, 106, 'start16', "SCORE", 12);
+  this.scoreLabelText = this.game.add.bitmapText(8, 106, 'start12', "SCORE", 12);
   this.add(this.scoreLabelText);
-  this.scoreText = this.game.add.bitmapText(4, 126, 'start16', "0", 16);
+  this.scoreText = this.game.add.bitmapText(8, 126, 'start16', "0", 16);
   this.add(this.scoreText);
 
-  this.spareLabelText = this.game.add.bitmapText(4, 156, 'start16', "SPARE", 12);
+  this.spareLabelText = this.game.add.bitmapText(8, 156, 'start12', "SPARE", 12);
   this.add(this.spareLabelText);
-  this.spareText = this.game.add.bitmapText(4, 176, 'start16', "0", 16);
+  this.spareText = this.game.add.bitmapText(8, 176, 'start16', "0", 16);
   this.add(this.spareText);
 
-  this.strikeLabelText = this.game.add.bitmapText(4, 206, 'start16', "STRIKE", 12);
+  this.strikeLabelText = this.game.add.bitmapText(8, 206, 'start12', "STRIKE", 12);
   this.add(this.strikeLabelText);
-  this.strikeText = this.game.add.bitmapText(4, 226, 'start16', "0", 16);
+  this.strikeText = this.game.add.bitmapText(8, 226, 'start16', "0", 16);
   this.add(this.strikeText);
   
   this.diamondicon = this.create(10, 258, 'diamondsmall');
