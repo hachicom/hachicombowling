@@ -6,10 +6,10 @@ var glossary = {
   UI: {
 		start: { //glossary.UI.start[language]
       pt_BR: '[INICIAR]',
-      en_US: '[START GAME]'
+      en_US: '[START]'
     },
 		tutorial: { //glossary.UI.tutorial[language]
-      pt_BR: '[COMO JOGAR]',
+      pt_BR: '[TUTORIAL]',
       en_US: '[TUTORIAL]'
     },
 		settings: { //glossary.UI.settings[language]
@@ -21,15 +21,15 @@ var glossary = {
       en_US: '[CREDITS]'
     },
     optionsTitle :{ //glossary.UI.optionsTitle[language]
-      pt_BR: '* MENU DE OPÇÕES *',
-      en_US: '* SETTINGS MENU *'
+      pt_BR: 'MENU DE OPÇÕES',
+      en_US: 'SETTINGS MENU'
     },
     optionsTxt :{ //glossary.UI.optionsTxt[language]
-      pt_BR: 'SOM & BGM\n\n\n\n\nREGIÃO/REGION\n\n\n\n\nVIBRAÇÃO\n\n\n\n\nRESETAR DADOS SALVOS',
-      en_US: 'SFX & BGM\n\n\n\n\nREGIÃO/REGION\n\n\n\n\nVIBRATION\n\n\n\n\nRESET SAVE DATA'
+      pt_BR: 'SOM & BGM\n\n\n\n\nREGIÃO/REGION\n\n\n\n\nVIBRAÇÃO\n\n\n\n\nRESETAR PLACAR',
+      en_US: 'SFX & BGM\n\n\n\n\nREGIÃO/REGION\n\n\n\n\nVIBRATION\n\n\n\n\nRESET HI-SCORE'
     },
     firstRunSetupTitle :{ //glossary.UI.optionsTitle[language]
-      all: '* INITIAL SETUP *'
+      all: 'INITIAL SETUP'
     },
     firstRunSetupTxt :{ //glossary.UI.firstRunSetupTxt['all']
       all: 'SOM/SOUND?\n\n\n\n\nIDIOMA/LANGUAGE\n\n\n\n\nVIBRAR/VIBRATE?',

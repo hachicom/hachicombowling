@@ -17,6 +17,7 @@ var playerDataDefault = {
   settings: {
 		sfx: true,
 		bgm: true,
+		vibration: true,
     language: 'en_US' //pt_BR
 	},
 	// ...
@@ -38,6 +39,7 @@ else
 
 var sfxOn = playerData.settings.sfx;
 var language = playerData.settings.language;
+var vibrationOn = playerData.settings.vibration;
 
 var HachiBowl = HachiBowl || {};
 
