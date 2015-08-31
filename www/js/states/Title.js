@@ -11,8 +11,11 @@ HachiBowl.Title.prototype = {
   create: function() {    
     this.game.stage.backgroundColor = '#aaaaff';
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HACHICOM\nBOWLING", 36);
-    this.titleMessage.align = 'center';
+    // this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HACHICOM\nBOWLING", 36);
+    // this.titleMessage.align = 'center';
+    // this.titleMessage.anchor.setTo(0.5,0);
+    
+    this.titleMessage = this.game.add.sprite(this.game.world.centerX, 20, 'titlelogo');
     this.titleMessage.anchor.setTo(0.5,0);
     
     this.startText = this.game.add.bitmapText(20, 218, 'start16', glossary.UI.start[language], 16);
@@ -48,7 +51,7 @@ HachiBowl.Title.prototype = {
   },
   
   startGame: function(){
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu");
   },
   
   showSettings: function(){

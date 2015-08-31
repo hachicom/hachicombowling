@@ -41,6 +41,9 @@ var sfxOn = playerData.settings.sfx;
 var language = playerData.settings.language;
 var vibrationOn = playerData.settings.vibration;
 
+var currentBGM = '';
+var currentHero = '';
+
 var HachiBowl = HachiBowl || {};
 
 document.addEventListener("deviceready", function() {

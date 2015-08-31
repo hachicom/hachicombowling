@@ -73,7 +73,6 @@ HachiBowl.Setup.prototype = {
     this.langCursor = this.game.add.sprite(80, 198, 'cursor');
     this.langCursor.anchor.setTo(0.5,0);
     if(language==='en_US') this.langCursor.x = 240;
-    console.log(language);
     
     this.hueBRText = this.game.add.bitmapText(80, 190, 'start16', "[BRASIL]", 16);
     this.hueBRText.anchor.setTo(0.5,0.5);
@@ -97,7 +96,6 @@ HachiBowl.Setup.prototype = {
     this.vibCursor = this.game.add.sprite(80, 258, 'cursor');
     this.vibCursor.anchor.setTo(0.5,0);
     if(vibrationOn===false) this.vibCursor.x = 240;
-    console.log(vibrationOn);
     
     this.vibOnText = this.game.add.bitmapText(80, 250, 'start16', "[ON]", 16);
     this.vibOnText.anchor.setTo(0.5,0.5);

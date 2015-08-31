@@ -34,6 +34,14 @@ var glossary = {
     firstRunSetupTxt :{ //glossary.UI.firstRunSetupTxt['all']
       all: 'SOM/SOUND?\n\n\n\n\nIDIOMA/LANGUAGE\n\n\n\n\nVIBRAR/VIBRATE?',
     },
+    menuTitle :{ //glossary.UI.menuTitle[language]
+      pt_BR: 'PARTIDA 2 MINS',
+      en_US: '2 MINUTE GAME'
+    },
+    menuTxt :{ //glossary.UI.optionsTxt[language]
+      pt_BR: 'MÚSICA\n\n\n\n\n\n\nPERSONAGEM',
+      en_US: 'MUSIC\n\n\n\n\n\n\nCHARACTER'
+    },
     sim :{ //glossary.UI.sim[language]
       pt_BR: '[SIM]',
       en_US: '[YES]'
@@ -50,9 +58,9 @@ var glossary = {
       pt_BR: '[VOLTAR]',
       en_US: '[BACK]'
     },
-    proximo :{ //glossary.UI.proximo[language]
-      pt_BR: '[PRÓXIMO]',
-      en_US: '[ NEXT ]'
+    jogar :{ //glossary.UI.proximo[language]
+      pt_BR: '[JOGAR]',
+      en_US: '[PLAY]'
     },
     fim :{ //glossary.UI.fim[language]
       pt_BR: '[  FIM  ]',

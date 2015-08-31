@@ -35,8 +35,8 @@ HachiBowl.Game.prototype = {
     //this.game.physics.p2.updateBoundsCollisionGroup();
     
     //track creation
-    this.track = this.game.add.tileSprite(0, 0, 224, this.game.height-64, 'tracks', 1);
-    this.trackstart = this.game.add.tileSprite(0, this.game.height-64, 224, 64, 'trackstart', 1);
+    this.track = this.game.add.tileSprite(0, 0, 224, this.game.height-64, 'tracks', currentHero);
+    this.trackstart = this.game.add.tileSprite(0, this.game.height-64, 224, 64, 'trackstart', currentHero);
     
     //10-pin creation    
     this.bpins = this.game.add.group();
@@ -62,12 +62,12 @@ HachiBowl.Game.prototype = {
     this.game.add.existing(this.angleBar);
     this.angleBar.visible = false;
     
-    this.leftButton = this.game.add.sprite(64, this.angleBar.y + 120, 'arrow');
+    this.leftButton = this.game.add.sprite(64, this.angleBar.y + 200, 'arrow');
     this.leftButton.anchor.setTo(0.5,0.5);
     this.leftButton.inputEnabled = true;   
     this.leftButton.visible = false;
     
-    this.rightButton = this.game.add.sprite(160, this.angleBar.y + 120, 'arrow');
+    this.rightButton = this.game.add.sprite(160, this.angleBar.y + 200, 'arrow');
     this.rightButton.anchor.setTo(0.5,0.5);
     this.rightButton.inputEnabled = true;
     this.rightButton.scale.x = -1; 
@@ -93,6 +93,9 @@ HachiBowl.Game.prototype = {
     //UI creation
     this.scoreWindow = new ScoreWindow(this.game);
     this.game.add.existing(this.scoreWindow);
+    
+    this.messageBG = this.game.add.tileSprite(this.game.world.centerX, this.game.world.centerY, 320, 192, 'barbg');
+    this.messageBG.anchor.setTo(0.5,0.5);
     this.startMessage = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'start36', "READY!", 36);
     this.startMessage.anchor.setTo(0.5,0.5);
     
@@ -279,6 +282,7 @@ HachiBowl.Game.prototype = {
   
   hideStartMessage: function() {
     this.startMessage.visible = false;
+    this.messageBG.visible = false;
     this.ball.visible = true;
     this.playerSpr.input.enableDrag();
     this.matchTimer.start();
@@ -295,6 +299,7 @@ HachiBowl.Game.prototype = {
   endGame: function() {
     this.startMessage.setText("TIME UP!");
     this.startMessage.visible = true;
+    this.messageBG.visible = true;
     this.gameover = true;
     //this.playerSpr.reset();
     this.ball.freeze();
@@ -318,6 +323,7 @@ HachiBowl.Game.prototype = {
   showTenpinWin: function(text,vibtime) {
     this.startMessage.setText(text);
     this.startMessage.visible = true;
+    this.messageBG.visible = true;
     this.matchTimer.pause();
     this.tenpinTimer.start();
     if("vibrate" in window.navigator) {
@@ -329,6 +335,7 @@ HachiBowl.Game.prototype = {
   hideTenpinWin: function() {
     this.startMessage.setText("");
     this.startMessage.visible = false;
+    this.messageBG.visible = false;
     this.checkSpareScore();
     if(this.turn==0){
       //strike
@@ -365,13 +372,17 @@ HachiBowl.Game.prototype = {
     //console.log("clicked pause button");
     this.startMessage.setText("PAUSED");
     this.startMessage.visible = true;
+    this.messageBG.visible = true;
     this.game.paused = true;
     this.paused = true;
-    this.input.onDown.add(function(){
+    this.input.onDown.add(function(event){
+      if(event.y>=this.game.height/2 - 96 && event.y<=this.game.height/2 + 96){
         this.startMessage.visible = false;
+        this.messageBG.visible = false;
         this.game.paused = false;
         this.paused = false;
         this.input.onDown.removeAll();
+      }
     }, this);
   },
 };
