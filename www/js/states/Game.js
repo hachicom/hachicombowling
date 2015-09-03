@@ -87,7 +87,7 @@ HachiBowl.Game.prototype = {
     this.leftButton.events.onInputDown.add(function(){this.ball.changeDirection('left');},this); 
     this.rightButton.events.onInputDown.add(function(){this.ball.changeDirection('right');},this);   
     
-    this.playerSpr = new Player(this.game, 192, this.game.height - 32, 0, this.ball, this.angleBar);
+    this.playerSpr = new Player(this.game, 192, this.game.height - 32, currentHero, this.ball, this.angleBar);
     this.game.add.existing(this.playerSpr);
     
     //UI creation
