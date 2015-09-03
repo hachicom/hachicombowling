@@ -65,8 +65,9 @@ HachiBowl.Register.prototype = {
       for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.score) {
           //removes last element
-          this.scoretable.splice(4,1);
-          this.namestable.splice(4,1);
+          var hikey = this.scoretable.length - 1;
+          this.scoretable.splice(hikey,1);
+          this.namestable.splice(hikey,1);
           this.scoretable.splice(i,0,this.score);
           this.namestable.splice(i,0,this.nameText.text);
           playerData.scoretable.scores = this.scoretable;
