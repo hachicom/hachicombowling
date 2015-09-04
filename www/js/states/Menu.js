@@ -16,10 +16,10 @@ HachiBowl.Menu.prototype = {
           [0,1,1,1,1,1,1,1,1,2],
           [3,4,4,4,4,4,4,4,4,5],
           [3,4,4,4,4,4,4,4,4,5],
-          [3,4,4,4,4,4,4,4,4,5],
           [3,4,4,4,4,4,0,1,2,5],
           [3,4,4,4,4,4,3,4,5,5],
           [3,4,4,4,4,4,6,7,8,5],
+          [3,4,4,4,4,4,4,4,4,5],
           [6,7,7,7,7,7,7,7,7,8],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [0,1,1,1,2,0,1,1,1,2],
@@ -47,87 +47,54 @@ HachiBowl.Menu.prototype = {
     // BUTTONS FOR MUSIC SELECTION
     this.bgmCursor = this.game.add.sprite(80, 138, 'cursor');
     this.bgmCursor.anchor.setTo(0.5,0);
-    //if(sfxOn===false) this.sfxCursor.x = 240;
     
     this.bgmOneText = this.game.add.bitmapText(60, 130, 'start16', "[BGM1]", 16);
     this.bgmOneText.anchor.setTo(0.5,0.5);
-    this.bgmOneText.inputEnabled = true;
-    this.bgmOneText.events.onInputUp.add(function(){
-      this.bgmval = 'bgm1';
-      this.bgmCursor.x = 60;
-    },this);
+    this.bgmOneRect = new Phaser.Rectangle(10,120,100,40);
     
     this.bgmTwoText = this.game.add.bitmapText(168, 130, 'start16', "[BGM2]", 16);
     this.bgmTwoText.anchor.setTo(0.5,0.5);
-    this.bgmTwoText.inputEnabled = true;
-    this.bgmTwoText.events.onInputUp.add(function(){
-      this.bgmval = 'bgm2';
-      this.bgmCursor.x = 160;
-    },this);
+    this.bgmTwoRect = new Phaser.Rectangle(116,120,100,40);
     
     this.bgmOffText = this.game.add.bitmapText(270, 130, 'start16', "[OFF]", 16);
     this.bgmOffText.anchor.setTo(0.5,0.5);
-    this.bgmOffText.inputEnabled = true;
-    this.bgmOffText.events.onInputUp.add(function(){
-      this.bgmval = '';
-      this.bgmCursor.x = 260;
-    },this);
+    this.bgmOffRect = new Phaser.Rectangle(220,120,100,40);
     
     // BUTTONS FOR CHARACTER SELECTION
-    this.charCursor = this.game.add.sprite(80, 230, 'cursor');
+    this.charCursor = this.game.add.sprite(80, 208, 'cursor');
     this.charCursor.anchor.setTo(0.5,0);
-    //if(language==='en_US') this.charCursor.x = 240;
     
-    this.hachiText = this.game.add.bitmapText(20, 230, 'start16', "[HACHI]", 16);
+    this.hachiText = this.game.add.bitmapText(20, 200, 'start16', "[HACHI]", 16);
     this.hachiText.anchor.setTo(0,0.5);
-    this.hachiText.inputEnabled = true;
-    this.hachiText.events.onInputUp.add(function(){
-      this.heroval = 0;
-      this.charCursor.x = 80;
-      this.charCursor.y = 230;
-    },this);
+    this.hachiRect = new Phaser.Rectangle(20,190,160,40);
     
-    this.pepitoText = this.game.add.bitmapText(20, 260, 'start16', "[PEPITO]", 16);
+    this.pepitoText = this.game.add.bitmapText(20, 240, 'start16', "[PEPITO]", 16);
     this.pepitoText.anchor.setTo(0,0.5);
-    this.pepitoText.inputEnabled = true;
-    this.pepitoText.events.onInputUp.add(function(){
-      this.heroval = 1;
-      this.charCursor.x = 80;
-      this.charCursor.y = 260;
-    },this);
+    this.pepitoRect = new Phaser.Rectangle(20,230,160,40);
     
-    this.nickyText = this.game.add.bitmapText(20, 290, 'start16', "[NICKY]", 16);
+    this.nickyText = this.game.add.bitmapText(20, 280, 'start16', "[NICKY]", 16);
     this.nickyText.anchor.setTo(0,0.5);
-    this.nickyText.inputEnabled = true;
-    this.nickyText.events.onInputUp.add(function(){
-      this.heroval = 2;
-      this.charCursor.x = 80;
-      this.charCursor.y = 290;
-    },this);
+    this.nickyRect = new Phaser.Rectangle(20,270,160,40);
     
     this.punkText = this.game.add.bitmapText(20, 320, 'start16', "[PUNK]", 16);
     this.punkText.anchor.setTo(0,0.5);
-    this.punkText.inputEnabled = true;
-    this.punkText.events.onInputUp.add(function(){
-      this.heroval = 3;
-      this.charCursor.x = 80;
-      this.charCursor.y = 320;
-    },this);
+    this.punkRect = new Phaser.Rectangle(20,310,160,40);
         
     // BUTTONS FOR EXIT/SAVE
     this.backText = this.game.add.bitmapText(80, 416, 'start16', glossary.UI.voltar[language], 16);
     this.backText.anchor.setTo(0.5,0.5);
-    this.backText.inputEnabled = true;
-    this.backText.events.onInputUp.add(this.goBack, this);
+    this.backRect = new Phaser.Rectangle(0,384,160,64);
     
     this.playText = this.game.add.bitmapText(240, 416, 'start16', glossary.UI.jogar[language], 16);
     this.playText.anchor.setTo(0.5,0.5);
-    this.playText.inputEnabled = true;
-    this.playText.events.onInputUp.add(this.playGame, this);
+    this.playRect = new Phaser.Rectangle(160,384,160,64);
     
     // BRING CURSORS TO TOP
     this.bgmCursor.bringToTop();
     this.charCursor.bringToTop();
+    
+    // READ USER INPUT    
+    this.game.input.onDown.add(this.handlePointerDown,this);
     
     // this.copyrightText = this.game.add.bitmapText(this.game.world.centerX, this.game.height-86, 'start16', "© 2015 ADINAN BATISTA ALVES\n\n       HACHICOM SOFT", 10);
     // this.copyrightText.anchor.setTo(0.5,0);
@@ -137,6 +104,36 @@ HachiBowl.Menu.prototype = {
     // if(this.game.input.activePointer.justPressed()) {
       // this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
     // }
+  },
+  
+  /* render: function(){
+    this.game.debug.geom( this.bgmOneRect, 'rgba(0,255,255,0.4)' ) ;
+    this.game.debug.geom( this.bgmTwoRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.bgmOffRect, 'rgba(255,0,255,0.4)' ) ;
+    
+    this.game.debug.geom( this.hachiRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.pepitoRect, 'rgba(255,0,255,0.4)' ) ;
+    this.game.debug.geom( this.nickyRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.punkRect, 'rgba(255,0,255,0.4)' ) ;
+    
+    this.game.debug.geom( this.backRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.playRect, 'rgba(255,0,255,0.4)' ) ;
+  }, */
+  
+  handlePointerDown: function(pointer) {
+    if(this.bgmOneRect.contains(pointer.x,pointer.y)){this.bgmval = 'bgm1'; this.bgmCursor.x = 60;}
+    if(this.bgmTwoRect.contains(pointer.x,pointer.y)){this.bgmval = 'bgm2'; this.bgmCursor.x = 160;}
+    if(this.bgmOffRect.contains(pointer.x,pointer.y)){this.bgmval = ''; this.bgmCursor.x = 260;}
+    
+    if(this.hachiRect.contains(pointer.x,pointer.y)){this.heroval = 0; this.charCursor.x = 80; this.charCursor.y = 208;}
+    if(this.pepitoRect.contains(pointer.x,pointer.y)){this.heroval = 1; this.charCursor.x = 80; this.charCursor.y = 248;}
+    if(this.nickyRect.contains(pointer.x,pointer.y)){this.heroval = 2; this.charCursor.x = 80; this.charCursor.y = 288;}
+    if(this.punkRect.contains(pointer.x,pointer.y)){this.heroval = 3; this.charCursor.x = 80; this.charCursor.y = 328;}
+    
+    var backpress = this.backRect.contains(pointer.x,pointer.y);
+    var playpress = this.playRect.contains(pointer.x,pointer.y);
+    if(backpress===true) this.goBack();
+    if(playpress===true) this.playGame();
   },
   
   goBack: function(){

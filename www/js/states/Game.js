@@ -62,12 +62,12 @@ HachiBowl.Game.prototype = {
     this.game.add.existing(this.angleBar);
     this.angleBar.visible = false;
     
-    this.leftButton = this.game.add.sprite(64, this.angleBar.y + 200, 'arrow');
+    this.leftButton = this.game.add.sprite(64, this.game.height - 40, 'arrow');
     this.leftButton.anchor.setTo(0.5,0.5);
     this.leftButton.inputEnabled = true;   
     this.leftButton.visible = false;
     
-    this.rightButton = this.game.add.sprite(160, this.angleBar.y + 200, 'arrow');
+    this.rightButton = this.game.add.sprite(160, this.game.height - 40, 'arrow');
     this.rightButton.anchor.setTo(0.5,0.5);
     this.rightButton.inputEnabled = true;
     this.rightButton.scale.x = -1; 
@@ -114,6 +114,9 @@ HachiBowl.Game.prototype = {
         // this.paused = false;
       // }
     // }, this);
+    
+    this.leftButton.bringToTop();
+    this.rightButton.bringToTop();
     
     /****************************
      ********** TIMERS **********

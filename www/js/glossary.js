@@ -39,8 +39,8 @@ var glossary = {
       en_US: '2 MINUTE GAME'
     },
     menuTxt :{ //glossary.UI.optionsTxt[language]
-      pt_BR: 'MÚSICA\n\n\n\n\n\n\nPERSONAGEM',
-      en_US: 'MUSIC\n\n\n\n\n\n\nCHARACTER'
+      pt_BR: 'MÚSICA\n\n\n\n\nPERSONAGEM',
+      en_US: 'MUSIC\n\n\n\n\nCHARACTER'
     },
     sim :{ //glossary.UI.sim[language]
       pt_BR: '[SIM]',
@@ -61,6 +61,18 @@ var glossary = {
     jogar :{ //glossary.UI.proximo[language]
       pt_BR: '[JOGAR]',
       en_US: '[PLAY]'
+    },
+    nameentry :{ //glossary.UI.nameentry[language]
+      pt_BR: 'DIGITE NOME',
+      en_US: 'ENTER NAME'
+    },
+    deletar :{ //glossary.UI.deletar[language]
+      pt_BR: '[APAGAR]',
+      en_US: '[DELETE]'
+    },
+    entrar :{ //glossary.UI.entrar[language]
+      pt_BR: '[FEITO]',
+      en_US: '[ENTER]'
     },
     fim :{ //glossary.UI.fim[language]
       pt_BR: '[  FIM  ]',

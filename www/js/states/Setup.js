@@ -53,21 +53,11 @@ HachiBowl.Setup.prototype = {
     
     this.sfxOnText = this.game.add.bitmapText(80, 130, 'start16', "[ON]", 16);
     this.sfxOnText.anchor.setTo(0.5,0.5);
-    this.sfxOnText.inputEnabled = true;
-    this.sfxOnText.events.onInputUp.add(function(){
-      //sfxOn = true;
-      this.sfxval = true;
-      this.sfxCursor.x = 80;
-    },this);
+    this.sfxOnRect = new Phaser.Rectangle(20,120,128,40);
     
     this.sfxOffText = this.game.add.bitmapText(240, 130, 'start16', "[OFF]", 16);
     this.sfxOffText.anchor.setTo(0.5,0.5);
-    this.sfxOffText.inputEnabled = true;
-    this.sfxOffText.events.onInputUp.add(function(){
-      //sfxOn = false;
-      this.sfxval = false;
-      this.sfxCursor.x = 240;
-    },this);
+    this.sfxOffRect = new Phaser.Rectangle(180,120,128,40);
     
     // BUTTONS FOR LANGUAGE OPTIONS
     this.langCursor = this.game.add.sprite(80, 198, 'cursor');
@@ -76,21 +66,11 @@ HachiBowl.Setup.prototype = {
     
     this.hueBRText = this.game.add.bitmapText(80, 190, 'start16', "[BRASIL]", 16);
     this.hueBRText.anchor.setTo(0.5,0.5);
-    this.hueBRText.inputEnabled = true;
-    this.hueBRText.events.onInputUp.add(function(){
-      //language = 'pt_BR';
-      this.langval = 'pt_BR';
-      this.langCursor.x = 80;
-    },this);
+    this.hueBRRect = new Phaser.Rectangle(20,180,128,40);
     
     this.lolUSText = this.game.add.bitmapText(240, 190, 'start16', "[WORLD]", 16);
     this.lolUSText.anchor.setTo(0.5,0.5);
-    this.lolUSText.inputEnabled = true;
-    this.lolUSText.events.onInputUp.add(function(){
-      //language = 'en_US';
-      this.langval = 'en_US';
-      this.langCursor.x = 240;
-    },this);
+    this.lolUSRect = new Phaser.Rectangle(180,180,128,40);
     
     // BUTTONS FOR VIBRATE OPTIONS
     this.vibCursor = this.game.add.sprite(80, 258, 'cursor');
@@ -99,21 +79,11 @@ HachiBowl.Setup.prototype = {
     
     this.vibOnText = this.game.add.bitmapText(80, 250, 'start16', "[ON]", 16);
     this.vibOnText.anchor.setTo(0.5,0.5);
-    this.vibOnText.inputEnabled = true;
-    this.vibOnText.events.onInputUp.add(function(){
-      //vibrationOn = true;
-      this.vibval = true;
-      this.vibCursor.x = 80;
-    },this);
+    this.vibOnRect = new Phaser.Rectangle(20,240,128,40);
     
     this.vibOffText = this.game.add.bitmapText(240, 250, 'start16', "[OFF]", 16);
     this.vibOffText.anchor.setTo(0.5,0.5);
-    this.vibOffText.inputEnabled = true;
-    this.vibOffText.events.onInputUp.add(function(){
-      //vibrationOn = false;
-      this.vibval = false;
-      this.vibCursor.x = 240;
-    },this);
+    this.vibOffRect = new Phaser.Rectangle(180,240,128,40);
     
     // BUTTONS FOR RESET SCORE OPTIONS
     this.resetCursor = this.game.add.sprite(240, 318, 'cursor');
@@ -121,45 +91,62 @@ HachiBowl.Setup.prototype = {
     
     this.resetOnText = this.game.add.bitmapText(80, 310, 'start16', glossary.UI.sim[language], 16);
     this.resetOnText.anchor.setTo(0.5,0.5);
-    this.resetOnText.inputEnabled = true;
-    this.resetOnText.events.onInputUp.add(function(){
-      this.resetHighscore = true;
-      this.resetCursor.x = 80;
-    },this);
+    this.resetOnRect = new Phaser.Rectangle(20,300,128,40);
     
     this.resetOffText = this.game.add.bitmapText(240, 310, 'start16', glossary.UI.nao[language], 16);
     this.resetOffText.anchor.setTo(0.5,0.5);
-    this.resetOffText.inputEnabled = true;
-    this.resetOffText.events.onInputUp.add(function(){
-      this.resetHighscore = false;
-      this.resetCursor.x = 240;
-    },this);
+    this.resetOffRect = new Phaser.Rectangle(180,300,128,40);
         
     // BUTTONS FOR EXIT/SAVE
     this.backText = this.game.add.bitmapText(80, 416, 'start16', glossary.UI.voltar[language], 16);
     this.backText.anchor.setTo(0.5,0.5);
-    this.backText.inputEnabled = true;
-    this.backText.events.onInputUp.add(this.goBack, this);
+    this.backRect = new Phaser.Rectangle(0,384,160,64);
     
     this.saveText = this.game.add.bitmapText(240, 416, 'start16', glossary.UI.salvar[language], 16);
     this.saveText.anchor.setTo(0.5,0.5);
-    this.saveText.inputEnabled = true;
-    this.saveText.events.onInputUp.add(this.saveSettings, this);
+    this.saveRect = new Phaser.Rectangle(160,384,160,64);
     
     // BRING CURSORS TO TOP
     this.sfxCursor.bringToTop();
     this.langCursor.bringToTop();
     this.vibCursor.bringToTop();
     this.resetCursor.bringToTop();
-    
-    // this.copyrightText = this.game.add.bitmapText(this.game.world.centerX, this.game.height-86, 'start16', "© 2015 ADINAN BATISTA ALVES\n\n       HACHICOM SOFT", 10);
-    // this.copyrightText.anchor.setTo(0.5,0);
+
+    // READ USER INPUT    
+    this.game.input.onDown.add(this.handlePointerDown,this);
   },
   
   update: function() {
     // if(this.game.input.activePointer.justPressed()) {
       // this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
     // }
+  },
+  
+  /* render: function(){
+    this.game.debug.geom( this.sfxOnRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.sfxOffRect, 'rgba(255,0,255,0.4)' ) ;
+    this.game.debug.geom( this.hueBRRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.lolUSRect, 'rgba(255,0,255,0.4)' ) ;
+    this.game.debug.geom( this.vibOnRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.vibOffRect, 'rgba(255,0,255,0.4)' ) ;
+    this.game.debug.geom( this.resetOnRect, 'rgba(255,255,0,0.4)' ) ;
+    this.game.debug.geom( this.resetOffRect, 'rgba(255,0,255,0.4)' ) ;
+  }, */
+  
+  handlePointerDown: function(pointer) {
+    if(this.sfxOnRect.contains(pointer.x,pointer.y)){this.sfxval = true; this.sfxCursor.x = 80;}
+    if(this.sfxOffRect.contains(pointer.x,pointer.y)){this.sfxval = false; this.sfxCursor.x = 240;}
+    if(this.hueBRRect.contains(pointer.x,pointer.y)){this.langval = 'pt_BR'; this.langCursor.x = 80;}
+    if(this.lolUSRect.contains(pointer.x,pointer.y)){this.langval = 'en_US'; this.langCursor.x = 240;}
+    if(this.vibOnRect.contains(pointer.x,pointer.y)){this.vibval = true; this.vibCursor.x = 80;}
+    if(this.vibOffRect.contains(pointer.x,pointer.y)){this.vibval = false; this.vibCursor.x = 240;}
+    if(this.resetOnRect.contains(pointer.x,pointer.y)){this.resetHighscore = true; this.resetCursor.x = 80;}
+    if(this.resetOffRect.contains(pointer.x,pointer.y)){this.resetHighscore = false; this.resetCursor.x = 240;}
+    
+    var backpress = this.backRect.contains(pointer.x,pointer.y);
+    var savepress = this.saveRect.contains(pointer.x,pointer.y);
+    if(backpress===true) this.goBack();
+    if(savepress===true) this.saveSettings();
   },
   
   goBack: function(){
