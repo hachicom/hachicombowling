@@ -8,7 +8,7 @@ HachiBowl.Setup.prototype = {
   
   preload: function() {},
   
-  create: function() {    
+  create: function() {
     this.tilewin = 	[
           [-1,0,1,1,1,1,1,1,2,-1],
           [-1,6,7,7,7,7,7,7,8,-1],
@@ -39,11 +39,15 @@ HachiBowl.Setup.prototype = {
     this.vibval = vibrationOn;
     this.resetHighscore = false;
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start16', glossary.UI.optionsTitle[language], 16);
+    var titleLabel = glossary.UI.optionsTitle[language];
+    if (playerData.savedata.firstrun === true) titleLabel = glossary.UI.firstRunSetupTitle['all'];
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start16', titleLabel, 16);
     this.titleMessage.align = 'center';
     this.titleMessage.anchor.setTo(0.5,0);
     
-    this.startText = this.game.add.bitmapText(20, 104, 'start12', glossary.UI.optionsTxt[language], 12);
+    var screenLabel = glossary.UI.optionsTxt[language];
+    if (playerData.savedata.firstrun === true) screenLabel = glossary.UI.firstRunSetupTxt['all'];
+    this.optText = this.game.add.bitmapText(20, 104, 'start12', screenLabel, 12);
     // this.startText.anchor.setTo(0.5,0);
     
     // BUTTONS FOR SFX OPTIONS
@@ -86,31 +90,36 @@ HachiBowl.Setup.prototype = {
     this.vibOffRect = new Phaser.Rectangle(180,240,128,40);
     
     // BUTTONS FOR RESET SCORE OPTIONS
-    this.resetCursor = this.game.add.sprite(240, 318, 'cursor');
-    this.resetCursor.anchor.setTo(0.5,0);
-    
-    this.resetOnText = this.game.add.bitmapText(80, 310, 'start16', glossary.UI.sim[language], 16);
-    this.resetOnText.anchor.setTo(0.5,0.5);
-    this.resetOnRect = new Phaser.Rectangle(20,300,128,40);
-    
-    this.resetOffText = this.game.add.bitmapText(240, 310, 'start16', glossary.UI.nao[language], 16);
-    this.resetOffText.anchor.setTo(0.5,0.5);
-    this.resetOffRect = new Phaser.Rectangle(180,300,128,40);
-        
+    if (playerData.savedata.firstrun === false){
+      this.resetCursor = this.game.add.sprite(240, 318, 'cursor');
+      this.resetCursor.anchor.setTo(0.5,0);
+      
+      this.resetOnText = this.game.add.bitmapText(80, 310, 'start16', glossary.UI.sim[language], 16);
+      this.resetOnText.anchor.setTo(0.5,0.5);
+      this.resetOnRect = new Phaser.Rectangle(20,300,128,40);
+      
+      this.resetOffText = this.game.add.bitmapText(240, 310, 'start16', glossary.UI.nao[language], 16);
+      this.resetOffText.anchor.setTo(0.5,0.5);
+      this.resetOffRect = new Phaser.Rectangle(180,300,128,40);
+    }
+
     // BUTTONS FOR EXIT/SAVE
-    this.backText = this.game.add.bitmapText(80, 416, 'start16', glossary.UI.voltar[language], 16);
-    this.backText.anchor.setTo(0.5,0.5);
-    this.backRect = new Phaser.Rectangle(0,384,160,64);
+    if (playerData.savedata.firstrun === false){
+      this.backText = this.game.add.bitmapText(80, 416, 'start16', glossary.UI.voltar[language], 16);
+      this.backText.anchor.setTo(0.5,0.5);
+      this.backRect = new Phaser.Rectangle(0,384,160,64);
+    }
     
     this.saveText = this.game.add.bitmapText(240, 416, 'start16', glossary.UI.salvar[language], 16);
     this.saveText.anchor.setTo(0.5,0.5);
     this.saveRect = new Phaser.Rectangle(160,384,160,64);
     
+    
     // BRING CURSORS TO TOP
     this.sfxCursor.bringToTop();
     this.langCursor.bringToTop();
     this.vibCursor.bringToTop();
-    this.resetCursor.bringToTop();
+    if (playerData.savedata.firstrun === false) this.resetCursor.bringToTop();
 
     // READ USER INPUT    
     this.game.input.onDown.add(this.handlePointerDown,this);
@@ -140,12 +149,14 @@ HachiBowl.Setup.prototype = {
     if(this.lolUSRect.contains(pointer.x,pointer.y)){this.langval = 'en_US'; this.langCursor.x = 240;}
     if(this.vibOnRect.contains(pointer.x,pointer.y)){this.vibval = true; this.vibCursor.x = 80;}
     if(this.vibOffRect.contains(pointer.x,pointer.y)){this.vibval = false; this.vibCursor.x = 240;}
-    if(this.resetOnRect.contains(pointer.x,pointer.y)){this.resetHighscore = true; this.resetCursor.x = 80;}
-    if(this.resetOffRect.contains(pointer.x,pointer.y)){this.resetHighscore = false; this.resetCursor.x = 240;}
+    if (playerData.savedata.firstrun === false){
+      if(this.resetOnRect.contains(pointer.x,pointer.y)){this.resetHighscore = true; this.resetCursor.x = 80;}
+      if(this.resetOffRect.contains(pointer.x,pointer.y)){this.resetHighscore = false; this.resetCursor.x = 240;}      
+    }
     
-    var backpress = this.backRect.contains(pointer.x,pointer.y);
+    if (playerData.savedata.firstrun === false) var backpress = this.backRect.contains(pointer.x,pointer.y);
     var savepress = this.saveRect.contains(pointer.x,pointer.y);
-    if(backpress===true) this.goBack();
+    if (playerData.savedata.firstrun === false) if(backpress===true) this.goBack();
     if(savepress===true) this.saveSettings();
   },
   
@@ -158,6 +169,7 @@ HachiBowl.Setup.prototype = {
     language = this.langval;
     vibrationOn = this.vibval;
     
+    playerData.savedata.firstrun = false;
     playerData.settings.sfx = sfxOn;
     playerData.settings.language = language;
     playerData.settings.vibration = vibrationOn;

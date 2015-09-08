@@ -58,7 +58,11 @@ HachiBowl.Preload.prototype = {
   update: function() {
     if(!!this.ready) {
       //this.state.start('Game');
-      this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
+      if (playerData.savedata.firstrun === true) {
+        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");
+      } else {
+        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
+      }
     }
   },
   onLoadComplete: function() {

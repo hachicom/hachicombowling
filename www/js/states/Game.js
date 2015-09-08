@@ -96,28 +96,23 @@ HachiBowl.Game.prototype = {
     
     this.messageBG = this.game.add.tileSprite(this.game.world.centerX, this.game.world.centerY, 320, 192, 'barbg');
     this.messageBG.anchor.setTo(0.5,0.5);
-    this.startMessage = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY, 'start36', "READY!", 36);
+    this.startMessage = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY-64, 'start36', "READY!", 36);
     this.startMessage.anchor.setTo(0.5,0.5);
     
-    this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');
-    this.pauseButton.inputEnabled = true;
-    this.pauseButton.events.onInputUp.add(this.pauseGame, this);
+    this.pauseButton = new tileButton(this.game, 224, this.scoreWindow.y + this.scoreWindow.height + 32, '', 12, 'small', 'pause');
+    this.pauseRect = new Phaser.Rectangle(224,this.scoreWindow.y + this.scoreWindow.height + 64,96,64);
     
-    this.bonusMessage = this.game.add.bitmapText(224, this.pauseButton.y + 40, 'start16', "", 14);
+    this.quitButton = new tileButton(this.game, 0, this.game.world.centerY, glossary.UI.sair[language], 16, 'big');
+    this.resuButton = new tileButton(this.game, 160, this.game.world.centerY, glossary.UI.continuar[language], 16, 'big');
+    this.quitButton.show(false);
+    this.resuButton.show(false);
+    
+    this.bonusMessage = this.game.add.bitmapText(224, this.pauseButton.y + 74, 'start16', "", 14);
     //this.bonusMessage.anchor.setTo(0,0.5);
-    
-    //TODO: Ao sair da tela de jogo, esse evento deve ser removido!
-    // this.game.input.onDown.add(function(){
-      // if(this.paused===true){
-        // this.startMessage.visible = false;
-        // this.game.paused = false;
-        // this.paused = false;
-      // }
-    // }, this);
     
     this.leftButton.bringToTop();
     this.rightButton.bringToTop();
-    
+
     /****************************
      ********** TIMERS **********
      ****************************/
@@ -188,6 +183,11 @@ HachiBowl.Game.prototype = {
   render: function(){
     //this.game.debug.text("Hit Total: " + this.pinsHit + " Actual: " + this.lasthit, 0, 10);
     //this.game.debug.text("lasthits: " + this.lasthits[0] + "|" + this.lasthits[1], 0, 20);
+  },
+  
+  handlePointerDown: function(pointer){
+    var pausepress = this.pauseRect.contains(pointer.x,pointer.y);
+    if(pausepress===true) this.pauseGame();
   },
   
   showDpad(bool){
@@ -289,6 +289,9 @@ HachiBowl.Game.prototype = {
     this.ball.visible = true;
     this.playerSpr.input.enableDrag();
     this.matchTimer.start();
+    
+    // READ USER INPUT
+    this.game.input.onDown.add(this.handlePointerDown,this);
   },
   
   countMatchTime: function() {
@@ -300,7 +303,7 @@ HachiBowl.Game.prototype = {
   },
   
   endGame: function() {
-    this.startMessage.setText("TIME UP!");
+    this.startMessage.setText(glossary.text.gameover[language]);
     this.startMessage.visible = true;
     this.messageBG.visible = true;
     this.gameover = true;
@@ -376,16 +379,29 @@ HachiBowl.Game.prototype = {
     this.startMessage.setText("PAUSED");
     this.startMessage.visible = true;
     this.messageBG.visible = true;
+    this.quitButton.show(true);
+    this.resuButton.show(true);
     this.game.paused = true;
     this.paused = true;
-    this.input.onDown.add(function(event){
-      if(event.y>=this.game.height/2 - 96 && event.y<=this.game.height/2 + 96){
+    this.input.onDown.add(this.unpauseGame, this);
+  },
+  
+  unpauseGame: function(event){
+    if(event.y>=this.game.world.centerY && event.y<=this.game.height/2 + 96){
+      if(event.x < this.game.width/2){
+        this.game.paused = false;
+        this.paused = false;
+        this.input.onDown.remove(this.unpauseGame,this);
+        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu");
+      }else{
+        this.quitButton.show(false);
+        this.resuButton.show(false);
         this.startMessage.visible = false;
         this.messageBG.visible = false;
         this.game.paused = false;
         this.paused = false;
-        this.input.onDown.removeAll();
+        this.input.onDown.remove(this.unpauseGame,this);
       }
-    }, this);
-  },
+    }
+  }
 };
