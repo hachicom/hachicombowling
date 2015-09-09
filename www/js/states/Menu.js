@@ -37,7 +37,7 @@ HachiBowl.Menu.prototype = {
     this.bgmval = 'bgm1';
     this.heroval = 0;
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start16', glossary.UI.menuTitle[language], 16);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', glossary.UI.menuTitle[language], 16);
     this.titleMessage.align = 'center';
     this.titleMessage.anchor.setTo(0.5,0);
     

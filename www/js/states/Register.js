@@ -38,7 +38,7 @@ HachiBowl.Register.prototype = {
     
     this.nameRegistered = false;
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 24, 'start16', glossary.UI.nameentry[language], 16);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 24, 'start36', glossary.UI.nameentry[language], 16);
     this.titleMessage.anchor.setTo(0.5,0);
     
     this.nameText = this.game.add.bitmapText(this.game.world.centerX, 88, 'start16', '', 16);

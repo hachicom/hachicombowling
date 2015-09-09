@@ -104,17 +104,41 @@ var glossary = {
       pt_BR: 'Toque na tela para\nselecionar o ângulo',
       en_US: 'Tap screen to select\nthe ball angle'
     },
-    tutorialPg3: { //glossary.text.tutorialPg2[language]
+    tutorialPg3: { //glossary.text.tutorialPg3[language]
       pt_BR: 'Você pode tocar nas setas\n2 vezes a cada arremesso\npara controlar a bola',
       en_US: 'You can touch arrows\n2 times in a throw\nto control the ball'
     },
-    tutorialPg4: { //glossary.text.tutorialPg2[language]
+    tutorialPg4: { //glossary.text.tutorialPg4[language]
       pt_BR: 'Tente obter o maior\nplacar em 2 minutos!',
       en_US: 'Try to achieve the\nhighest score in 2 minutes!',
     },
+    readyMsg: { //glossary.text.readyMsg[language]
+      pt_BR: "\nVAMOS TENTAR O\nPLACAR MÁXIMO!",
+      en_US: "\nLET'S GO TO\nTHE HISCORE!"
+    },
+    strikeMsg: { //glossary.text.strikeMsg[language]
+      pt_BR: "MANDOU BEM!\nBÔNUS BASEADO NAS\n2 PRÓXIMAS JOGADAS",
+      en_US: "AWESOME!\nBONUS BASED ON\nNEXT 2 ROLLS"
+    },
+    spareMsg: { //glossary.text.spareMsg[language]
+      pt_BR: "BOA!\nBÔNUS BASEADO NA\nPRÓXIMA JOGADA",
+      en_US: "NICE!\nBONUS BASED ON\nNEXT ROLL"
+    },
+    strikeDiamondMsg: { //glossary.text.strikeDiamondMsg[language]
+      pt_BR: "GANHOU 1 DIAMANTE!\n\nE UM BÔNUS DE STRIKE",
+      en_US: "YOU GOT A DIAMOND!\n\nAND A STRIKE BONUS"
+    },
+    spareDiamondMsg: { //glossary.text.spareDiamondMsg[language]
+      pt_BR: "GANHOU 1 DIAMANTE!\n\nE UM BÔNUS DE SPARE",
+      en_US: "YOU GOT A DIAMOND!\n\nAND A SPARE BONUS"
+    },
+    timeup: { //glossary.text.timeup[language]
+      pt_BR: "TEMPO!!!",
+      en_US: "TIME UP!"
+    },
     gameover: { //glossary.text.gameover[language]
-      pt_BR: "FIM DE JOGO!",
-      en_US: "GAME OVER!"
+      pt_BR: "\n\nFIM DE JOGO",
+      en_US: "\n\nGAME OVER"
     }
 	},
 	// ...

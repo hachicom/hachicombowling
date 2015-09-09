@@ -13,7 +13,28 @@ HachiBowl.Highscore.prototype = {
   preload: function() {},
   
   create: function() {
-    this.finalScore = this.score + (100*this.totalStrikes) + (50*this.totalSpares);
+    this.tilewin = 	[
+          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+          [0,1,1,1,1,1,1,1,1,2],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [3,4,4,4,4,4,4,4,4,5],
+          [6,7,7,7,7,7,7,7,7,8],
+          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        ];
+        
+    for(var i = 0; i<this.tilewin.length; i++) {
+      for(var j = 0; j<this.tilewin[i].length; j++) {
+        if(this.tilewin[i][j]>-1) var wintile = this.game.add.sprite(j*32,i*32, 'windowtile', this.tilewin[i][j]);
+      }
+    }
     
     this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 10, 'start36', "HI-SCORE", 36);
     this.titleMessage.anchor.setTo(0.5,0);
@@ -28,7 +49,7 @@ HachiBowl.Highscore.prototype = {
     this.scoreText = this.game.add.bitmapText(this.game.world.centerX - 80, 128, 'start16', nameTxt, 16);
     this.scoreText.anchor.setTo(0.5,0);
     this.scoreText.align = 'right';
-    this.scoreText = this.game.add.bitmapText(this.game.world.centerX + 80, 128, 'start16', scoreTxt, 16);
+    this.scoreText = this.game.add.bitmapText(this.game.world.centerX + 80, 128, 'start36', scoreTxt, 16);
     this.scoreText.anchor.setTo(0.5,0);
     
     // this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');

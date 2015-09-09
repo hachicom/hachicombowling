@@ -1,4 +1,4 @@
-var tileButton = function(game,x,y,label,labelsize,btnsize,imgkey,imgframe) {
+var tileButton = function(game,x,y,label,labelsize,btnsize,imgkey,labelkey,imgframe) {
   Phaser.Group.call(this, game);
   
   //create board sprite
@@ -36,13 +36,14 @@ var tileButton = function(game,x,y,label,labelsize,btnsize,imgkey,imgframe) {
   var tileWidth = this.tilewin[0].length * 32;
   var tileHeight = this.tilewin.length * 32;
   
-  if(imgkey != undefined){
+  if(imgkey != undefined && imgkey != ''){
     if(imgframe == undefined) imgframe = 0;
     var btnicon = this.create(tileWidth/2, tileHeight/2, imgkey, imgframe);
     btnicon.anchor.setTo(0.5,0.5);
   }
 
-  this.LabelText = this.game.add.bitmapText(tileWidth/2, tileHeight/2, 'start12', label, labelsize);
+  if(labelkey === undefined) labelkey = 'start16';
+  this.LabelText = this.game.add.bitmapText(tileWidth/2, tileHeight/2, labelkey, label, labelsize);
   this.LabelText.anchor.setTo(0.5,0.5);
   this.add(this.LabelText);
   

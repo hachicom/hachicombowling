@@ -41,7 +41,7 @@ HachiBowl.Setup.prototype = {
     
     var titleLabel = glossary.UI.optionsTitle[language];
     if (playerData.savedata.firstrun === true) titleLabel = glossary.UI.firstRunSetupTitle['all'];
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start16', titleLabel, 16);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', titleLabel, 16);
     this.titleMessage.align = 'center';
     this.titleMessage.anchor.setTo(0.5,0);
     

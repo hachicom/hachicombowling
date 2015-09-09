@@ -37,12 +37,12 @@ HachiBowl.Credits.prototype = {
       +'CREATED IN BFXR.NET\n\n\n\n'
       +'=======================\n\n\n* 8BIT JINGLES *\n\n'
       +'LittleRobotSound\n\nFactory.com\n\n\n\n'
-      +'=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\n\nROSEANE ALVES\n\nELTON BATISTA\n\nFELIPE NUNES\n\n\n\n'
+      +'=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\n\nROSEANE ALVES\n\nELTON BATISTA\n\nFELIPE NUNES\n\nFILIPE CIONE\n\n\n\n'
       +'=======================\n\n\nTHANKS FOR PLAYING!\n\nSEE YOU NEXT GAME!!'
     );
     this.creditText.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText, Phaser.Physics.ARCADE);
-    this.creditText.body.velocity.y=-32;
+    this.creditText.body.velocity.y=-40;
   },
   
   update: function() {

@@ -96,13 +96,23 @@ HachiBowl.Game.prototype = {
     
     this.messageBG = this.game.add.tileSprite(this.game.world.centerX, this.game.world.centerY, 320, 192, 'barbg');
     this.messageBG.anchor.setTo(0.5,0.5);
+    
     this.startMessage = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY-64, 'start36', "READY!", 36);
     this.startMessage.anchor.setTo(0.5,0.5);
+    this.startMessage.alpha = 0;
+    this.fadeTween = this.game.add.tween(this.startMessage);
+    this.fadeTween.to({alpha:1},1000);
+    this.fadeTween.start();
+    this.narratorMessage = this.game.add.bitmapText(this.game.width, this.game.world.centerY+48, 'start12', glossary.text.readyMsg[language], 12);
+    this.narratorMessage.anchor.setTo(0,0.5);
+    this.moveTween = this.game.add.tween(this.narratorMessage);
+    this.moveTween.to({x:10},1000);
+    this.moveTween.start();
     
     this.pauseButton = new tileButton(this.game, 224, this.scoreWindow.y + this.scoreWindow.height + 32, '', 12, 'small', 'pause');
     this.pauseRect = new Phaser.Rectangle(224,this.scoreWindow.y + this.scoreWindow.height + 64,96,64);
     
-    this.quitButton = new tileButton(this.game, 0, this.game.world.centerY, glossary.UI.sair[language], 16, 'big');
+    this.quitButton = new tileButton(this.game, 0, this.game.world.centerY, glossary.UI.sair[language], 16, 'big','','start16');
     this.resuButton = new tileButton(this.game, 160, this.game.world.centerY, glossary.UI.continuar[language], 16, 'big');
     this.quitButton.show(false);
     this.resuButton.show(false);
@@ -187,7 +197,7 @@ HachiBowl.Game.prototype = {
   
   handlePointerDown: function(pointer){
     var pausepress = this.pauseRect.contains(pointer.x,pointer.y);
-    if(pausepress===true) this.pauseGame();
+    if(pausepress===true && this.messageBG.visible===false) this.pauseGame();
   },
   
   showDpad(bool){
@@ -285,6 +295,7 @@ HachiBowl.Game.prototype = {
   
   hideStartMessage: function() {
     this.startMessage.visible = false;
+    this.narratorMessage.visible = false;
     this.messageBG.visible = false;
     this.ball.visible = true;
     this.playerSpr.input.enableDrag();
@@ -303,8 +314,14 @@ HachiBowl.Game.prototype = {
   },
   
   endGame: function() {
-    this.startMessage.setText(glossary.text.gameover[language]);
+    this.startMessage.setText(glossary.text.timeup[language]);
+    this.narratorMessage.setText(glossary.text.gameover[language]);
     this.startMessage.visible = true;
+    this.startMessage.alpha = 0;
+    this.fadeTween.start();
+    this.narratorMessage.visible = true;
+    this.narratorMessage.x = this.game.width;
+    this.moveTween.start();
     this.messageBG.visible = true;
     this.gameover = true;
     //this.playerSpr.reset();
@@ -329,6 +346,22 @@ HachiBowl.Game.prototype = {
   showTenpinWin: function(text,vibtime) {
     this.startMessage.setText(text);
     this.startMessage.visible = true;
+    this.startMessage.alpha = 0;
+    //this.fadeTween = this.game.add.tween(this.startMessage);
+    //this.fadeTween.to({alpha:1},1000);
+    this.fadeTween.start();
+    if(this.turn==0){
+      //strike
+      this.narratorMessage.setText(glossary.text.strikeMsg[language]);
+      if(this.round%this.diamondround==0) this.narratorMessage.setText(glossary.text.strikeDiamondMsg[language]);      
+    }else{
+      //spare
+      this.narratorMessage.setText(glossary.text.spareMsg[language]);
+      if(this.round%this.diamondround==0) this.narratorMessage.setText(glossary.text.spareDiamondMsg[language]);  
+    }
+    this.narratorMessage.visible = true;
+    this.narratorMessage.x = this.game.width;
+    this.moveTween.start();
     this.messageBG.visible = true;
     this.matchTimer.pause();
     this.tenpinTimer.start();
@@ -341,6 +374,8 @@ HachiBowl.Game.prototype = {
   hideTenpinWin: function() {
     this.startMessage.setText("");
     this.startMessage.visible = false;
+    this.narratorMessage.setText("");
+    this.narratorMessage.visible = false;
     this.messageBG.visible = false;
     this.checkSpareScore();
     if(this.turn==0){
@@ -378,6 +413,7 @@ HachiBowl.Game.prototype = {
     //console.log("clicked pause button");
     this.startMessage.setText("PAUSED");
     this.startMessage.visible = true;
+    this.startMessage.alpha = 1;
     this.messageBG.visible = true;
     this.quitButton.show(true);
     this.resuButton.show(true);
