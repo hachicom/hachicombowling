@@ -77,7 +77,14 @@ HachiBowl.Game.prototype = {
     this.diamondChanceSpr.anchor.setTo(0.5,0.5);
     this.diamondChanceSpr.visible = false;
     this.diamondChanceSpr.animations.add('shine');
-        
+    this.diamondMessage = this.game.add.bitmapText(this.diamondChanceSpr.x, this.diamondChanceSpr.y, 'start16', "DIAMOND\nCHANCE", 16);
+    this.diamondMessage.align = 'center';
+    this.diamondMessage.visible = false;
+    this.diamondMessage.anchor.setTo(0.5,0.5);
+    this.diamondMessage.alpha = 0;
+    this.blinkTween = this.game.add.tween(this.diamondMessage);
+    this.blinkTween.to({alpha:1},1000,Phaser.Easing.Linear.NONE,true,0,-1,true);
+            
     this.ball = new Ball(this.game, 192, this.game.height - 64, 0);
     this.game.add.existing(this.ball);
     this.ball.visible = false;
@@ -101,12 +108,12 @@ HachiBowl.Game.prototype = {
     this.startMessage.anchor.setTo(0.5,0.5);
     this.startMessage.alpha = 0;
     this.fadeTween = this.game.add.tween(this.startMessage);
-    this.fadeTween.to({alpha:1},1000);
+    this.fadeTween.to({alpha:1},1000,Phaser.Easing.Linear.NONE);
     this.fadeTween.start();
     this.narratorMessage = this.game.add.bitmapText(this.game.width, this.game.world.centerY+48, 'start12', glossary.text.readyMsg[language], 12);
     this.narratorMessage.anchor.setTo(0,0.5);
     this.moveTween = this.game.add.tween(this.narratorMessage);
-    this.moveTween.to({x:10},1000);
+    this.moveTween.to({x:10},2000,Phaser.Easing.Cubic.InOut);
     this.moveTween.start();
     
     this.pauseButton = new tileButton(this.game, 224, this.scoreWindow.y + this.scoreWindow.height + 32, '', 12, 'small', 'pause');
@@ -229,9 +236,14 @@ HachiBowl.Game.prototype = {
     if(this.round%this.diamondround == 0){
       this.diamondChanceSpr.visible = true;
       this.diamondChanceSpr.animations.play('shine', 12, true);
+      this.diamondMessage.visible = true;
+      //this.diamondMessage.alpha = 0;
+      //this.blinkTween.start();
     }else{
       this.diamondChanceSpr.visible = false;
       this.diamondChanceSpr.animations.stop('shine', true);
+      this.diamondMessage.visible = false;
+      //this.blinkTween.stop(true);
     }
   },
   

@@ -117,28 +117,28 @@ var glossary = {
       en_US: "\nLET'S GO TO\nTHE HISCORE!"
     },
     strikeMsg: { //glossary.text.strikeMsg[language]
-      pt_BR: "MANDOU BEM!\nBÔNUS BASEADO NAS\n2 PRÓXIMAS JOGADAS",
-      en_US: "AWESOME!\nBONUS BASED ON\nNEXT 2 ROLLS"
+      pt_BR: "SHOW DE BOLA!\nRECOMPENSA BÔNUS\nAPÓS 2 JOGADAS",
+      en_US: "AWESOME!\nBONUS REWARD\AFTER 2 ROLLS"
     },
     spareMsg: { //glossary.text.spareMsg[language]
-      pt_BR: "BOA!\nBÔNUS BASEADO NA\nPRÓXIMA JOGADA",
-      en_US: "NICE!\nBONUS BASED ON\nNEXT ROLL"
+      pt_BR: "BOA JOGADA!\nRECOMPENSA BÔNUS\nAPÓS PRÓXIMA JOGADA",
+      en_US: "NICE JOB!\nBONUS REWARD\nAFTER NEXT ROLL"
     },
     strikeDiamondMsg: { //glossary.text.strikeDiamondMsg[language]
-      pt_BR: "GANHOU 1 DIAMANTE!\n\nE UM BÔNUS DE STRIKE",
-      en_US: "YOU GOT A DIAMOND!\n\nAND A STRIKE BONUS"
+      pt_BR: "GANHOU 1 DIAMANTE!\nE BÔNUS DE STRIKE\nAPÓS 2 JOGADAS",
+      en_US: "YOU GOT A DIAMOND!\nAND STRIKE BONUS\nAFTER NEXT ROLL"
     },
     spareDiamondMsg: { //glossary.text.spareDiamondMsg[language]
-      pt_BR: "GANHOU 1 DIAMANTE!\n\nE UM BÔNUS DE SPARE",
-      en_US: "YOU GOT A DIAMOND!\n\nAND A SPARE BONUS"
+      pt_BR: "GANHOU 1 DIAMANTE!\nE BÔNUS DE SPARE\nAPÓS PRÓXIMA JOGADA",
+      en_US: "YOU GOT A DIAMOND!\nAND SPARE BONUS\nAFTER NEXT ROLL"
     },
     timeup: { //glossary.text.timeup[language]
       pt_BR: "TEMPO!!!",
       en_US: "TIME UP!"
     },
     gameover: { //glossary.text.gameover[language]
-      pt_BR: "\n\nFIM DE JOGO",
-      en_US: "\n\nGAME OVER"
+      pt_BR: "FIM DE JOGO\n\nOBRIGADO PELA PARTIDA! :)",
+      en_US: "GAME OVER\n\nTHANKS FOR PLAYING! :)"
     }
 	},
 	// ...
