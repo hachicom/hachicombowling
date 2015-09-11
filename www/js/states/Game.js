@@ -117,7 +117,7 @@ HachiBowl.Game.prototype = {
     this.moveTween.start();
     
     this.pauseButton = new tileButton(this.game, 224, this.scoreWindow.y + this.scoreWindow.height + 32, '', 12, 'small', 'pause');
-    this.pauseRect = new Phaser.Rectangle(224,this.scoreWindow.y + this.scoreWindow.height + 64,96,64);
+    this.pauseRect = new Phaser.Rectangle(224,this.scoreWindow.y + this.scoreWindow.height + 32,96,64);
     
     this.quitButton = new tileButton(this.game, 0, this.game.world.centerY, glossary.UI.sair[language], 16, 'big','','start16');
     this.resuButton = new tileButton(this.game, 160, this.game.world.centerY, glossary.UI.continuar[language], 16, 'big');
@@ -161,7 +161,7 @@ HachiBowl.Game.prototype = {
       }      
     }
     
-    if(this.ball.changedDir>=2) this.showDpad(false);
+    if(this.ball.changedDir>=this.ball.maxChangeDir) this.showDpad(false);
     
     if(this.ball.onTrack===false && this.gameover===false){
       if(this.pinsHit == 10){
@@ -173,6 +173,7 @@ HachiBowl.Game.prototype = {
           //spare
           if(this.showingMessage === false) this.showTenpinWin("SPARE!",500);
         }
+        this.showDpad(false);
       }else if(10 - this.pinsHit == this.bpins.total){
         this.turn++;
         this.checkSpareScore();
@@ -222,6 +223,7 @@ HachiBowl.Game.prototype = {
         if(vibrationOn===true) window.navigator.vibrate(100);
       }
     }
+    if(body1.sprite.nameid == 'ball') body1.sprite.accelVal = 0;
   },
   
   resetPins: function() {

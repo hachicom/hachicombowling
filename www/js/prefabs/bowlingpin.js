@@ -14,6 +14,7 @@ var BowlingPin = function(game, x, y, frame, pinsCollisionGroup) {
   this.gotHit = false;
   this.aboutToDie = false;
   this.removed = false;
+  this.nameid = 'bpin';
   
   //  Create Timers
   this.removeTimer = this.game.time.create(false);

@@ -113,12 +113,12 @@ var glossary = {
       en_US: 'Try to achieve the\nhighest score in 2 minutes!',
     },
     readyMsg: { //glossary.text.readyMsg[language]
-      pt_BR: "\nVAMOS TENTAR O\nPLACAR MÁXIMO!",
-      en_US: "\nLET'S GO TO\nTHE HISCORE!"
+      pt_BR: "\nVAMOS MARCAR O\nPLACAR MÁXIMO!",
+      en_US: "\nLET'S GO FOR\nTHE HISCORE!"
     },
     strikeMsg: { //glossary.text.strikeMsg[language]
       pt_BR: "SHOW DE BOLA!\nRECOMPENSA BÔNUS\nAPÓS 2 JOGADAS",
-      en_US: "AWESOME!\nBONUS REWARD\AFTER 2 ROLLS"
+      en_US: "AWESOME!\nBONUS REWARD\nAFTER 2 ROLLS"
     },
     spareMsg: { //glossary.text.spareMsg[language]
       pt_BR: "BOA JOGADA!\nRECOMPENSA BÔNUS\nAPÓS PRÓXIMA JOGADA",
@@ -126,7 +126,7 @@ var glossary = {
     },
     strikeDiamondMsg: { //glossary.text.strikeDiamondMsg[language]
       pt_BR: "GANHOU 1 DIAMANTE!\nE BÔNUS DE STRIKE\nAPÓS 2 JOGADAS",
-      en_US: "YOU GOT A DIAMOND!\nAND STRIKE BONUS\nAFTER NEXT ROLL"
+      en_US: "YOU GOT A DIAMOND!\nAND STRIKE BONUS\nAFTER 2 ROLL"
     },
     spareDiamondMsg: { //glossary.text.spareDiamondMsg[language]
       pt_BR: "GANHOU 1 DIAMANTE!\nE BÔNUS DE SPARE\nAPÓS PRÓXIMA JOGADA",

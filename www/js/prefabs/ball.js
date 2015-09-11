@@ -6,6 +6,7 @@ var Ball = function(game, x, y, frame) {
   this.anchor.setTo(0.5, 0.5);
   this.originX = x;
   this.originY = y;
+  this.nameid = 'ball';
 
   // add and play animations
   //this.animations.add('roll');
@@ -26,6 +27,7 @@ var Ball = function(game, x, y, frame) {
   this.onTrack = true;
   this.rolling = false;
   this.changedDir = 0;
+  this.maxChangeDir = 3;
   
   //this.flapSound = this.game.add.audio('flap');
   this.events.onKilled.add(this.onKilled, this);
@@ -46,7 +48,7 @@ Ball.prototype.update = function() {
     this.body.x = 0;
     this.body.velocity.x = 0;
   }else {
-    //this.body.velocity.x += this.accelVal;
+    this.body.velocity.x += this.accelVal;
     if(this.body.velocity.x > 150) this.body.velocity.x = 150;
     if(this.body.velocity.x < -150) this.body.velocity.x = -150;
   }
@@ -75,14 +77,14 @@ Ball.prototype.reset = function() {
 };
 
 Ball.prototype.changeDirection = function(direction) {
-  if(this.changedDir < 2 && this.rolling === true){
+  if(this.changedDir < this.maxChangeDir && this.rolling === true){
     if(direction=='left'){
-      this.body.velocity.x -= 80;
-      //this.accelVal = -8;
+      //this.body.velocity.x -= 80;
+      this.accelVal = -8;
     }
     if(direction=='right'){
-      this.body.velocity.x += 80;
-      //this.accelVal = 8;
+      //this.body.velocity.x += 80;
+      this.accelVal = 8;
     }
     this.changedDir += 1;
   }
