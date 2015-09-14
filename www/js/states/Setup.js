@@ -174,7 +174,7 @@ HachiBowl.Setup.prototype = {
     playerData.settings.language = language;
     playerData.settings.vibration = vibrationOn;
     if(this.resetHighscore === true){
-      playerData.scoretable.names = ['HACHI','PEPITO','NICKY','PUNK','MELODY','ROLF','YUKI','SNOW'];
+      playerData.scoretable.names = ['BABE','HACHI','PEPITO','NICKY','MELODY','ROLF','YUKI','SNOW'];
       playerData.scoretable.scores = [4000,3000,2500,2000,1500,1000,750,500];
     }
     

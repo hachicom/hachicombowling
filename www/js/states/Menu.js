@@ -76,7 +76,7 @@ HachiBowl.Menu.prototype = {
     this.nickyText.anchor.setTo(0,0.5);
     this.nickyRect = new Phaser.Rectangle(20,270,160,40);
     
-    this.punkText = this.game.add.bitmapText(20, 320, 'start16', "[PUNKY]", 16);
+    this.punkText = this.game.add.bitmapText(20, 320, 'start16', "[BABE]", 16);
     this.punkText.anchor.setTo(0,0.5);
     this.punkRect = new Phaser.Rectangle(20,310,160,40);
         

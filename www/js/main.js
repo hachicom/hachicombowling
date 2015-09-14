@@ -7,7 +7,7 @@
  
 var playerDataDefault = {
   scoretable: {
-    names: ['HACHI','PEPITO','NICKY','PUNK','MELODY','ROLF','YUKI','SNOW'],
+    names: ['BABE','HACHI','PEPITO','NICKY','MELODY','ROLF','YUKI','SNOW'],
     scores: [4000,3000,2500,2000,1500,1000,750,500]
   },
   savedata: {

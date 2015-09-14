@@ -26,10 +26,8 @@ HachiBowl.Credits.prototype = {
       +'Caramel Condition\n(ko0x)\n\n'
       +'My South West\n(WONDERBOY)\n\n'
       +'Spanish Candy\n(ARACHNO)\n\n'
-      +'My Dirty Old Kamel\n(ZALZA)\n\n\n\n'
-      +'THESE TRACKS ARE\n\nPRESUMED TO BE FREE\n\nOR PUBLIC DOMAIN\n\n\n'
-      +'IF YOUR MUSIC IS HERE\n\nAND WANT IT REMOVED,\n\nPLEASE CONTACT ME!\n\n\n\n'
-      +'=======================\n\n\n* PHASER PROJECT TEMPLATE *\n\n'
+      +'THESE TRACKS ARE\n\nPRESUMED TO BE FREE\n\nOR PUBLIC DOMAIN\n\n\n\n'
+      +'=======================\n\n\n* PHASER TEMPLATE *\n\n'
       +'PABLO FARIAS NAVARRO\n\n\n\n'      
       +'=======================\n\n\n* PHASER FADE PLUGIN *\n\n'
       +'EMANUELE FERONATO\n\n\n\n'
@@ -38,7 +36,7 @@ HachiBowl.Credits.prototype = {
       +'=======================\n\n\n* 8BIT JINGLES *\n\n'
       +'LittleRobotSound\n\nFactory.com\n\n\n\n'
       +'=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\n\nROSEANE ALVES\n\nELTON BATISTA\n\nFELIPE NUNES\n\nFILIPE CIONE\n\n\n\n'
-      +'=======================\n\n\nTHANKS FOR PLAYING!\n\nSEE YOU NEXT GAME!!'
+      +'=======================\n\n\nIN MEMORY OF TWO LOVELY\n\nDOGS, "BABY" AND "MEG"\n\n\nYOU WILL NEVER BE\n\nFORGOTTEN, I LOVE YOU BOTH'
     );
     this.creditText.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText, Phaser.Physics.ARCADE);

@@ -40,7 +40,7 @@ HachiBowl.Title.prototype = {
      ********** TIMERS **********
      ****************************/
     this.highscoreTimer = this.game.time.create(false);
-    this.highscoreTimer.add(10000, this.showHighscore, this);
+    this.highscoreTimer.add(5000, this.showHighscore, this);
     this.highscoreTimer.start();
   },
   
