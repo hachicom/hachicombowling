@@ -52,9 +52,9 @@ HachiBowl.Highscore.prototype = {
     this.scoreText = this.game.add.bitmapText(this.game.world.centerX + 80, 128, 'start36', scoreTxt, 16);
     this.scoreText.anchor.setTo(0.5,0);
     
-    // this.pauseButton = this.game.add.sprite(224, this.scoreWindow.y + this.scoreWindow.height + 64, 'pause');
-    // this.pauseButton.inputEnabled = true;
-    // this.pauseButton.events.onInputUp.add(this.restartGame, this);
+    this.CharTiles = this.game.add.tileSprite(this.game.world.centerX, 416, 320, 96, 'playerfaces');
+    this.CharTiles.anchor.setTo(0.5,0);
+    this.CharTiles.autoScroll(-40, 0);
         
     this.titleTimer = this.game.time.create(false);
     this.titleTimer.add(10000, this.showTitle, this);

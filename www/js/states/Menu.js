@@ -25,13 +25,16 @@ HachiBowl.Menu.prototype = {
           [0,1,1,1,2,0,1,1,1,2],
           [6,7,7,7,8,6,7,7,7,8],
         ];
-        
+    
+    this.sprPlayerFace = this.game.add.sprite(192, 192, 'playerface', 0);
+    this.sprPlayerFace.frame = 0;    
+    
     for(var i = 0; i<this.tilewin.length; i++) {
       for(var j = 0; j<this.tilewin[i].length; j++) {
         if(this.tilewin[i][j]>-1) var wintile = this.game.add.sprite(j*32,i*32, 'windowtile', this.tilewin[i][j]);
       }
     }
-    
+        
     this.game.stage.backgroundColor = '#aaaaff';
     // tempVars
     this.bgmval = 'bgm1';
@@ -125,10 +128,10 @@ HachiBowl.Menu.prototype = {
     if(this.bgmTwoRect.contains(pointer.x,pointer.y)){this.bgmval = 'bgm2'; this.bgmCursor.x = 160;}
     if(this.bgmOffRect.contains(pointer.x,pointer.y)){this.bgmval = ''; this.bgmCursor.x = 260;}
     
-    if(this.hachiRect.contains(pointer.x,pointer.y)){this.heroval = 0; this.charCursor.x = 80; this.charCursor.y = 208;}
-    if(this.pepitoRect.contains(pointer.x,pointer.y)){this.heroval = 1; this.charCursor.x = 80; this.charCursor.y = 248;}
-    if(this.nickyRect.contains(pointer.x,pointer.y)){this.heroval = 2; this.charCursor.x = 80; this.charCursor.y = 288;}
-    if(this.punkRect.contains(pointer.x,pointer.y)){this.heroval = 3; this.charCursor.x = 80; this.charCursor.y = 328;}
+    if(this.hachiRect.contains(pointer.x,pointer.y)){this.heroval = 0; this.charCursor.x = 80; this.charCursor.y = 208; this.sprPlayerFace.frame = 0;}
+    if(this.pepitoRect.contains(pointer.x,pointer.y)){this.heroval = 1; this.charCursor.x = 80; this.charCursor.y = 248;this.sprPlayerFace.frame = 1;}
+    if(this.nickyRect.contains(pointer.x,pointer.y)){this.heroval = 2; this.charCursor.x = 80; this.charCursor.y = 288; this.sprPlayerFace.frame = 2;}
+    if(this.punkRect.contains(pointer.x,pointer.y)){this.heroval = 3; this.charCursor.x = 80; this.charCursor.y = 328;  this.sprPlayerFace.frame = 3;}
     
     var backpress = this.backRect.contains(pointer.x,pointer.y);
     var playpress = this.playRect.contains(pointer.x,pointer.y);

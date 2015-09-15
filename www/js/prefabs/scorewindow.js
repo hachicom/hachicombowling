@@ -17,10 +17,12 @@ var ScoreWindow = function(game) {
         [0,1,2],
 				[6,7,8],
 			];
-      
+  
+  this.sprPlayerFace = this.create(0, 0, 'playerface', currentHero);  
+  
   for(var i = 0; i<11; i++) {
     for(var j = 0; j<3; j++) {
-      var floor = this.create(j*32,i*32, 'windowtile', this.tilewin[i][j]);
+      var tilefloor = this.create(j*32,i*32, 'windowtile', this.tilewin[i][j]);
     }
   }
 
