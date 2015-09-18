@@ -66,12 +66,14 @@ HachiBowl.Game.prototype = {
     this.leftButton.anchor.setTo(0.5,0.5);
     this.leftButton.inputEnabled = true;   
     this.leftButton.visible = false;
+    this.leftRect = new Phaser.Rectangle(0,this.leftButton.y - 32,112,64);
     
     this.rightButton = this.game.add.sprite(160, this.game.height - 40, 'arrow');
     this.rightButton.anchor.setTo(0.5,0.5);
     this.rightButton.inputEnabled = true;
     this.rightButton.scale.x = -1; 
     this.rightButton.visible = false;
+    this.rightRect = new Phaser.Rectangle(112,this.rightButton.y - 32,112,64);
     
     this.diamondChanceSpr = this.game.add.sprite(112, this.angleBar.y - 64, 'diamondbig');
     this.diamondChanceSpr.anchor.setTo(0.5,0.5);
@@ -91,8 +93,8 @@ HachiBowl.Game.prototype = {
     
     this.ball.body.setCollisionGroup(this.ballCollisionGroup);
     this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);
-    this.leftButton.events.onInputDown.add(function(){this.ball.changeDirection('left');},this); 
-    this.rightButton.events.onInputDown.add(function(){this.ball.changeDirection('right');},this);   
+    // this.leftButton.events.onInputDown.add(function(){this.ball.changeDirection('left');},this); 
+    // this.rightButton.events.onInputDown.add(function(){this.ball.changeDirection('right');},this);   
     
     this.playerSpr = new Player(this.game, 192, this.game.height - 32, currentHero, this.ball, this.angleBar);
     this.game.add.existing(this.playerSpr);
@@ -201,11 +203,18 @@ HachiBowl.Game.prototype = {
   render: function(){
     //this.game.debug.text("Hit Total: " + this.pinsHit + " Actual: " + this.lasthit, 0, 10);
     //this.game.debug.text("lasthits: " + this.lasthits[0] + "|" + this.lasthits[1], 0, 20);
+    // this.game.debug.geom( this.leftRect, 'rgba(255,255,0,0.4)' ) ;
+    // this.game.debug.geom( this.rightRect, 'rgba(255,0,255,0.4)' ) ;
   },
   
   handlePointerDown: function(pointer){
     var pausepress = this.pauseRect.contains(pointer.x,pointer.y);
     if(pausepress===true && this.messageBG.visible===false) this.pauseGame();
+    
+    var leftpress = this.leftRect.contains(pointer.x,pointer.y);
+    if(leftpress===true && this.leftButton.visible===true) this.ball.changeDirection('left');
+    var rightpress = this.rightRect.contains(pointer.x,pointer.y);
+    if(rightpress===true && this.rightButton.visible===true) this.ball.changeDirection('right');
   },
   
   showDpad(bool){

@@ -49,8 +49,8 @@ Ball.prototype.update = function() {
     this.body.velocity.x = 0;
   }else {
     this.body.velocity.x += this.accelVal;
-    if(this.body.velocity.x > 150) this.body.velocity.x = 150;
-    if(this.body.velocity.x < -150) this.body.velocity.x = -150;
+    // if(this.body.velocity.x > 150) this.body.velocity.x = 150;
+    // if(this.body.velocity.x < -150) this.body.velocity.x = -150;
   }
   if(this.rolling===true) this.body.velocity.y = -300;
 };
@@ -80,11 +80,11 @@ Ball.prototype.changeDirection = function(direction) {
   if(this.changedDir < this.maxChangeDir && this.rolling === true){
     if(direction=='left'){
       //this.body.velocity.x -= 80;
-      this.accelVal = -8;
+      this.accelVal -= 8;
     }
     if(direction=='right'){
       //this.body.velocity.x += 80;
-      this.accelVal = 8;
+      this.accelVal += 8;
     }
     this.changedDir += 1;
   }
