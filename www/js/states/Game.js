@@ -57,7 +57,7 @@ HachiBowl.Game.prototype = {
       this.bpins.add(bpin);
     }
     
-    //bowling track objects creation    
+    //Player Input creation    
     this.angleBar = new AngleBar(this.game);
     this.game.add.existing(this.angleBar);
     this.angleBar.visible = false;
@@ -75,6 +75,7 @@ HachiBowl.Game.prototype = {
     this.rightButton.visible = false;
     this.rightRect = new Phaser.Rectangle(112,this.rightButton.y - 32,112,64);
     
+    //Diamond Sticker creation    
     this.diamondChanceSpr = this.game.add.sprite(112, this.angleBar.y - 64, 'diamondbig');
     this.diamondChanceSpr.anchor.setTo(0.5,0.5);
     this.diamondChanceSpr.visible = false;
@@ -83,19 +84,20 @@ HachiBowl.Game.prototype = {
     this.diamondMessage.align = 'center';
     this.diamondMessage.visible = false;
     this.diamondMessage.anchor.setTo(0.5,0.5);
-    this.diamondMessage.alpha = 0;
-    this.blinkTween = this.game.add.tween(this.diamondMessage);
-    this.blinkTween.to({alpha:1},1000,Phaser.Easing.Linear.NONE,true,0,-1,true);
-            
+    this.diamondMessageExp = this.game.add.bitmapText(this.diamondChanceSpr.x, this.diamondChanceSpr.y + 128, 'start12', glossary.text.diamondMsg[language], 12);
+    this.diamondMessageExp.align = 'center';
+    this.diamondMessageExp.visible = false;
+    this.diamondMessageExp.anchor.setTo(0.5,0.5);
+    
+    //Bowling Ball creation
     this.ball = new Ball(this.game, 192, this.game.height - 64, 0);
     this.game.add.existing(this.ball);
     this.ball.visible = false;
     
     this.ball.body.setCollisionGroup(this.ballCollisionGroup);
-    this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);
-    // this.leftButton.events.onInputDown.add(function(){this.ball.changeDirection('left');},this); 
-    // this.rightButton.events.onInputDown.add(function(){this.ball.changeDirection('right');},this);   
+    this.ball.body.collides(this.pinsCollisionGroup,this.hitPin,this);  
     
+    //Player creation
     this.playerSpr = new Player(this.game, 192, this.game.height - 32, currentHero, this.ball, this.angleBar);
     this.game.add.existing(this.playerSpr);
     
@@ -248,12 +250,14 @@ HachiBowl.Game.prototype = {
       this.diamondChanceSpr.visible = true;
       this.diamondChanceSpr.animations.play('shine', 12, true);
       this.diamondMessage.visible = true;
+      this.diamondMessageExp.visible = true;
       //this.diamondMessage.alpha = 0;
       //this.blinkTween.start();
     }else{
       this.diamondChanceSpr.visible = false;
       this.diamondChanceSpr.animations.stop('shine', true);
       this.diamondMessage.visible = false;
+      this.diamondMessageExp.visible = false;
       //this.blinkTween.stop(true);
     }
   },

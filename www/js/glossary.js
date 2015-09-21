@@ -97,24 +97,28 @@ var glossary = {
       en_US: '  TAP TO SKIP'
     },
     tutorialPg1: { //glossary.text.tutorialPg1[language]
-      pt_BR: 'Arraste o personagem para mirar\ne solte para jogar a bola',
-      en_US: 'Drag character to aim\nand drop to throw the ball'
+      pt_BR: 'Arraste o personagem para\nmirar e solte para\njogar a bola',
+      en_US: 'Drag character to aim\nand drop to throw\nthe ball'
     },
     tutorialPg2: { //glossary.text.tutorialPg2[language]
       pt_BR: 'Toque na tela para\nselecionar o ângulo',
       en_US: 'Tap screen to select\nthe ball angle'
     },
     tutorialPg3: { //glossary.text.tutorialPg3[language]
-      pt_BR: 'Você pode tocar nas setas\n2 vezes a cada arremesso\npara controlar a bola',
-      en_US: 'You can touch arrows\n2 times in a throw\nto control the ball'
+      pt_BR: 'Você pode tocar nas setas\n3 vezes a cada arremesso\npara curvar a bola',
+      en_US: 'You can touch arrows\n3 times in a roll\nto curve the ball'
     },
     tutorialPg4: { //glossary.text.tutorialPg4[language]
       pt_BR: 'Tente obter o maior\nplacar em 2 minutos!',
-      en_US: 'Try to achieve the\nhighest score in 2 minutes!',
+      en_US: 'Try to achieve the\nhighest score in\n2 minutes!',
     },
     readyMsg: { //glossary.text.readyMsg[language]
       pt_BR: "\nVAMOS MARCAR O\nPLACAR MÁXIMO!",
       en_US: "\nLET'S GO FOR\nTHE HISCORE!"
+    },
+    diamondMsg: { //glossary.text.diamondMsg[language]
+      pt_BR: "\nDERRUBE TODOS\nOS PINOS!",
+      en_US: "\nKNOCK DOWN\nALL PINS!"
     },
     strikeMsg: { //glossary.text.strikeMsg[language]
       pt_BR: "SHOW DE BOLA!\nRECOMPENSA BÔNUS\nAPÓS 2 JOGADAS",

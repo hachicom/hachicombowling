@@ -58,6 +58,7 @@ document.addEventListener("deviceready", function() {
   HachiBowl.game.state.add('Boot', HachiBowl.Boot);
   HachiBowl.game.state.add('Preload', HachiBowl.Preload);
   HachiBowl.game.state.add('Title', HachiBowl.Title);
+  HachiBowl.game.state.add('Tutorial', HachiBowl.Tutorial);
   HachiBowl.game.state.add('Credits', HachiBowl.Credits);
   HachiBowl.game.state.add('Setup', HachiBowl.Setup);
   HachiBowl.game.state.add('Menu', HachiBowl.Menu);
