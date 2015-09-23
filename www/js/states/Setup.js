@@ -32,7 +32,7 @@ HachiBowl.Setup.prototype = {
       }
     }
     
-    this.game.stage.backgroundColor = '#aaaaff';
+    this.game.stage.backgroundColor = bgcolor2;
     // tempVars
     this.sfxval = sfxOn;
     this.langval = language;

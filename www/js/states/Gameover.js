@@ -16,7 +16,8 @@ HachiBowl.Gameover.prototype = {
   
   preload: function() {},
   
-  create: function() {
+  create: function() {    
+    this.game.stage.backgroundColor = bgcolor1;
     this.finalScore = this.score + (100*this.totalStrikes) + (50*this.totalSpares) + (500*this.diamonds);
     
     this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 64, 'start36', "RESULTS", 36);

@@ -3,6 +3,8 @@ var medstyle = { font: "20px Arial", fill: "#ffff00", stroke: "#ffaa00", strokeT
 var calcstyle = { font: "20px Arial", fill: "#55ffff", stroke: "#000000", strokeThickness: 5, align: "center", wordWrap: true, wordWrapWidth: 212 };
 var bigstyle = { font: "48px Arial", fill: "#ffff00", stroke: "#000000", strokeThickness: 8, align: "center", wordWrap: true, wordWrapWidth: 300 };
 var curlevel = 'level1';
+var bgcolor1 = 'aaaaff';
+var bgcolor2 = 'aa55ff';
 var startpos;
 
 HachiBowl.Preload = function() {
@@ -39,6 +41,7 @@ HachiBowl.Preload.prototype = {
     this.load.spritesheet('tracks', 'assets/images/tracks.png', 224, 128);
     this.load.spritesheet('trackstart', 'assets/images/tracks_start.png', 224, 128);
     this.load.spritesheet('windowtile', 'assets/images/windowSmall.png', 32, 32);
+    this.load.spritesheet('finger', 'assets/images/fingerSheet.png', 32, 42);
     this.load.image('pause', 'assets/images/pause.png');
     this.load.image('barbg', 'assets/images/barBg.png');
     this.load.image('cursor', 'assets/images/cursor.png');

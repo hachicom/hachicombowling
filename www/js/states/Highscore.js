@@ -13,6 +13,7 @@ HachiBowl.Highscore.prototype = {
   preload: function() {},
   
   create: function() {
+    this.game.stage.backgroundColor = bgcolor2;
     this.tilewin = 	[
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],

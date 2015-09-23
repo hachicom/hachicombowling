@@ -12,7 +12,8 @@ HachiBowl.Register.prototype = {
   
   preload: function() {},
   
-  create: function() {
+  create: function() {    
+    this.game.stage.backgroundColor = bgcolor2;
     this.tilewin = 	[
           [-1,0,1,1,1,1,1,1,2,-1],
           [-1,6,7,7,7,7,7,7,8,-1],

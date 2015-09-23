@@ -13,6 +13,7 @@ HachiBowl.Game.prototype = {
     // Game variables
     this.round = 1; //current round
     this.diamondround = 4; //diamond chance round
+    this.difficultspike = 100;
     this.turn = 0; //2 turns per round
     this.pinsHit = 0;
     this.lasthit = 0;
@@ -90,7 +91,7 @@ HachiBowl.Game.prototype = {
     this.diamondMessageExp.anchor.setTo(0.5,0.5);
     
     //Bowling Ball creation
-    this.ball = new Ball(this.game, 192, this.game.height - 64, 0);
+    this.ball = new Ball(this.game, 192, this.game.height - 64, currentHero);
     this.game.add.existing(this.ball);
     this.ball.visible = false;
     
@@ -260,6 +261,8 @@ HachiBowl.Game.prototype = {
       this.diamondMessageExp.visible = false;
       //this.blinkTween.stop(true);
     }
+    //if last round was a diamond chance round
+    if((this.round-1)%this.diamondround == 0) this.angleBar.cursorspeed += this.difficultspike;
   },
   
   checkStrikeScore: function() {

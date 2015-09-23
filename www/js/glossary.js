@@ -97,20 +97,20 @@ var glossary = {
       en_US: '  TAP TO SKIP'
     },
     tutorialPg1: { //glossary.text.tutorialPg1[language]
-      pt_BR: 'Arraste o personagem para\nmirar e solte para\njogar a bola',
-      en_US: 'Drag character to aim\nand drop to throw\nthe ball'
+      pt_BR: 'Arraste o personagem para mirar e solte para definir a posição de lançamento da bola',
+      en_US: 'Drag character to aim and drop to set the ball launch position'
     },
     tutorialPg2: { //glossary.text.tutorialPg2[language]
-      pt_BR: 'Toque na tela para\nselecionar o ângulo',
-      en_US: 'Tap screen to select\nthe ball angle'
+      pt_BR: 'Toque na tela para selecionar o ângulo',
+      en_US: 'Tap screen to select the angle'
     },
     tutorialPg3: { //glossary.text.tutorialPg3[language]
-      pt_BR: 'Você pode tocar nas setas\n3 vezes a cada arremesso\npara curvar a bola',
-      en_US: 'You can touch arrows\n3 times in a roll\nto curve the ball'
+      pt_BR: 'Você pode tocar nas setas 3 vezes a cada arremesso para dar efeito de curva na bola',
+      en_US: 'You can touch arrows 3 times in a roll to set curve effect in the ball'
     },
     tutorialPg4: { //glossary.text.tutorialPg4[language]
-      pt_BR: 'Tente obter o maior\nplacar em 2 minutos!',
-      en_US: 'Try to achieve the\nhighest score in\n2 minutes!',
+      pt_BR: 'Tente obter o maior placar em 2 minutos!',
+      en_US: 'Try to achieve the highest score in 2 minutes!',
     },
     readyMsg: { //glossary.text.readyMsg[language]
       pt_BR: "\nVAMOS MARCAR O\nPLACAR MÁXIMO!",
