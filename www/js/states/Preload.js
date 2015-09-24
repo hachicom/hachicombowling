@@ -7,6 +7,8 @@ var bgcolor1 = 'aaaaff';
 var bgcolor2 = 'aa55ff';
 var startpos;
 
+var mobileMode = false; //true: usa plugins de som para mobile, false: usa o sistema do Phaser
+
 HachiBowl.Preload = function() {
   this.asset = null;
   this.ready = false;

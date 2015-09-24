@@ -13,7 +13,7 @@ HachiBowl.Game.prototype = {
     // Game variables
     this.round = 1; //current round
     this.diamondround = 4; //diamond chance round
-    this.difficultspike = 100;
+    this.difficultspike = 50;
     this.turn = 0; //2 turns per round
     this.pinsHit = 0;
     this.lasthit = 0;
@@ -52,7 +52,7 @@ HachiBowl.Game.prototype = {
                       ];
     
     for (var i = 0; i < 10; i++) {
-      var bpin = new BowlingPin(this.game, this.pinsPosition[i][0], this.pinsPosition[i][1], 0, this.pinsCollisionGroup);
+      var bpin = new BowlingPin(this.game, this.pinsPosition[i][0], this.pinsPosition[i][1], currentHero, this.pinsCollisionGroup);
       bpin.body.collides(this.ballCollisionGroup);
       bpin.body.collides(this.pinsCollisionGroup,this.hitPin,this);
       this.bpins.add(bpin);
@@ -242,7 +242,7 @@ HachiBowl.Game.prototype = {
     this.pinsHit = 0;
     this.bpins.removeAll(true);
     for (var i = 0; i < 10; i++) {
-      var bpin = new BowlingPin(this.game, this.pinsPosition[i][0], this.pinsPosition[i][1], 0, this.pinsCollisionGroup);
+      var bpin = new BowlingPin(this.game, this.pinsPosition[i][0], this.pinsPosition[i][1], currentHero, this.pinsCollisionGroup);
       bpin.body.collides(this.ballCollisionGroup);
       bpin.body.collides(this.pinsCollisionGroup,this.hitPin,this);
       this.bpins.add(bpin);
