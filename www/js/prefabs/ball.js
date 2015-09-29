@@ -41,11 +41,11 @@ Ball.prototype.update = function() {
     this.onTrack = false;
     this.body.velocity.y = 0;
   }
-  if(this.body.x >  212){
+  if(this.body.x >=  210){
     this.body.x = 212;
     this.body.velocity.x = 0;
-  }else if(this.body.x <  0){
-    this.body.x = 0;
+  }else if(this.body.x <=  14){
+    this.body.x = 12;
     this.body.velocity.x = 0;
   }else {
     this.body.velocity.x += this.accelVal;
