@@ -125,7 +125,7 @@ HachiBowl.Register.prototype = {
           this.namestable.splice(i,0,this.nameText.text);
           playerData.scoretable.scores = this.scoretable;
           playerData.scoretable.names = this.namestable;
-          localStorage["com.hachicom.bowling.playerData"] = JSON.stringify(playerData);
+          localStorage["com.hachicom.bowling.playerData"] = JSON.encode(playerData);
           break;
         }
       }

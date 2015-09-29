@@ -26,10 +26,9 @@ var playerDataDefault = {
 var playerData = playerDataDefault;
 if (isLocalStorageSupported()){
   //console.log("Supports Save!");
-  playerDataTmp = JSON.parse(localStorage["com.hachicom.bowling.playerData"]);
+  playerDataTmp = JSON.decode(localStorage["com.hachicom.bowling.playerData"]);
   if (playerDataTmp!=null) playerData = playerDataTmp;
   //console.dir(playerData);
-  //alert(localStorage["com.hachicom.bowling.playerData"])
 }
 else
 {

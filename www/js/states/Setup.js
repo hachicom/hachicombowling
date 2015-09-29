@@ -186,7 +186,7 @@ HachiBowl.Setup.prototype = {
       playerData.scoretable.scores = [4000,3000,2500,2000,1500,1000,750,500];
     }
     
-    localStorage["com.hachicom.bowling.playerData"] = JSON.stringify(playerData);
+    localStorage["com.hachicom.bowling.playerData"] = JSON.encode(playerData);
     if(sfxOn===true){
       this.selectSound.play();
     }
