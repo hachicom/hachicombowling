@@ -113,13 +113,18 @@ HachiBowl.Setup.prototype = {
     this.saveText = this.game.add.bitmapText(240, 416, 'start16', glossary.UI.salvar[language], 16);
     this.saveText.anchor.setTo(0.5,0.5);
     this.saveRect = new Phaser.Rectangle(160,384,160,64);
-    
-    
+        
     // BRING CURSORS TO TOP
     this.sfxCursor.bringToTop();
     this.langCursor.bringToTop();
     this.vibCursor.bringToTop();
     if (playerData.savedata.firstrun === false) this.resetCursor.bringToTop();
+    
+    /*****************************
+     ******** GAME SOUNDS ********
+     *****************************/
+    this.selectSound = this.game.add.audio('select');
+    this.cancelSound = this.game.add.audio('cancel');
 
     // READ USER INPUT    
     this.game.input.onDown.add(this.handlePointerDown,this);
@@ -161,6 +166,9 @@ HachiBowl.Setup.prototype = {
   },
   
   goBack: function(){
+    if(sfxOn===true){
+      this.cancelSound.play();
+    }
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
   },
   
@@ -178,7 +186,10 @@ HachiBowl.Setup.prototype = {
       playerData.scoretable.scores = [4000,3000,2500,2000,1500,1000,750,500];
     }
     
-    localStorage["com.hachicom.bowling.playerData"] = JSON.encode(playerData);
+    localStorage["com.hachicom.bowling.playerData"] = JSON.stringify(playerData);
+    if(sfxOn===true){
+      this.selectSound.play();
+    }
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
   }
 };

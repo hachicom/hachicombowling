@@ -96,6 +96,12 @@ HachiBowl.Menu.prototype = {
     this.bgmCursor.bringToTop();
     this.charCursor.bringToTop();
     
+    /*****************************
+     ******** GAME SOUNDS ********
+     *****************************/
+    this.selectSound = this.game.add.audio('select');
+    this.cancelSound = this.game.add.audio('cancel');
+    
     // READ USER INPUT    
     this.game.input.onDown.add(this.handlePointerDown,this);
     

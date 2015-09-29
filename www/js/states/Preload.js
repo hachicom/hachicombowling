@@ -53,6 +53,10 @@ HachiBowl.Preload.prototype = {
     this.load.bitmapFont('start12', 'assets/fonts/start12.png', 'assets/fonts/start12.fnt');
     this.load.bitmapFont('start16', 'assets/fonts/start16.png', 'assets/fonts/start16.fnt');
     this.load.bitmapFont('start36', 'assets/fonts/start36.png', 'assets/fonts/start36.fnt');
+    this.load.audio('cancel', 'assets/audio/cancel.wav');
+    this.load.audio('pinhit', 'assets/audio/pinhit.wav');
+    this.load.audio('rolling', 'assets/audio/rolling.wav');
+    this.load.audio('select', 'assets/audio/select.wav');
   },
   
   create: function() {

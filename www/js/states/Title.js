@@ -40,6 +40,11 @@ HachiBowl.Title.prototype = {
     // READ USER INPUT    
     this.game.input.onDown.add(this.handlePointerDown,this);
     
+    /*****************************
+     ******** GAME SOUNDS ********
+     *****************************/
+    this.selectSound = this.game.add.audio('select');
+    
     /****************************
      ********** TIMERS **********
      ****************************/
@@ -66,10 +71,30 @@ HachiBowl.Title.prototype = {
     var hiscorePress = this.hiscoreRect.contains(pointer.x,pointer.y);
     var creditpress = this.creditRect.contains(pointer.x,pointer.y);
     //alert(startpress);
-    if(startpress===true) this.startGame();
-    else if(configpress===true) this.showSettings();
-    else if(hiscorePress===true) this.showHighscore();
-    else if(creditpress===true) this.showCredits();
+    if(startpress===true) {
+      if(sfxOn===true){
+        this.selectSound.play();
+      }
+      this.startGame();
+    }
+    else if(configpress===true) {
+      if(sfxOn===true){
+        this.selectSound.play();
+      }
+      this.showSettings();
+    }
+    else if(hiscorePress===true) {
+      if(sfxOn===true){
+        this.selectSound.play();
+      }
+      this.showHighscore();
+    }
+    else if(creditpress===true) {
+      if(sfxOn===true){
+        this.selectSound.play();
+      }
+      this.showCredits();
+    }
   },
   
   startGame: function(){

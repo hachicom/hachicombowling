@@ -134,6 +134,14 @@ HachiBowl.Game.prototype = {
     
     this.leftButton.bringToTop();
     this.rightButton.bringToTop();
+    
+    /*****************************
+     ******** GAME SOUNDS ********
+     *****************************/
+    this.pinSound = this.game.add.audio('pinhit');
+    this.rollSound = this.game.add.audio('rolling');
+    this.selectSound = this.game.add.audio('select');
+    this.cancelSound = this.game.add.audio('cancel');
 
     /****************************
      ********** TIMERS **********
@@ -162,6 +170,9 @@ HachiBowl.Game.prototype = {
         this.choseAngle = true;
         this.ball.roll(ballVelo);
         this.showDpad(true);
+        if(sfxOn===true){
+          this.rollSound.play();
+        }
         //console.log(ballVelo);
       }      
     }
@@ -215,9 +226,15 @@ HachiBowl.Game.prototype = {
     if(pausepress===true && this.messageBG.visible===false) this.pauseGame();
     
     var leftpress = this.leftRect.contains(pointer.x,pointer.y);
-    if(leftpress===true && this.leftButton.visible===true) this.ball.changeDirection('left');
+    if(leftpress===true && this.leftButton.visible===true) {
+      this.ball.changeDirection('left');
+      if(sfxOn===true) this.cancelSound.play();
+    }
     var rightpress = this.rightRect.contains(pointer.x,pointer.y);
-    if(rightpress===true && this.rightButton.visible===true) this.ball.changeDirection('right');
+    if(rightpress===true && this.rightButton.visible===true) {
+      this.ball.changeDirection('right');
+      if(sfxOn===true) this.cancelSound.play();
+    }
   },
   
   showDpad(bool){
@@ -231,6 +248,9 @@ HachiBowl.Game.prototype = {
       this.pinsHit++;
       this.lasthit++;
       this.score+=10;
+      if(sfxOn===true){
+        this.pinSound.play();
+      }
       if("vibrate" in window.navigator) {
         if(vibrationOn===true) window.navigator.vibrate(100);
       }
@@ -447,6 +467,10 @@ HachiBowl.Game.prototype = {
     this.messageBG.visible = true;
     this.quitButton.show(true);
     this.resuButton.show(true);
+    if(sfxOn===true){
+      //this.selectSound.play();
+      //TODO: use lowlatency plugin here
+    }
     this.game.paused = true;
     this.paused = true;
     this.input.onDown.add(this.unpauseGame, this);
@@ -458,6 +482,9 @@ HachiBowl.Game.prototype = {
         this.game.paused = false;
         this.paused = false;
         this.input.onDown.remove(this.unpauseGame,this);
+        if(sfxOn===true){
+          this.cancelSound.play();
+        }
         this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu");
       }else{
         this.quitButton.show(false);
@@ -466,6 +493,9 @@ HachiBowl.Game.prototype = {
         this.messageBG.visible = false;
         this.game.paused = false;
         this.paused = false;
+        if(sfxOn===true){
+          this.selectSound.play();
+        }
         this.input.onDown.remove(this.unpauseGame,this);
       }
     }
