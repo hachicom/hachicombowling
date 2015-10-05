@@ -8,15 +8,18 @@ HachiBowl.Highscore.prototype = {
     
     this.scoretable = playerData.scoretable.scores;
     this.namestable = playerData.scoretable.names;
+    this.scoretable2 = playerData.scoretable2.scores;
+    this.namestable2 = playerData.scoretable2.names;
   },
   
   preload: function() {},
   
   create: function() {
+    this.page = 0;
     this.game.stage.backgroundColor = bgcolor2;
     this.tilewin = 	[
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+          [-1,0,1,1,1,1,1,1,2,-1],
+          [-1,6,7,7,7,7,7,7,8,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [0,1,1,1,1,1,1,1,1,2],
           [3,4,4,4,4,4,4,4,4,5],
@@ -37,28 +40,28 @@ HachiBowl.Highscore.prototype = {
       }
     }
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 10, 'start36', "HI-SCORE", 36);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HISCORE GAME-A", 16);
     this.titleMessage.anchor.setTo(0.5,0);
     
     var nameTxt = '';
     var scoreTxt = '';
-    for(var i=0;i<this.scoretable.length;i++){
-      nameTxt  += this.namestable[i] + '\n\n';
-      scoreTxt += this.scoretable[i] + '\n\n';
+    for(var i=0;i<this.scoretable2.length;i++){
+      nameTxt  += this.namestable2[i] + '\n\n';
+      scoreTxt += this.scoretable2[i] + '\n\n';
     }
     
     this.scoreText = this.game.add.bitmapText(this.game.world.centerX - 80, 128, 'start16', nameTxt, 16);
     this.scoreText.anchor.setTo(0.5,0);
     this.scoreText.align = 'right';
-    this.scoreText = this.game.add.bitmapText(this.game.world.centerX + 80, 128, 'start36', scoreTxt, 16);
-    this.scoreText.anchor.setTo(0.5,0);
+    this.scoreText2 = this.game.add.bitmapText(this.game.world.centerX + 80, 128, 'start36', scoreTxt, 16);
+    this.scoreText2.anchor.setTo(0.5,0);
     
     this.CharTiles = this.game.add.tileSprite(this.game.world.centerX, 416, 320, 96, 'playerfaces');
     this.CharTiles.anchor.setTo(0.5,0);
     this.CharTiles.autoScroll(-40, 0);
         
     this.titleTimer = this.game.time.create(false);
-    this.titleTimer.add(10000, this.showTitle, this);
+    this.titleTimer.loop(5000, this.showTitle, this);
     this.titleTimer.start();
   },
   
@@ -67,9 +70,20 @@ HachiBowl.Highscore.prototype = {
       this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Title");
     }
   },
-  
-  
+    
   showTitle: function(){
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Title");
+    this.page++;
+    if(this.page==2) this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Title");
+    else{
+      var nameTxt = '';
+      var scoreTxt = '';
+      for(var i=0;i<this.scoretable.length;i++){
+        nameTxt  += this.namestable[i] + '\n\n';
+        scoreTxt += this.scoretable[i] + '\n\n';
+      }
+      this.titleMessage.setText("HISCORE GAME-B");
+      this.scoreText.setText(nameTxt);
+      this.scoreText2.setText(scoreTxt);
+    }
   }
 };

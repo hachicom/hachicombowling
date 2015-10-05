@@ -8,7 +8,7 @@ var BowlingPin = function(game, x, y, frame, pinsCollisionGroup) {
   this.body.setRectangle(14, 28);
   this.body.setCollisionGroup(pinsCollisionGroup);
   this.body.damping = 0.5;
-  this.body.mass = 10;
+  this.body.mass = 30;
   
   // Pin Status
   this.gotHit = false;

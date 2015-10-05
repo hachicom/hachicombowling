@@ -10,8 +10,10 @@ HachiBowl.Gameover.prototype = {
     this.spares       = paramArr[3];
     this.totalSpares  = paramArr[4];
     this.diamonds     = paramArr[5];
+    this.gamemode     = paramArr[6];
     
-    this.scoretable = playerData.scoretable.scores;
+    if(this.gamemode == 'B') this.scoretable = playerData.scoretable.scores;
+    else this.scoretable = playerData.scoretable2.scores;
   },
   
   preload: function() {},
@@ -56,8 +58,12 @@ HachiBowl.Gameover.prototype = {
           break;
         }
       }
-      if(registerName === true) this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Register",[this.finalScore]);
+      if(registerName === true) this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Register",[this.finalScore,this.gamemode]);
       else this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Highscore");
     }
+  },
+  
+  render: function(){
+    //this.game.debug.text("1st place: " + this.scoretable[0] + " gamemode: " + this.gamemode, 0, 10);
   },
 };

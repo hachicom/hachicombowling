@@ -4,10 +4,16 @@ HachiBowl.Register = function(){};
 
 HachiBowl.Register.prototype = {
   init: function(paramArr) {
-    this.score = paramArr[0];
+    this.score    = paramArr[0];
+    this.gamemode = paramArr[1];
     
-    this.scoretable = playerData.scoretable.scores;
-    this.namestable = playerData.scoretable.names;
+    if(this.gamemode == 'B') {
+      this.scoretable = playerData.scoretable.scores;
+      this.namestable = playerData.scoretable.names;
+    }else {
+      this.scoretable = playerData.scoretable2.scores;
+      this.namestable = playerData.scoretable2.names;
+    }
   },
   
   preload: function() {},
@@ -86,19 +92,9 @@ HachiBowl.Register.prototype = {
     // }
   },
   
-  /* render: function(){
-    color = '0';
-    for(var i=0;i<6;i++){
-      if(i%2 == 0) color = '255';
-      else color = '0';
-      for(var j=0;j<7;j++){
-        if(j%2 == 0) this.game.debug.geom( this.digitRects[i][j], 'rgba(255,'+color+',255,0.4)' );
-        else this.game.debug.geom( this.digitRects[i][j], 'rgba(0,'+color+',255,0.4)' );
-      }
-    }
-    this.game.debug.geom( this.backRect, 'rgba(255,255,0,0.4)' ) ;
-    this.game.debug.geom( this.doneRect, 'rgba(255,0,255,0.4)' ) ;
-  }, */
+  render: function(){
+    //this.game.debug.text("1st place: " + this.namestable[0] + " gamemode: " + this.gamemode, 0, 10);
+  },
   
   handlePointerDown: function(pointer){
     for(var i=0;i<6;i++){
@@ -123,8 +119,13 @@ HachiBowl.Register.prototype = {
           this.namestable.splice(hikey,1);
           this.scoretable.splice(i,0,this.score);
           this.namestable.splice(i,0,this.nameText.text);
-          playerData.scoretable.scores = this.scoretable;
-          playerData.scoretable.names = this.namestable;
+          if(this.gamemode == 'B') {
+            playerData.scoretable.scores = this.scoretable;
+            playerData.scoretable.names = this.namestable;
+          }else{
+            playerData.scoretable2.scores = this.scoretable;
+            playerData.scoretable2.names = this.namestable;
+          }
           localStorage["com.hachicom.bowling.playerData"] = JSON.encode(playerData);
           break;
         }

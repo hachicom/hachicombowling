@@ -4,6 +4,10 @@ var HachiBowl = HachiBowl || {};
 HachiBowl.Game = function(){};
 
 HachiBowl.Game.prototype = {
+  init: function(paramArr) {
+    this.gamemode = paramArr[0];
+  },
+  
   preload: function() {},
   
   create: function() {
@@ -28,6 +32,7 @@ HachiBowl.Game.prototype = {
     this.gameover = false;
     this.showingMessage = false;
     this.gameTimer = 120000;
+    this.lives = 5;
     this.choseAngle = false;
         
     //  Create our collision groups. One for the ball, one for the pins
@@ -103,7 +108,7 @@ HachiBowl.Game.prototype = {
     this.game.add.existing(this.playerSpr);
     
     //UI creation
-    this.scoreWindow = new ScoreWindow(this.game);
+    this.scoreWindow = new ScoreWindow(this.game,this.gamemode);
     this.game.add.existing(this.scoreWindow);
     
     this.messageBG = this.game.add.tileSprite(this.game.world.centerX, this.game.world.centerY, 320, 192, 'barbg');
@@ -149,9 +154,11 @@ HachiBowl.Game.prototype = {
     this.startTimer = this.game.time.create(false);
     this.startTimer.add(2000, this.hideStartMessage, this);
     this.startTimer.start();
-    
-    this.matchTimer = this.game.time.create(false);
-    this.matchTimer.loop(1000, this.countMatchTime, this);
+        
+    if(this.gamemode=='B') {
+      this.matchTimer = this.game.time.create(false);
+      this.matchTimer.loop(1000, this.countMatchTime, this);
+    }
     
     this.tenpinTimer = this.game.time.create(false);
     this.tenpinTimer.loop(3000, this.hideTenpinWin, this);
@@ -169,7 +176,7 @@ HachiBowl.Game.prototype = {
         var ballVelo = this.angleBar.stopCursor();
         this.choseAngle = true;
         this.ball.roll(ballVelo);
-        this.showDpad(true);
+        if(ballVelo >= -60 && ballVelo <= 60) this.showDpad(true);
         if(sfxOn===true){
           this.rollSound.play();
         }
@@ -201,7 +208,10 @@ HachiBowl.Game.prototype = {
           this.lastscore = '';
           this.turn = 0;
           this.round++;
-          this.resetPins();
+          if(this.gamemode == 'A') this.lives--;
+          if(this.lives == 0){
+            this.endGame();
+          }else this.resetPins();
         }
         this.checkStrikeScore();
         this.lasthit = 0;
@@ -211,7 +221,7 @@ HachiBowl.Game.prototype = {
       }
     }
     //this.ball.listenChangeDirection();
-    this.scoreWindow.updateInfo(this.score,this.totalStrikes,this.totalSpares,this.gameTimer,this.diamonds);
+    this.scoreWindow.updateInfo(this.score,this.totalStrikes,this.totalSpares,this.gameTimer,this.diamonds,this.lives);
   },
   
   render: function(){
@@ -349,7 +359,7 @@ HachiBowl.Game.prototype = {
     this.messageBG.visible = false;
     this.ball.visible = true;
     this.playerSpr.input.enableDrag();
-    this.matchTimer.start();
+    if(this.gamemode == 'B') this.matchTimer.start();
     
     // READ USER INPUT
     this.game.input.onDown.add(this.handlePointerDown,this);
@@ -364,7 +374,8 @@ HachiBowl.Game.prototype = {
   },
   
   endGame: function() {
-    this.startMessage.setText(glossary.text.timeup[language]);
+    if(this.gamemode == 'B') this.startMessage.setText(glossary.text.timeup[language]);
+    else this.startMessage.setText(glossary.text.nolife[language]);
     this.narratorMessage.setText(glossary.text.gameover[language]);
     this.startMessage.visible = true;
     this.startMessage.alpha = 0;
@@ -384,7 +395,7 @@ HachiBowl.Game.prototype = {
   },
   
   showResults: function() {
-    var paramArr = [this.score,this.strikes,this.totalStrikes,this.spares,this.totalSpares,this.diamonds]
+    var paramArr = [this.score,this.strikes,this.totalStrikes,this.spares,this.totalSpares,this.diamonds,this.gamemode]
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Gameover",paramArr);
   },
   
@@ -413,7 +424,7 @@ HachiBowl.Game.prototype = {
     this.narratorMessage.x = this.game.width;
     this.moveTween.start();
     this.messageBG.visible = true;
-    this.matchTimer.pause();
+    if(this.gamemode == 'B') this.matchTimer.pause();
     this.tenpinTimer.start();
     if("vibrate" in window.navigator) {
       if(vibrationOn===true) window.navigator.vibrate(vibtime);
@@ -454,7 +465,7 @@ HachiBowl.Game.prototype = {
     this.playerSpr.reset();
     this.showDpad(false);
     this.choseAngle = false;
-    this.matchTimer.resume();
+    if(this.gamemode == 'B') this.matchTimer.resume();
     this.tenpinTimer.stop(false);
     this.showingMessage = false;
   },
@@ -485,7 +496,7 @@ HachiBowl.Game.prototype = {
         if(sfxOn===true){
           this.cancelSound.play();
         }
-        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu");
+        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
       }else{
         this.quitButton.show(false);
         this.resuButton.show(false);

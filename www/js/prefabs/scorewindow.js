@@ -1,6 +1,7 @@
-var ScoreWindow = function(game) {
+var ScoreWindow = function(game,gamemode) {
   var gameover;
   Phaser.Group.call(this, game);
+  this.gamemode = gamemode;
   
   //create board sprite
   //this.window = this.create(0, 0, 'windowbig');
@@ -47,7 +48,11 @@ var ScoreWindow = function(game) {
   this.diamondLabelText = this.game.add.bitmapText(30, 256, 'start16', "x0", 16);
   this.add(this.diamondLabelText);
   
-  this.timerText = this.game.add.bitmapText(10, 310, 'start16', "00:00", 16);
+  if(this.gamemode == 'B'){
+    this.timerText = this.game.add.bitmapText(10, 310, 'start16', "00:00", 16);
+  }else{
+    this.timerText = this.game.add.bitmapText(10, 310, 'start16', "!!!!!", 16);
+  }
   this.add(this.timerText);
 
   // TODO: this will be the pause button
@@ -64,17 +69,23 @@ var ScoreWindow = function(game) {
 ScoreWindow.prototype = Object.create(Phaser.Group.prototype);  
 ScoreWindow.prototype.constructor = ScoreWindow;
 
-ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer,diamond) {
-  var timersec = timer/1000;
-  var minutes = Math.floor(timersec / 60);
-  var seconds = timersec - minutes * 60;
-  if(seconds<10) seconds = '0'+seconds;
-  
+ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer,diamond,lives) {
   this.scoreText.setText(score.toString());
   this.strikeText.setText(strike.toString());
   this.spareText.setText(spare.toString());
   this.diamondLabelText.setText("x"+diamond.toString());
-  this.timerText.setText(minutes+':'+seconds);
+  
+  if(this.gamemode == 'B'){
+    var timersec = timer/1000;
+    var minutes = Math.floor(timersec / 60);
+    var seconds = timersec - minutes * 60;
+    if(seconds<10) seconds = '0'+seconds;
+    this.timerText.setText(minutes+':'+seconds);
+  }else{
+    var lifebar = '';
+    for(var i=0;i<lives; i++) lifebar += '!';
+    this.timerText.setText(lifebar);
+  }
 };
 
 ScoreWindow.prototype.pauseClick = function() {  

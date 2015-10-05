@@ -7,12 +7,16 @@
  
 var playerDataDefault = {
   scoretable: {
-    names: ['BABE','HACHI','PEPITO','NICKY','MELODY','ROLF','YUKI','SNOW'],
+    names: ['BABE','NICKY','PEPITO','HACHI','MELODY','ROLF','YUKI','SNOW'],
     scores: [4000,3000,2500,2000,1500,1000,750,500]
+  },
+  scoretable2: {
+    names: ['HACHI','PEPITO','NICKY','BABE','SNOW','YUKI','ROLF','MELODY'],
+    scores: [6000,5000,4000,3000,2500,2000,1500,1000]
   },
   savedata: {
 		firstrun: true,
-    version: 1 //change this number if save from new version is different
+    version: 2 //change this number if save from new version is different
 	},
   settings: {
 		sfx: true,
@@ -28,6 +32,14 @@ if (isLocalStorageSupported()){
   //console.log("Supports Save!");
   playerDataTmp = JSON.decode(localStorage["com.hachicom.bowling.playerData"]);
   if (playerDataTmp!=null) playerData = playerDataTmp;
+  if(playerData.savedata.version < playerDataDefault.savedata.version){
+    playerData.scoretable2 = {
+      names: ['HACHI','PEPITO','NICKY','BABE','SNOW','YUKI','ROLF','MELODY'],
+      scores: [6000,5000,4000,3000,2500,2000,1500,1000]
+    };
+    playerData.savedata.version = playerDataDefault.savedata.version;
+    localStorage["com.hachicom.bowling.playerData"] = JSON.encode(playerData);
+  }
   //console.dir(playerData);
 }
 else

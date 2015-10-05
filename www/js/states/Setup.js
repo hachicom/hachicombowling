@@ -184,6 +184,8 @@ HachiBowl.Setup.prototype = {
     if(this.resetHighscore === true){
       playerData.scoretable.names = ['BABE','HACHI','PEPITO','NICKY','MELODY','ROLF','YUKI','SNOW'];
       playerData.scoretable.scores = [4000,3000,2500,2000,1500,1000,750,500];
+      playerData.scoretable2.names = ['HACHI','PEPITO','NICKY','BABE','SNOW','YUKI','ROLF','MELODY'];
+      playerData.scoretable2.scores = [6000,5000,4000,3000,2500,2000,1500,1000];
     }
     
     localStorage["com.hachicom.bowling.playerData"] = JSON.encode(playerData);

@@ -3,7 +3,8 @@ var HachiBowl = HachiBowl || {};
 HachiBowl.Menu = function(){};
 
 HachiBowl.Menu.prototype = {
-  init: function() {
+  init: function(paramArr) {
+    this.gamemode = paramArr[0];
   },
   
   preload: function() {},
@@ -37,10 +38,14 @@ HachiBowl.Menu.prototype = {
         
     this.game.stage.backgroundColor = bgcolor2;
     // tempVars
-    this.bgmval = 'bgm1';
+    this.bgmval = '';
+    if(sfxOn===true) {
+      this.bgmval = 'bgm1';
+      //TODO: play bgm1 music
+    }
     this.heroval = 0;
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', glossary.UI.menuTitle[language], 16);
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', glossary.UI['menuTitle'+this.gamemode][language], 16);
     this.titleMessage.align = 'center';
     this.titleMessage.anchor.setTo(0.5,0);
     
@@ -50,6 +55,7 @@ HachiBowl.Menu.prototype = {
     // BUTTONS FOR MUSIC SELECTION
     this.bgmCursor = this.game.add.sprite(80, 138, 'cursor');
     this.bgmCursor.anchor.setTo(0.5,0);
+    if(sfxOn!==true) this.bgmCursor.x = 260;
     
     this.bgmOneText = this.game.add.bitmapText(60, 130, 'start16', "[BGM1]", 16);
     this.bgmOneText.anchor.setTo(0.5,0.5);
@@ -130,19 +136,43 @@ HachiBowl.Menu.prototype = {
   }, */
   
   handlePointerDown: function(pointer) {
-    if(this.bgmOneRect.contains(pointer.x,pointer.y)){this.bgmval = 'bgm1'; this.bgmCursor.x = 60;}
-    if(this.bgmTwoRect.contains(pointer.x,pointer.y)){this.bgmval = 'bgm2'; this.bgmCursor.x = 160;}
-    if(this.bgmOffRect.contains(pointer.x,pointer.y)){this.bgmval = ''; this.bgmCursor.x = 260;}
+    if(this.bgmOneRect.contains(pointer.x,pointer.y)){
+      this.bgmval = 'bgm1'; this.bgmCursor.x = 60; 
+      //TODO: play bgm1 music
+      if(sfxOn===true) this.cancelSound.play();
+    }
+    if(this.bgmTwoRect.contains(pointer.x,pointer.y)){
+      this.bgmval = 'bgm2'; this.bgmCursor.x = 160; 
+      //TODO: play bgm2 music
+      if(sfxOn===true) this.cancelSound.play();
+    }
+    if(this.bgmOffRect.contains(pointer.x,pointer.y)){
+      this.bgmval = ''; this.bgmCursor.x = 260; 
+      //TODO: stop music
+      if(sfxOn===true) this.cancelSound.play();
+    }
     
-    if(this.hachiRect.contains(pointer.x,pointer.y)){this.heroval = 0; this.charCursor.x = 80; this.charCursor.y = 208; this.sprPlayerFace.frame = 0;}
-    if(this.pepitoRect.contains(pointer.x,pointer.y)){this.heroval = 1; this.charCursor.x = 80; this.charCursor.y = 248;this.sprPlayerFace.frame = 1;}
-    if(this.nickyRect.contains(pointer.x,pointer.y)){this.heroval = 2; this.charCursor.x = 80; this.charCursor.y = 288; this.sprPlayerFace.frame = 2;}
-    if(this.punkRect.contains(pointer.x,pointer.y)){this.heroval = 3; this.charCursor.x = 80; this.charCursor.y = 328;  this.sprPlayerFace.frame = 3;}
+    if(this.hachiRect.contains(pointer.x,pointer.y)){
+      this.heroval = 0; this.charCursor.x = 80; this.charCursor.y = 208; this.sprPlayerFace.frame = 0; 
+      if(sfxOn===true) this.selectSound.play();
+    }
+    if(this.pepitoRect.contains(pointer.x,pointer.y)){
+      this.heroval = 1; this.charCursor.x = 80; this.charCursor.y = 248;this.sprPlayerFace.frame = 1;
+      if(sfxOn===true) this.selectSound.play();
+    }
+    if(this.nickyRect.contains(pointer.x,pointer.y)){
+      this.heroval = 2; this.charCursor.x = 80; this.charCursor.y = 288; this.sprPlayerFace.frame = 2;
+      if(sfxOn===true) this.selectSound.play();
+    }
+    if(this.punkRect.contains(pointer.x,pointer.y)){
+      this.heroval = 3; this.charCursor.x = 80; this.charCursor.y = 328;  this.sprPlayerFace.frame = 3;
+      if(sfxOn===true) this.selectSound.play();
+    }
     
     var backpress = this.backRect.contains(pointer.x,pointer.y);
     var playpress = this.playRect.contains(pointer.x,pointer.y);
-    if(backpress===true) this.goBack();
-    if(playpress===true) this.playGame();
+    if(backpress===true) {this.goBack(); if(sfxOn===true) this.cancelSound.play();}
+    if(playpress===true) {this.playGame(); if(sfxOn===true) this.selectSound.play();}
   },
   
   goBack: function(){
@@ -153,6 +183,6 @@ HachiBowl.Menu.prototype = {
     currentBGM = this.bgmval;
     currentHero = this.heroval;
     
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game",[this.gamemode]);
   }
 };

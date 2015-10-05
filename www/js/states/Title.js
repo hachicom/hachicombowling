@@ -18,9 +18,13 @@ HachiBowl.Title.prototype = {
     this.titleMessage = this.game.add.sprite(this.game.world.centerX, 20, 'titlelogo');
     this.titleMessage.anchor.setTo(0.5,0);
     
-    this.startText = this.game.add.bitmapText(20, 218, 'start16', glossary.UI.start[language], 16);
-    //this.startText.anchor.setTo(0.5,0);
-    this.startRect = new Phaser.Rectangle(this.startText.x-10,this.startText.y-10,200,this.startText.height + 20);
+    this.startTextA = this.game.add.bitmapText(20, 178, 'start16', glossary.UI.startA[language], 16);
+    //this.startTextA.anchor.setTo(0.5,0);
+    this.startRectA = new Phaser.Rectangle(this.startTextA.x-10,this.startTextA.y-10,200,this.startTextA.height + 20);
+    
+    this.startTextB = this.game.add.bitmapText(20, 218, 'start16', glossary.UI.startB[language], 16);
+    //this.startTextB.anchor.setTo(0.5,0);
+    this.startRectB = new Phaser.Rectangle(this.startTextB.x-10,this.startTextB.y-10,200,this.startTextB.height + 20);
     
     this.configText = this.game.add.bitmapText(20, 258, 'start16', glossary.UI.settings[language], 16);
     //this.configText.anchor.setTo(0.5,0);
@@ -66,16 +70,23 @@ HachiBowl.Title.prototype = {
   }, */
   
   handlePointerDown: function(pointer) {
-    var startpress = this.startRect.contains(pointer.x,pointer.y);
+    var startpressA = this.startRectA.contains(pointer.x,pointer.y);
+    var startpressB = this.startRectB.contains(pointer.x,pointer.y);
     var configpress = this.configRect.contains(pointer.x,pointer.y);
     var hiscorePress = this.hiscoreRect.contains(pointer.x,pointer.y);
     var creditpress = this.creditRect.contains(pointer.x,pointer.y);
-    //alert(startpress);
-    if(startpress===true) {
+    //alert(startpressA);
+    if(startpressA===true) {
       if(sfxOn===true){
         this.selectSound.play();
       }
-      this.startGame();
+      this.startGameA();
+    }
+    if(startpressB===true) {
+      if(sfxOn===true){
+        this.selectSound.play();
+      }
+      this.startGameB();
     }
     else if(configpress===true) {
       if(sfxOn===true){
@@ -97,8 +108,12 @@ HachiBowl.Title.prototype = {
     }
   },
   
-  startGame: function(){
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu");
+  startGameA: function(){
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu",['A']);
+  },
+  
+  startGameB: function(){
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Menu",['B']);
   },
   
   showSettings: function(){
