@@ -111,22 +111,22 @@ HachiBowl.Register.prototype = {
       for(var j=0;j<7;j++){
         if(this.digitRects[i][j].contains(pointer.x,pointer.y)){
           if(this.nameText.text.length<8) {
-            this.selectSound.play();
+            if(sfxOn===true) this.selectSound.play();
             this.nameText.text+=this.digits[i][j];
-          }else this.cancelSound.play();
+          }else if(sfxOn===true) this.cancelSound.play();
         }
       }
     }
     
     var backpress = this.backRect.contains(pointer.x,pointer.y);
     var donepress = this.doneRect.contains(pointer.x,pointer.y);
-    if(backpress===true) {this.nameText.text=this.nameText.text.slice(0,this.nameText.text.length-1);this.cancelSound.play();}
+    if(backpress===true) {this.nameText.text=this.nameText.text.slice(0,this.nameText.text.length-1);if(sfxOn===true) this.cancelSound.play();}
     if(donepress===true) this.saveHighScore();
   },
   
   saveHighScore: function(){
     if(this.nameRegistered === false){
-      this.selectSound.play();
+      if(sfxOn===true) this.selectSound.play();
       for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.score) {
           //removes last element

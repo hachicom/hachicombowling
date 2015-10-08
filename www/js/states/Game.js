@@ -398,7 +398,7 @@ HachiBowl.Game.prototype = {
     //this.score+=this.pinsHit * 10;
     this.gameoverTimer.start();
     currentBGM.stop();
-    this.overSound.play();
+    if(sfxOn===true) this.overSound.play();
   },
   
   showResults: function() {
