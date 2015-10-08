@@ -9,6 +9,9 @@ HachiBowl.Tutorial.prototype = {
   preload: function() {},
   
   create: function() {    
+    this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    this.bgimg.autoScroll(10, 20);
+    
     this.game.stage.backgroundColor = bgcolor2;
     this.cursorspeed = 185;
     this.maxlimit = 70;

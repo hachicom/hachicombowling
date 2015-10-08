@@ -9,6 +9,9 @@ HachiBowl.Setup.prototype = {
   preload: function() {},
   
   create: function() {
+    this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    this.bgimg.autoScroll(10, 20);
+    
     this.tilewin = 	[
           [-1,0,1,1,1,1,1,1,2,-1],
           [-1,6,7,7,7,7,7,7,8,-1],

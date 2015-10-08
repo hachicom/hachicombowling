@@ -17,6 +17,10 @@ HachiBowl.Highscore.prototype = {
   create: function() {
     this.page = 0;
     this.game.stage.backgroundColor = bgcolor2;
+    
+    this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    this.bgimg.autoScroll(10, 20);
+    
     this.tilewin = 	[
           [-1,0,1,1,1,1,1,1,2,-1],
           [-1,6,7,7,7,7,7,7,8,-1],
@@ -67,13 +71,17 @@ HachiBowl.Highscore.prototype = {
   
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
+      currentBGM.stop();
       this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Title");
     }
   },
     
   showTitle: function(){
     this.page++;
-    if(this.page==2) this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Title");
+    if(this.page==2) {
+      currentBGM.stop();
+      this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Title");
+    }
     else{
       var nameTxt = '';
       var scoreTxt = '';

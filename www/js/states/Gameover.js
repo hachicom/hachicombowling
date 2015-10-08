@@ -47,6 +47,10 @@ HachiBowl.Gameover.prototype = {
     this.finalscorelabelText.anchor.setTo(0,0.5);
     this.finalscoreText = this.game.add.bitmapText(this.game.world.centerX, 420, 'start36', this.finalScore.toString(), 36);
     this.finalscoreText.anchor.setTo(0.5,0.5);
+    
+    this.bgmmusic = this.game.add.audio('stats', 1, true);
+    currentBGM = this.bgmmusic;
+    currentBGM.play();
   },
   
   update: function() {

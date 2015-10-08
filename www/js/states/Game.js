@@ -14,6 +14,9 @@ HachiBowl.Game.prototype = {
     this.game.physics.p2.setImpactEvents(true);
     this.game.physics.p2.restitution = 0.8;
     
+    this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    this.bgimg.autoScroll(10, 20);
+    
     // Game variables
     this.round = 1; //current round
     this.diamondround = 4; //diamond chance round
@@ -147,6 +150,8 @@ HachiBowl.Game.prototype = {
     this.rollSound = this.game.add.audio('rolling');
     this.selectSound = this.game.add.audio('select');
     this.cancelSound = this.game.add.audio('cancel');
+    this.powerSound = this.game.add.audio('powerup');
+    this.overSound = this.game.add.audio('over');
 
     /****************************
      ********** TIMERS **********
@@ -392,6 +397,8 @@ HachiBowl.Game.prototype = {
     this.angleBar.freeze();
     //this.score+=this.pinsHit * 10;
     this.gameoverTimer.start();
+    currentBGM.stop();
+    this.overSound.play();
   },
   
   showResults: function() {
@@ -405,6 +412,7 @@ HachiBowl.Game.prototype = {
   },
   
   showTenpinWin: function(text,vibtime) {
+    this.powerSound.play();
     this.startMessage.setText(text);
     this.startMessage.visible = true;
     this.startMessage.alpha = 0;

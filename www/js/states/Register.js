@@ -20,6 +20,16 @@ HachiBowl.Register.prototype = {
   
   create: function() {    
     this.game.stage.backgroundColor = bgcolor2;
+    
+    this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    this.bgimg.autoScroll(10, 20);
+    
+    /*****************************
+     ******** GAME SOUNDS ********
+     *****************************/
+    this.selectSound = this.game.add.audio('select');
+    this.cancelSound = this.game.add.audio('cancel');
+    
     this.tilewin = 	[
           [-1,0,1,1,1,1,1,1,2,-1],
           [-1,6,7,7,7,7,7,7,8,-1],
@@ -99,18 +109,24 @@ HachiBowl.Register.prototype = {
   handlePointerDown: function(pointer){
     for(var i=0;i<6;i++){
       for(var j=0;j<7;j++){
-        if(this.digitRects[i][j].contains(pointer.x,pointer.y)){if(this.nameText.text.length<8) this.nameText.text+=this.digits[i][j];}
+        if(this.digitRects[i][j].contains(pointer.x,pointer.y)){
+          if(this.nameText.text.length<8) {
+            this.selectSound.play();
+            this.nameText.text+=this.digits[i][j];
+          }else this.cancelSound.play();
+        }
       }
     }
     
     var backpress = this.backRect.contains(pointer.x,pointer.y);
     var donepress = this.doneRect.contains(pointer.x,pointer.y);
-    if(backpress===true) {this.nameText.text=this.nameText.text.slice(0,this.nameText.text.length-1);}
+    if(backpress===true) {this.nameText.text=this.nameText.text.slice(0,this.nameText.text.length-1);this.cancelSound.play();}
     if(donepress===true) this.saveHighScore();
   },
   
   saveHighScore: function(){
     if(this.nameRegistered === false){
+      this.selectSound.play();
       for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.score) {
           //removes last element

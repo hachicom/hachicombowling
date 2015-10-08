@@ -10,6 +10,9 @@ HachiBowl.Menu.prototype = {
   preload: function() {},
   
   create: function() {    
+    this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    //this.bgimg.autoScroll(10, 20);
+  
     this.tilewin = 	[
           [-1,0,1,1,1,1,1,1,2,-1],
           [-1,6,7,7,7,7,7,7,8,-1],
@@ -39,9 +42,12 @@ HachiBowl.Menu.prototype = {
     this.game.stage.backgroundColor = bgcolor2;
     // tempVars
     this.bgmval = '';
+    this.bgm1music = this.game.add.audio('bgm1', 1, true);
+    this.bgm2music = this.game.add.audio('bgm2', 1, true);
+    currentBGM = this.bgm1music;
     if(sfxOn===true) {
       this.bgmval = 'bgm1';
-      //TODO: play bgm1 music
+      currentBGM.play();
     }
     this.heroval = 0;
     
@@ -138,17 +144,21 @@ HachiBowl.Menu.prototype = {
   handlePointerDown: function(pointer) {
     if(this.bgmOneRect.contains(pointer.x,pointer.y)){
       this.bgmval = 'bgm1'; this.bgmCursor.x = 60; 
-      //TODO: play bgm1 music
+      currentBGM.stop();
+      currentBGM = this.bgm1music;
+      currentBGM.play();
       if(sfxOn===true) this.cancelSound.play();
     }
     if(this.bgmTwoRect.contains(pointer.x,pointer.y)){
       this.bgmval = 'bgm2'; this.bgmCursor.x = 160; 
-      //TODO: play bgm2 music
+      currentBGM.stop();
+      currentBGM = this.bgm2music;
+      currentBGM.play();
       if(sfxOn===true) this.cancelSound.play();
     }
     if(this.bgmOffRect.contains(pointer.x,pointer.y)){
       this.bgmval = ''; this.bgmCursor.x = 260; 
-      //TODO: stop music
+      currentBGM.stop();
       if(sfxOn===true) this.cancelSound.play();
     }
     
@@ -176,11 +186,12 @@ HachiBowl.Menu.prototype = {
   },
   
   goBack: function(){
+    currentBGM.stop();
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Title");
   },
   
   playGame: function(){
-    currentBGM = this.bgmval;
+    //currentBGM = this.bgmval;
     currentHero = this.heroval;
     
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game",[this.gamemode]);

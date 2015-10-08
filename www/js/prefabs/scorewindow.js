@@ -48,10 +48,14 @@ var ScoreWindow = function(game,gamemode) {
   this.diamondLabelText = this.game.add.bitmapText(30, 256, 'start16', "x0", 16);
   this.add(this.diamondLabelText);
   
+  this.heartbar = this.game.add.tileSprite(5, 310, 80, 16, 'heart');
+  this.add(this.heartbar);
+  
   if(this.gamemode == 'B'){
     this.timerText = this.game.add.bitmapText(10, 310, 'start16', "00:00", 16);
+    this.heartbar.visible = false;
   }else{
-    this.timerText = this.game.add.bitmapText(10, 310, 'start16', "!!!!!", 16);
+    this.timerText = this.game.add.bitmapText(10, 310, 'start16', "", 16);
   }
   this.add(this.timerText);
 
@@ -82,9 +86,10 @@ ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer,diamond,liv
     if(seconds<10) seconds = '0'+seconds;
     this.timerText.setText(minutes+':'+seconds);
   }else{
-    var lifebar = '';
-    for(var i=0;i<lives; i++) lifebar += '!';
-    this.timerText.setText(lifebar);
+    this.heartbar.width = 16*lives;
+    //var lifebar = '';
+    //for(var i=0;i<lives; i++) lifebar += '!';
+    //this.timerText.setText(lifebar);
   }
 };
 

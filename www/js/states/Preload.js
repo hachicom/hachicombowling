@@ -6,6 +6,7 @@ var curlevel = 'level1';
 var bgcolor1 = 'aaaaff';
 var bgcolor2 = 'aa55ff';
 var startpos;
+var bgmmusic;
 
 var mobileMode = false; //true: usa plugins de som para mobile, false: usa o sistema do Phaser
 
@@ -22,7 +23,7 @@ HachiBowl.Preload.prototype = {
 
     this.load.setPreloadSprite(this.preloadBar);
     
-    this.loadingText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 160, "LOADING", medstyle);
+    this.loadingText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 180, "LOADING", medstyle);
     this.loadingText.anchor.setTo(0.5,0.5);
 
   	this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
@@ -46,8 +47,10 @@ HachiBowl.Preload.prototype = {
     this.load.spritesheet('finger', 'assets/images/fingerSheet.png', 32, 42);
     this.load.image('pause', 'assets/images/pause.png');
     this.load.image('barbg', 'assets/images/barBg.png');
+    this.load.image('bgtitle', 'assets/images/bgtitle.png');
     this.load.image('cursor', 'assets/images/cursor.png');
     this.load.image('barmeter', 'assets/images/meterbar.png');
+    this.load.image('heart', 'assets/images/heart.png');
     this.load.image('titlelogo', 'assets/images/titlelogo.png');
     this.load.image('playerfaces', 'assets/images/player_portrait.png');
     this.load.bitmapFont('start12', 'assets/fonts/start12.png', 'assets/fonts/start12.fnt');
@@ -57,22 +60,30 @@ HachiBowl.Preload.prototype = {
     this.load.audio('pinhit', 'assets/audio/pinhit.wav');
     this.load.audio('rolling', 'assets/audio/rolling.wav');
     this.load.audio('select', 'assets/audio/select.wav');
+    this.load.audio('powerup', 'assets/audio/powerup.wav');
+    this.load.audio('bgm1', 'assets/audio/bgm1.ogg');
+    this.load.audio('bgm2', 'assets/audio/bgm2.ogg');
+    this.load.audio('over', 'assets/audio/over.ogg');
+    this.load.audio('stats', 'assets/audio/stats.ogg');
   },
   
   create: function() {
     //this.asset.cropEnabled = false;
-    //this.loadingText.setText('Decoding BGM... Please Wait...');
-    //titleMusic = this.game.add.audio('bgm1', 1, true);
-    //stageMusic = this.game.add.audio('bgm2', 1, true);
+    this.loadingText.setText('Decoding BGM Files... Please Wait...');
+    currentBGM = this.game.add.audio('bgm1', 1, true);
+    // bgmmusic['bgm2'] = this.game.add.audio('bgm2', 1, true);
+    // bgmmusic['over'] = this.game.add.audio('bgm2', 1, false);
+    // bgmmusic['stats'] = this.game.add.audio('bgm2', 1, true);
   },
   
   update: function() {
     if(!!this.ready) {
-      //this.state.start('Game');
-      if (playerData.savedata.firstrun === true) {
-        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");
-      } else {
-        this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
+      if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
+        if (playerData.savedata.firstrun === true) {
+          this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");
+        } else {
+          this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
+        }
       }
     }
   },

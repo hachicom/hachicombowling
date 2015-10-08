@@ -11,6 +11,9 @@ HachiBowl.Title.prototype = {
   create: function() {    
     this.game.stage.backgroundColor = bgcolor1;
     
+    // this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
+    // this.bgimg.autoScroll(10, 20);
+    
     // this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HACHICOM\nBOWLING", 36);
     // this.titleMessage.align = 'center';
     // this.titleMessage.anchor.setTo(0.5,0);

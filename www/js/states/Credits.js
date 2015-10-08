@@ -30,10 +30,11 @@ HachiBowl.Credits.prototype = {
     this.creditText2 = this.game.add.bitmapText(this.game.world.centerX, this.creditText1.y + this.creditText1.height + 36, 'start12', "", 12);
     this.creditText2.align = 'center';
     this.creditText2.setText(
-      '=======================\n\n\n* DEMOSCENE MUSIC *\n\n'
-      +'Caramel Condition\n(ko0x)\n\n'
-      +'My South West\n(WONDERBOY)\n\n'
-      +'Spanish Candy\n(ARACHNO)\n\n'
+      '=======================\n\n\n* MUSIC *\n\n'
+      +'BGM1: Art\n(Szymon Matuszewski)\n\n'
+      +'BGM2: X&Y\n(Szymon Matuszewski)\n\n'
+      +'Over: Victory\n(Circlerun)\n\n'
+      +'Stats: Trance Menu\n(Rezoner)\nhttp://soundcloud.com/rezoner/\n\n'
       +'THESE TRACKS ARE\n\nPRESUMED TO BE FREE\n\nOR PUBLIC DOMAIN'
     );
     this.creditText2.anchor.setTo(0.5,0);
