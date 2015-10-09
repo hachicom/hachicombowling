@@ -48,7 +48,7 @@ var ScoreWindow = function(game,gamemode) {
   this.diamondLabelText = this.game.add.bitmapText(30, 256, 'start16', "x0", 16);
   this.add(this.diamondLabelText);
   
-  this.heartbar = this.game.add.tileSprite(5, 310, 80, 16, 'heart');
+  this.heartbar = this.game.add.tileSprite(8, 310, 80, 16, 'heart');
   this.add(this.heartbar);
   
   if(this.gamemode == 'B'){

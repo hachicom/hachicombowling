@@ -41,7 +41,7 @@ HachiBowl.Menu.prototype = {
         
     this.game.stage.backgroundColor = bgcolor2;
     // tempVars
-    this.bgmval = '';
+    this.bgmval = 'off'
     this.bgm1music = this.game.add.audio('bgm1', 1, true);
     this.bgm2music = this.game.add.audio('bgm2', 1, true);
     currentBGM = this.bgm1music;
@@ -157,7 +157,7 @@ HachiBowl.Menu.prototype = {
       if(sfxOn===true) this.cancelSound.play();
     }
     if(this.bgmOffRect.contains(pointer.x,pointer.y)){
-      this.bgmval = ''; this.bgmCursor.x = 260; 
+      this.bgmval = 'off'; this.bgmCursor.x = 260; 
       currentBGM.stop();
       if(sfxOn===true) this.cancelSound.play();
     }
@@ -191,7 +191,7 @@ HachiBowl.Menu.prototype = {
   },
   
   playGame: function(){
-    //currentBGM = this.bgmval;
+    bgmval = this.bgmval;
     currentHero = this.heroval;
     
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game",[this.gamemode]);

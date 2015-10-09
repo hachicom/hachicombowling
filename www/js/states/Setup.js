@@ -180,6 +180,9 @@ HachiBowl.Setup.prototype = {
     language = this.langval;
     vibrationOn = this.vibval;
     
+    destino = "Title";
+    if (playerData.savedata.firstrun === true) destino = "Tutorial";
+    
     playerData.savedata.firstrun = false;
     playerData.settings.sfx = sfxOn;
     playerData.settings.language = language;
@@ -195,6 +198,6 @@ HachiBowl.Setup.prototype = {
     if(sfxOn===true){
       this.selectSound.play();
     }
-    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
+    this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,destino);
   }
 };

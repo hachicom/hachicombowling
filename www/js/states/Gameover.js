@@ -50,7 +50,7 @@ HachiBowl.Gameover.prototype = {
     
     this.bgmmusic = this.game.add.audio('stats', 1, true);
     currentBGM = this.bgmmusic;
-    currentBGM.play();
+    if(bgmval !== 'off') currentBGM.play();
   },
   
   update: function() {

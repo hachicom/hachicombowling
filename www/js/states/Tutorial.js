@@ -90,7 +90,7 @@ HachiBowl.Tutorial.prototype = {
      ********** TIMERS **********
      ****************************/
     this.highscoreTimer = this.game.time.create(false);
-    this.highscoreTimer.add(5000, this.changePage, this);
+    this.highscoreTimer.add(8000, this.changePage, this);
     this.highscoreTimer.start();
   },
   
@@ -115,9 +115,9 @@ HachiBowl.Tutorial.prototype = {
     //if(this.ballSpr.x <= 112) {this.ballSpr.x = 112; this.heroSpr.x = 112;}
     
     if(this.ballSpr.y <= 192) {
-      this.ballSpr.body.velocity.x -= 8;
-      this.finger.x = this.leftButton.x;
-      this.finger.y = this.leftButton.y;
+      this.ballSpr.body.velocity.x += 8;
+      this.finger.x = this.rightButton.x;
+      this.finger.y = this.rightButton.y;
       this.finger.frame = 1;
     }
   },
@@ -127,19 +127,21 @@ HachiBowl.Tutorial.prototype = {
     switch(this.pageShow){
       case 1: 
         this.tutorialText.setText(glossary.text.tutorialPg1[language]); 
-        this.highscoreTimer.add(5000, this.changePage, this); 
+        this.highscoreTimer.add(8000, this.changePage, this); 
         this.highscoreTimer.start(); break;
       case 2: 
         this.tutorialText.setText(glossary.text.tutorialPg2[language]); 
-        this.highscoreTimer.add(5000, this.changePage, this); 
+        this.highscoreTimer.add(6000, this.changePage, this); 
         this.highscoreTimer.start(); 
         this.barSpr.visible = true; this.cursorSpr.visible = true;
         this.cursorSpr.body.velocity.x = this.cursorspeed;
         this.finger.frame = 0;
         break;
       case 3: 
+        this.finger.y -= 80;
+        this.finger.frame = 1;
         this.tutorialText.setText(glossary.text.tutorialPg3[language]); 
-        this.highscoreTimer.add(5000, this.changePage, this); 
+        this.highscoreTimer.add(7000, this.changePage, this); 
         this.highscoreTimer.start(); 
         var ballVelo = (this.cursorSpr.x - this.barSpr.x);
         if(ballVelo>=-8 && ballVelo<=8) ballVelo = 0;
@@ -151,7 +153,7 @@ HachiBowl.Tutorial.prototype = {
         break;
       case 4: 
         this.tutorialText.setText(glossary.text.tutorialPg4[language]); 
-        this.highscoreTimer.add(5000, this.changePage, this); 
+        this.highscoreTimer.add(10000, this.changePage, this); 
         this.highscoreTimer.start(); break;
       case 5: 
         this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Highscore"); break;

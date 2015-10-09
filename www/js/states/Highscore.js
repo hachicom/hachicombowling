@@ -3,8 +3,15 @@ var HachiBowl = HachiBowl || {};
 HachiBowl.Highscore = function(){};
 
 HachiBowl.Highscore.prototype = {
-  init: function() {
-    //this.score = paramArr[0];
+  init: function(paramArr) {
+    //console.dir(paramArr);
+    if(typeof paramArr !== 'undefined'){
+      this.blinkpos = paramArr[0];
+      this.gamemode = paramArr[1];
+    }else{
+      this.blinkpos = 0;
+      this.gamemode = '';
+    }
     
     this.scoretable = playerData.scoretable.scores;
     this.namestable = playerData.scoretable.names;
@@ -16,6 +23,7 @@ HachiBowl.Highscore.prototype = {
   
   create: function() {
     this.page = 0;
+    if(this.gamemode !== '') this.page=1;
     this.game.stage.backgroundColor = bgcolor2;
     
     this.bgimg = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'bgtitle');
@@ -46,9 +54,16 @@ HachiBowl.Highscore.prototype = {
     
     this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HISCORE GAME-A", 16);
     this.titleMessage.anchor.setTo(0.5,0);
+    if(this.gamemode == 'B') this.titleMessage.setText("HISCORE GAME-B");
     
     var nameTxt = '';
     var scoreTxt = '';
+    if(this.gamemode == 'B')
+    for(var i=0;i<this.scoretable.length;i++){
+      nameTxt  += this.namestable[i] + '\n\n';
+      scoreTxt += this.scoretable[i] + '\n\n';
+    }
+    else 
     for(var i=0;i<this.scoretable2.length;i++){
       nameTxt  += this.namestable2[i] + '\n\n';
       scoreTxt += this.scoretable2[i] + '\n\n';
@@ -65,15 +80,24 @@ HachiBowl.Highscore.prototype = {
     this.CharTiles.autoScroll(-40, 0);
         
     this.titleTimer = this.game.time.create(false);
-    this.titleTimer.loop(5000, this.showTitle, this);
+    this.titleTimer.loop(10000, this.showTitle, this);
     this.titleTimer.start();
+    
+    this.game.input.onDown.add(this.handlePointerDown,this);
   },
   
   update: function() {
-    if(this.game.input.activePointer.justPressed()) {
-      currentBGM.stop();
-      this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Title");
-    }
+    /* if(this.game.input.activePointer.justPressed()) {
+      this.showTitle();
+    } */
+  },
+  
+  // render: function(){
+    // this.game.debug.text("my place: " + this.blinkpos + " gamemode: " + this.gamemode, 0, 10);
+  // },
+  
+  handlePointerDown: function(pointer) {
+    this.showTitle();
   },
     
   showTitle: function(){

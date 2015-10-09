@@ -127,6 +127,9 @@ HachiBowl.Register.prototype = {
   saveHighScore: function(){
     if(this.nameRegistered === false){
       if(sfxOn===true) this.selectSound.play();
+      if(this.nameText.text=='') this.nameText.text = 'BABY';
+      if(this.nameText.text=='        ') this.nameText.text = 'MEG';
+      var pos = 0;
       for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.score) {
           //removes last element
@@ -135,6 +138,7 @@ HachiBowl.Register.prototype = {
           this.namestable.splice(hikey,1);
           this.scoretable.splice(i,0,this.score);
           this.namestable.splice(i,0,this.nameText.text);
+          pos = i;
           if(this.gamemode == 'B') {
             playerData.scoretable.scores = this.scoretable;
             playerData.scoretable.names = this.namestable;
@@ -147,7 +151,7 @@ HachiBowl.Register.prototype = {
         }
       }
       this.nameRegistered = true;
-      this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Highscore");
+      this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Highscore",[pos,this.gamemode]);
     }
   }
 };

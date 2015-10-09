@@ -11,6 +11,8 @@ HachiBowl.Credits.prototype = {
   create: function() {    
     this.game.stage.backgroundColor = bgcolor1;
     
+    var textspeed = -32;
+    
     // this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HACHICOM\nBOWLING", 36);
     // this.titleMessage.align = 'center';
     // this.titleMessage.anchor.setTo(0.5,0);
@@ -25,21 +27,20 @@ HachiBowl.Credits.prototype = {
     );
     this.creditText1.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText1, Phaser.Physics.ARCADE);
-    this.creditText1.body.velocity.y=-40;
+    this.creditText1.body.velocity.y=textspeed;
     
     this.creditText2 = this.game.add.bitmapText(this.game.world.centerX, this.creditText1.y + this.creditText1.height + 36, 'start12', "", 12);
     this.creditText2.align = 'center';
     this.creditText2.setText(
       '=======================\n\n\n* MUSIC *\n\n'
-      +'BGM1: Art\n(Szymon Matuszewski)\n\n'
-      +'BGM2: X&Y\n(Szymon Matuszewski)\n\n'
-      +'Over: Victory\n(Circlerun)\n\n'
-      +'Stats: Trance Menu\n(Rezoner)\nhttp://soundcloud.com/rezoner/\n\n'
-      +'THESE TRACKS ARE\n\nPRESUMED TO BE FREE\n\nOR PUBLIC DOMAIN'
+      +'BGM1:\nArt (Szymon Matuszewski)\n\n'
+      +'BGM2:\nX & Y (Szymon Matuszewski)\n\n'
+      +'Over:\nVictory (Circlerun)\n\n'
+      +'Stats:\nTrance Menu (Rezoner)\nhttp://soundcloud.com/\nrezoner/\n\n'
     );
     this.creditText2.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText2, Phaser.Physics.ARCADE);
-    this.creditText2.body.velocity.y=-40;
+    this.creditText2.body.velocity.y=textspeed;
     
     this.creditText3 = this.game.add.bitmapText(this.game.world.centerX, this.creditText2.y + this.creditText2.height + 36, 'start12', "", 12);
     this.creditText3.align = 'center';
@@ -55,7 +56,7 @@ HachiBowl.Credits.prototype = {
     );
     this.creditText3.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText3, Phaser.Physics.ARCADE);
-    this.creditText3.body.velocity.y=-40;
+    this.creditText3.body.velocity.y=textspeed;
     
     this.creditText4 = this.game.add.bitmapText(this.game.world.centerX, this.creditText3.y + this.creditText3.height + 36, 'start12', "", 12);
     this.creditText4.align = 'center';
@@ -65,7 +66,7 @@ HachiBowl.Credits.prototype = {
     );
     this.creditText4.anchor.setTo(0.5,0);
     this.game.physics.enable(this.creditText4, Phaser.Physics.ARCADE);
-    this.creditText4.body.velocity.y=-40;
+    this.creditText4.body.velocity.y=textspeed;
   },
   
   update: function() {

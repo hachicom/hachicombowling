@@ -152,6 +152,7 @@ HachiBowl.Game.prototype = {
     this.cancelSound = this.game.add.audio('cancel');
     this.powerSound = this.game.add.audio('powerup');
     this.overSound = this.game.add.audio('over');
+    this.coinSound = this.game.add.audio('coin');
 
     /****************************
      ********** TIMERS **********
@@ -372,6 +373,9 @@ HachiBowl.Game.prototype = {
   
   countMatchTime: function() {
     this.gameTimer-=1000;
+    if(this.gameTimer<=10000){
+      if(sfxOn===true) this.coinSound.play();
+    }
     if(this.gameTimer<=0) {
       this.matchTimer.stop();
       this.endGame();
@@ -412,7 +416,7 @@ HachiBowl.Game.prototype = {
   },
   
   showTenpinWin: function(text,vibtime) {
-    this.powerSound.play();
+    if(sfxOn===true) this.powerSound.play();
     this.startMessage.setText(text);
     this.startMessage.visible = true;
     this.startMessage.alpha = 0;
@@ -504,6 +508,7 @@ HachiBowl.Game.prototype = {
         if(sfxOn===true){
           this.cancelSound.play();
         }
+        currentBGM.stop();
         this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
       }else{
         this.quitButton.show(false);
