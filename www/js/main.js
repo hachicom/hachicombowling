@@ -58,16 +58,15 @@ var currentHero = '';
 
 var HachiBowl = HachiBowl || {};
 
-window.onload = function() {
+(function() {
   document.addEventListener("deviceready", function() {
+    alert('admob is ready!');
     setTimeout(function() {
         navigator.splashscreen.hide();
     }, 5000, false);
     
     if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
     
-    alert('admob is ready!');
-
     AdMob.createBanner( {
         license: 'hachicom@gmail.com/pub-8006522456285045',
         adId: admobid.banner, 
