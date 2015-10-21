@@ -85,7 +85,7 @@ document.addEventListener("deviceready", function() {
   
   AdMob.prepareInterstitial({
       adId: admobid.interstitial,
-      autoShow: true
+      autoShow: false
   });
 });
 
