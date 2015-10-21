@@ -193,7 +193,7 @@ HachiBowl.Menu.prototype = {
   playGame: function(){
     bgmval = this.bgmval;
     currentHero = this.heroval;
-    //if(isMobile()) {if(AdMob) AdMob.hideBanner();}
+    if(isMobile()) {if(AdMob) AdMob.hideBanner();}
     
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game",[this.gamemode]);
   }
