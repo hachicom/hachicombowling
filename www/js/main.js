@@ -75,6 +75,7 @@ document.addEventListener("deviceready", function() {
     // select the right Ad Id according to platform
     var admobid = ad_units.android;//( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
     
+    if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
     if(AdMob) {
       AdMob.createBanner({
         license: 'hachicom@gmail.com/pub-8006522456285045',
@@ -82,8 +83,7 @@ document.addEventListener("deviceready", function() {
         position:AdMob.AD_POSITION.BOTTOM_CENTER, 
         overlap:true, 
         isTesting: true,
-        autoShow:true,
-        isForChild:true
+        autoShow:true
       });
       
       AdMob.prepareInterstitial({
