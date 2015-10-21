@@ -38,6 +38,7 @@ HachiBowl.Preload.prototype = {
     this.load.spritesheet('bpin', 'assets/images/pin.png', 24, 32);
     this.load.spritesheet('player', 'assets/images/player.png', 64, 64);
     this.load.spritesheet('playerface', 'assets/images/player_portrait.png', 96, 96);
+    this.load.spritesheet('playerwin', 'assets/images/player_win.png', 96, 96);
     this.load.spritesheet('arrow', 'assets/images/arrow.png', 64, 64);
     this.load.spritesheet('diamondsmall', 'assets/images/diamondSmall.png', 16, 13);
     this.load.spritesheet('diamondbig', 'assets/images/diamondBig.png', 68, 54);
@@ -52,7 +53,7 @@ HachiBowl.Preload.prototype = {
     this.load.image('barmeter', 'assets/images/meterbar.png');
     this.load.image('heart', 'assets/images/heart.png');
     this.load.image('titlelogo', 'assets/images/titlelogo.png');
-    this.load.image('playerfaces', 'assets/images/player_portrait.png');
+    this.load.image('playerfaces', 'assets/images/player_win.png');
     this.load.bitmapFont('start12', 'assets/fonts/start12.png', 'assets/fonts/start12.fnt');
     this.load.bitmapFont('start16', 'assets/fonts/start16.png', 'assets/fonts/start16.fnt');
     this.load.bitmapFont('start36', 'assets/fonts/start36.png', 'assets/fonts/start36.fnt');
@@ -79,6 +80,7 @@ HachiBowl.Preload.prototype = {
   
   update: function() {
     if(!!this.ready) {
+      if(typeof AdMob !== "undefined") AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
       if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
         if (playerData.savedata.firstrun === true) {
           this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");

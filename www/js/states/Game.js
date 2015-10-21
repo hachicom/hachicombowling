@@ -84,7 +84,7 @@ HachiBowl.Game.prototype = {
     this.rightButton.visible = false;
     this.rightRect = new Phaser.Rectangle(112,this.rightButton.y - 32,112,64);
     
-    //Diamond Sticker creation    
+    //Diamond Sticker creation
     this.diamondChanceSpr = this.game.add.sprite(112, this.angleBar.y - 64, 'diamondbig');
     this.diamondChanceSpr.anchor.setTo(0.5,0.5);
     this.diamondChanceSpr.visible = false;
@@ -123,6 +123,10 @@ HachiBowl.Game.prototype = {
     this.fadeTween = this.game.add.tween(this.startMessage);
     this.fadeTween.to({alpha:1},1000,Phaser.Easing.Linear.NONE);
     this.fadeTween.start();
+    this.winPoseSpr = this.game.add.sprite(-96, this.startMessage.y + 40, 'playerwin', currentHero);
+    this.moveTweenR = this.game.add.tween(this.winPoseSpr);
+    this.moveTweenR.to({x:this.game.width - 110},2000,Phaser.Easing.Cubic.InOut);
+    this.moveTweenR.start();
     this.narratorMessage = this.game.add.bitmapText(this.game.width, this.game.world.centerY+48, 'start12', glossary.text.readyMsg[language], 12);
     this.narratorMessage.anchor.setTo(0,0.5);
     this.moveTween = this.game.add.tween(this.narratorMessage);
@@ -362,6 +366,7 @@ HachiBowl.Game.prototype = {
   hideStartMessage: function() {
     this.startMessage.visible = false;
     this.narratorMessage.visible = false;
+    this.winPoseSpr.visible = false;
     this.messageBG.visible = false;
     this.ball.visible = true;
     this.playerSpr.input.enableDrag();
@@ -426,15 +431,26 @@ HachiBowl.Game.prototype = {
     if(this.turn==0){
       //strike
       this.narratorMessage.setText(glossary.text.strikeMsg[language]);
-      if(this.round%this.diamondround==0) this.narratorMessage.setText(glossary.text.strikeDiamondMsg[language]);      
+      this.winPoseSpr.frame = currentHero;
+      if(this.round%this.diamondround==0) {
+        this.narratorMessage.setText(glossary.text.strikeDiamondMsg[language]);
+        this.winPoseSpr.frame = 4;
+      }
     }else{
       //spare
       this.narratorMessage.setText(glossary.text.spareMsg[language]);
-      if(this.round%this.diamondround==0) this.narratorMessage.setText(glossary.text.spareDiamondMsg[language]);  
+      this.winPoseSpr.frame = currentHero;
+      if(this.round%this.diamondround==0) {
+        this.narratorMessage.setText(glossary.text.spareDiamondMsg[language]);
+        this.winPoseSpr.frame = 4;
+      }
     }
     this.narratorMessage.visible = true;
+    this.winPoseSpr.visible = true;
     this.narratorMessage.x = this.game.width;
+    this.winPoseSpr.x = -96;
     this.moveTween.start();
+    this.moveTweenR.start();
     this.messageBG.visible = true;
     if(this.gamemode == 'B') this.matchTimer.pause();
     this.tenpinTimer.start();
@@ -449,6 +465,7 @@ HachiBowl.Game.prototype = {
     this.startMessage.visible = false;
     this.narratorMessage.setText("");
     this.narratorMessage.visible = false;
+    this.winPoseSpr.visible = false;
     this.messageBG.visible = false;
     this.checkSpareScore();
     if(this.turn==0){

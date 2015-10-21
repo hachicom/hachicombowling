@@ -51,6 +51,11 @@ HachiBowl.Gameover.prototype = {
     this.bgmmusic = this.game.add.audio('stats', 1, true);
     currentBGM = this.bgmmusic;
     if(bgmval !== 'off') currentBGM.play();
+    
+    if(typeof AdMob !== "undefined") {
+      AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
+      AdMob.showInterstitial();
+    }
   },
   
   update: function() {
