@@ -64,7 +64,8 @@ document.addEventListener("deviceready", function() {
   }, 5000, false);
   
   if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
-  else alert('admob is ready!');
+  
+  alert('admob is ready!');
 
   AdMob.createBanner( {
       license: 'hachicom@gmail.com/pub-8006522456285045',
@@ -83,20 +84,20 @@ document.addEventListener("deviceready", function() {
   });
 });
 
-(function() {
-  HachiBowl.game = new Phaser.Game(320, 568, Phaser.CANVAS, '');
+// (function() {
+  // HachiBowl.game = new Phaser.Game(320, 568, Phaser.CANVAS, '');
 
-  HachiBowl.game.state.add('Boot', HachiBowl.Boot);
-  HachiBowl.game.state.add('Preload', HachiBowl.Preload);
-  HachiBowl.game.state.add('Title', HachiBowl.Title);
-  HachiBowl.game.state.add('Tutorial', HachiBowl.Tutorial);
-  HachiBowl.game.state.add('Credits', HachiBowl.Credits);
-  HachiBowl.game.state.add('Setup', HachiBowl.Setup);
-  HachiBowl.game.state.add('Menu', HachiBowl.Menu);
-  HachiBowl.game.state.add('Game', HachiBowl.Game);
-  HachiBowl.game.state.add('Gameover', HachiBowl.Gameover);
-  HachiBowl.game.state.add('Register', HachiBowl.Register);
-  HachiBowl.game.state.add('Highscore', HachiBowl.Highscore);
+  // HachiBowl.game.state.add('Boot', HachiBowl.Boot);
+  // HachiBowl.game.state.add('Preload', HachiBowl.Preload);
+  // HachiBowl.game.state.add('Title', HachiBowl.Title);
+  // HachiBowl.game.state.add('Tutorial', HachiBowl.Tutorial);
+  // HachiBowl.game.state.add('Credits', HachiBowl.Credits);
+  // HachiBowl.game.state.add('Setup', HachiBowl.Setup);
+  // HachiBowl.game.state.add('Menu', HachiBowl.Menu);
+  // HachiBowl.game.state.add('Game', HachiBowl.Game);
+  // HachiBowl.game.state.add('Gameover', HachiBowl.Gameover);
+  // HachiBowl.game.state.add('Register', HachiBowl.Register);
+  // HachiBowl.game.state.add('Highscore', HachiBowl.Highscore);
 
-  HachiBowl.game.state.start('Boot');
-})();
+  // HachiBowl.game.state.start('Boot');
+// })();
