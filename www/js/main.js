@@ -59,21 +59,28 @@ var currentHero = '';
 var HachiBowl = HachiBowl || {};
 
 document.addEventListener("deviceready", function() {
-    setTimeout(function() {
-        navigator.splashscreen.hide();
-    }, 5000, false);
-    
-    //if(isMobile()) document.addEventListener("pause", yourCallbackFunction, false);
-    
-    // if(isMobile()) {
-      // admob.initAdmob("ca-app-pub-8006522456285045/7176418810","ca-app-pub-8006522456285045/8653152014");
-      
-      // var admobParam=new  admob.Params();
-      // admobParam.extra={'keyword':"admob phonegame"};
-      // admobParam.isForChild=true;
-      // admobParam.isTesting=true;
-      // admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP,admobParam);
-    // }
+  setTimeout(function() {
+      navigator.splashscreen.hide();
+  }, 5000, false);
+  
+  if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
+  else alert('admob is ready!');
+
+  AdMob.createBanner( {
+      license: 'hachicom@gmail.com/pub-8006522456285045',
+      adId: admobid.banner, 
+      isTesting: true,
+      overlap: true, 
+      offsetTopBar: false, 
+      position: AdMob.AD_POSITION.BOTTOM_CENTER,
+      autoShow: true,
+      bgColor: 'black'
+  } );
+  
+  AdMob.prepareInterstitial({
+      adId: admobid.interstitial,
+      autoShow: true
+  });
 });
 
 (function() {
