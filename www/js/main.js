@@ -64,34 +64,6 @@ document.addEventListener("deviceready", function() {
     }, 5000, false);
     
     //if(isMobile()) document.addEventListener("pause", yourCallbackFunction, false);
-    
-    var ad_units = {
-      android : {
-        banner: "ca-app-pub-8006522456285045/7176418810", // or DFP format "/6253334/dfp_example_ad"
-        interstitial: "ca-app-pub-8006522456285045/8653152014"
-      }
-    };
-    
-    // select the right Ad Id according to platform
-    var admobid = ad_units.android;//( /(android)/i.test(navigator.userAgent) ) ? ad_units.android : ad_units.ios;
-    
-    if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
-    if(AdMob) {
-      AdMob.createBanner({
-        license: 'hachicom@gmail.com/pub-8006522456285045',
-        adId:admobid.banner, 
-        position:AdMob.AD_POSITION.BOTTOM_CENTER, 
-        overlap:true, 
-        isTesting: true,
-        autoShow:true
-      });
-      
-      AdMob.prepareInterstitial({
-        adId: admobid.interstitial,
-        isTesting: true,
-        autoShow: false
-      });
-    }
 });
 
 (function() {
