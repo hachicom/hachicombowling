@@ -25,6 +25,7 @@ if(( /(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent) )) {
 
 function initApp() {
     if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
+    else alert('admob is ready!');
 
     AdMob.createBanner( {
         license: 'hachicom@gmail.com/pub-8006522456285045',
@@ -33,6 +34,7 @@ function initApp() {
         overlap: true, 
         offsetTopBar: false, 
         position: AdMob.AD_POSITION.BOTTOM_CENTER,
+        autoShow: true,
         bgColor: 'black'
     } );
     
