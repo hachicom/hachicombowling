@@ -231,7 +231,7 @@ HachiBowl.Game.prototype = {
       }
     }
     //this.ball.listenChangeDirection();
-    this.scoreWindow.updateInfo(this.score,this.totalStrikes,this.totalSpares,this.gameTimer,this.diamonds,this.lives);
+    this.scoreWindow.updateInfo(this.score,this.turn+1,this.round,this.gameTimer,this.diamonds,this.lives);
   },
   
   render: function(){

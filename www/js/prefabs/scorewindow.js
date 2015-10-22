@@ -32,15 +32,15 @@ var ScoreWindow = function(game,gamemode) {
   this.scoreText = this.game.add.bitmapText(8, 126, 'start16', "0", 16);
   this.add(this.scoreText);
 
-  this.spareLabelText = this.game.add.bitmapText(8, 156, 'start12', "SPARE", 12);
-  this.add(this.spareLabelText);
-  this.spareText = this.game.add.bitmapText(8, 176, 'start16', "0", 16);
-  this.add(this.spareText);
+  this.roundLabelText = this.game.add.bitmapText(8, 156, 'start12', "ROUND", 12);
+  this.add(this.roundLabelText);
+  this.roundText = this.game.add.bitmapText(8, 176, 'start16', "0", 16);
+  this.add(this.roundText);
 
-  this.strikeLabelText = this.game.add.bitmapText(8, 206, 'start12', "STRIKE", 12);
-  this.add(this.strikeLabelText);
-  this.strikeText = this.game.add.bitmapText(8, 226, 'start16', "0", 16);
-  this.add(this.strikeText);
+  this.turnLabelText = this.game.add.bitmapText(8, 206, 'start12', "TURN", 12);
+  this.add(this.turnLabelText);
+  this.turnText = this.game.add.bitmapText(8, 226, 'start16', "0", 16);
+  this.add(this.turnText);
   
   this.diamondicon = this.create(10, 258, 'diamondsmall');
   this.diamondicon.animations.add('shinesmall');
@@ -73,10 +73,10 @@ var ScoreWindow = function(game,gamemode) {
 ScoreWindow.prototype = Object.create(Phaser.Group.prototype);  
 ScoreWindow.prototype.constructor = ScoreWindow;
 
-ScoreWindow.prototype.updateInfo = function(score,strike,spare,timer,diamond,lives) {
+ScoreWindow.prototype.updateInfo = function(score,turn,round,timer,diamond,lives) {
   this.scoreText.setText(score.toString());
-  this.strikeText.setText(strike.toString());
-  this.spareText.setText(spare.toString());
+  this.turnText.setText(turn.toString());
+  this.roundText.setText(round.toString());
   this.diamondLabelText.setText("x"+diamond.toString());
   
   if(this.gamemode == 'B'){
