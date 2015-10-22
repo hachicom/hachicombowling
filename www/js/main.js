@@ -59,12 +59,49 @@ var currentHero = '';
 var HachiBowl = HachiBowl || {};
 
 document.addEventListener("deviceready", function() {
+  //HIDE SPLASHSCREEN
   setTimeout(function() {
       navigator.splashscreen.hide();
   }, 5000, false);
   
-  if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
+  //DEAL WITH APP VISIBILITY
+  document.addEventListener("webkitvisibilitychange", onVisibilityChange, false);
+  function onVisibilityChange(event) {
+    if (event.target.webkitHidden) {
+      HachiBowl.game.paused = true;
+    }
+    else {
+      HachiBowl.game.paused = false;
+    }
+  }
   
+  //REMOVE BACK BUTTON EXIT
+  document.addEventListener("backbutton", onBackKeyDown, false);
+  function onBackKeyDown(){
+    // game.stop();
+    // navigator.notification.confirm(
+      // 'Sair/Quit?', // message
+      // onConfirm, // callback to invoke with index of button pressed
+      // 'Exit', // title
+      // ['Cancel','Ok'] // buttonLabels
+    // );
+    e.preventDefault();
+  }
+
+  function onConfirm(buttonIndex) {
+    if(buttonIndex == 2){
+      if (navigator && navigator.app) {
+        navigator.app.exitApp();
+      } else if (navigator && navigator.device) {
+        navigator.device.exitApp();
+      }
+      //console.log("exited");
+      window.close();
+    }else game.resume();
+  }
+  
+  //ADMOB CONFIGURATION
+  if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
   if( /(android)/i.test(navigator.userAgent) ) { 
     admobid = { // for Android
         banner: 'ca-app-pub-8006522456285045/7176418810',
