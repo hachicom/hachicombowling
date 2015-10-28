@@ -18,16 +18,24 @@ HachiBowl.Preload = function() {
 HachiBowl.Preload.prototype = {
   preload: function() {
     //show loading screen
-    this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar');
-    this.preloadBar.anchor.setTo(0.5);
+    this.game.stage.backgroundColor = '000000';
+    this.preloadBar = this.add.sprite(this.game.world.centerX - 60, this.game.world.centerY + 128, 'preloadbar');
+    this.preloadBar.anchor.setTo(0,0.5);
 
-    this.load.setPreloadSprite(this.preloadBar);
+    this.load.setPreloadSprite(this.preloadBar,0);
     
-    this.loadingText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 180, "LOADING", medstyle);
+    this.loadingText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 180, "", medstyle);
     this.loadingText.anchor.setTo(0.5,0.5);
+    this.blinkTween = this.game.add.tween(this.loadingText);
+    this.blinkTween.to({alpha:0},2000,Phaser.Easing.Linear.NONE,false,0,-1,true);
+    this.blinkTween.onComplete.add(this.onFadeEnd, this);
 
   	this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
     this.splash.anchor.setTo(0.5);
+    this.splash.alpha = 0;
+    this.fadeTween = this.game.add.tween(this.splash);
+    this.fadeTween.to({alpha:1},5000,Phaser.Easing.Linear.NONE);
+    this.fadeTween.onComplete.add(this.onFadeEnd, this);
     
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     
@@ -53,7 +61,7 @@ HachiBowl.Preload.prototype = {
     this.load.image('barmeter', 'assets/images/meterbar.png');
     this.load.image('heart', 'assets/images/heart.png');
     this.load.image('titlelogo', 'assets/images/titlelogo.png');
-    this.load.image('playerfaces', 'assets/images/player_win.png');
+    this.load.image('playerfaces', 'assets/images/player_portrait.png');
     this.load.bitmapFont('start12', 'assets/fonts/start12.png', 'assets/fonts/start12.fnt');
     this.load.bitmapFont('start16', 'assets/fonts/start16.png', 'assets/fonts/start16.fnt');
     this.load.bitmapFont('start36', 'assets/fonts/start36.png', 'assets/fonts/start36.fnt');
@@ -71,7 +79,7 @@ HachiBowl.Preload.prototype = {
   
   create: function() {
     //this.asset.cropEnabled = false;
-    this.loadingText.setText('Decoding BGM Files... Please Wait...');
+    //this.loadingText.setText('Decoding BGM Files... Please Wait...');
     currentBGM = this.game.add.audio('bgm1', 1, true);
     // bgmmusic['bgm2'] = this.game.add.audio('bgm2', 1, true);
     // bgmmusic['over'] = this.game.add.audio('bgm2', 1, false);
@@ -82,6 +90,7 @@ HachiBowl.Preload.prototype = {
     if(!!this.ready) {
       //if(isMobile()) {if(AdMob) AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);}
       if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
+      //if (this.cache.isSoundDecoded('bgm1')){
         if (playerData.savedata.firstrun === true) {
           this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");
         } else {
@@ -90,8 +99,16 @@ HachiBowl.Preload.prototype = {
       }
     }
   },
+  
   onLoadComplete: function() {
+    this.preloadBar.visible = false;
+    this.fadeTween.start();
+  },
+  
+  onFadeEnd: function(){
     this.ready = true;
+    this.loadingText.setText('Decoding BGM Files... Please Wait...');
+    this.blinkTween.start();
   }
 };
 

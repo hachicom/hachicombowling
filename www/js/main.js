@@ -127,7 +127,7 @@ document.addEventListener("deviceready", function() {
 });
 
 (function() {
-  HachiBowl.game = new Phaser.Game(320, 568, Phaser.CANVAS, '');
+  HachiBowl.game = new Phaser.Game(320, 568, Phaser.AUTO, '');
 
   HachiBowl.game.state.add('Boot', HachiBowl.Boot);
   HachiBowl.game.state.add('Preload', HachiBowl.Preload);

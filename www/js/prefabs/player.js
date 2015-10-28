@@ -8,8 +8,9 @@ var Player = function(game, x, y, frame, ball, anglebar) {
   this.originY = y;
 
   // add and play animations
-  //this.animations.add('roll');
-  //this.animations.play('roll', 12, true);
+  this.animations.add('idle',[frame,frame+4,frame]);
+  this.animations.add('throw',[frame+8]);
+  this.animations.play('idle', 3, true);
   
   this.ball = ball;
   this.anglebar = anglebar;
@@ -54,6 +55,7 @@ Player.prototype.onPlayerDragUpdate = function(sprite, pointer) {
 Player.prototype.onPlayerDragStop = function(sprite, pointer) {
   this.input.disableDrag();
   this.launched = true;
+  this.animations.stop('idle', true);
   this.anglebar.visible = true;
   this.anglebar.startCursor();
 };
@@ -63,6 +65,7 @@ Player.prototype.reset = function() {
   this.launched = false;
   this.x = this.originX;
   this.y = this.originY;
+  this.animations.play('idle', 3, true);
   this.ball.reset();
   this.anglebar.reset();
   this.anglebar.visible = false;

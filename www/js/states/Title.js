@@ -20,6 +20,15 @@ HachiBowl.Title.prototype = {
     
     this.titleMessage = this.game.add.sprite(this.game.world.centerX, 20, 'titlelogo');
     this.titleMessage.anchor.setTo(0.5,0);
+    this.titleMessage.alpha = 0;
+    this.fadeTween = this.game.add.tween(this.titleMessage);
+    this.fadeTween.to({alpha:1},2000,Phaser.Easing.Linear.NONE);
+    this.fadeTween.start();
+    
+    this.character1 = this.game.add.sprite(200, 158, 'playerwin', 1);
+    this.character1 = this.game.add.sprite(230, 228, 'playerwin', 2);
+    this.character1 = this.game.add.sprite(180, 238, 'playerwin', 3);
+    this.character1 = this.game.add.sprite(220, 298, 'playerwin', 0);
     
     this.startTextA = this.game.add.bitmapText(20, 178, 'start16', glossary.UI.startA[language], 16);
     //this.startTextA.anchor.setTo(0.5,0);
@@ -60,11 +69,12 @@ HachiBowl.Title.prototype = {
     this.demoTimer.start();
   },
   
-  /* update: function() {
+  update: function() {
     if(this.game.input.activePointer.justPressed()) {
-      this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Game");
+      this.demoTimer.stop(false);
+      this.demoTimer.start();
     }
-  }, */
+  },
   
   /* render: function(){
     this.game.debug.geom( this.startRect, 'rgba(255,255,0,0.4)' ) ;

@@ -13,7 +13,7 @@ function isMobile(){
   var vMobile;
   vMobile = /Android/i.test(navigator.userAgent);
   //A linha abaixo é para debug. Ao compilar, comentá-la para usar funções do Phonegap
-  vMobile = true;
+  vMobile = false;
   
   return vMobile;
 }

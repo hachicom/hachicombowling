@@ -71,17 +71,19 @@ HachiBowl.Game.prototype = {
     this.game.add.existing(this.angleBar);
     this.angleBar.visible = false;
     
-    this.leftButton = this.game.add.sprite(64, this.game.height - 40, 'arrow');
+    this.leftButton = this.game.add.sprite(40, this.game.height - 40, 'arrow');
     this.leftButton.anchor.setTo(0.5,0.5);
     this.leftButton.inputEnabled = true;   
     this.leftButton.visible = false;
+    this.leftButton.alpha  = 0.8;
     this.leftRect = new Phaser.Rectangle(0,this.leftButton.y - 32,112,64);
     
-    this.rightButton = this.game.add.sprite(160, this.game.height - 40, 'arrow');
+    this.rightButton = this.game.add.sprite(180, this.game.height - 40, 'arrow');
     this.rightButton.anchor.setTo(0.5,0.5);
     this.rightButton.inputEnabled = true;
     this.rightButton.scale.x = -1; 
     this.rightButton.visible = false;
+    this.rightButton.alpha  = 0.8;
     this.rightRect = new Phaser.Rectangle(112,this.rightButton.y - 32,112,64);
     
     //Diamond Sticker creation
@@ -186,6 +188,8 @@ HachiBowl.Game.prototype = {
         var ballVelo = this.angleBar.stopCursor();
         this.choseAngle = true;
         this.ball.roll(ballVelo);
+        this.playerSpr.y-=20;
+        this.playerSpr.animations.play('throw', 12, false);
         if(ballVelo >= -60 && ballVelo <= 60) this.showDpad(true);
         if(sfxOn===true){
           this.rollSound.play();

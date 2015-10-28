@@ -29,6 +29,9 @@ HachiBowl.Tutorial.prototype = {
     this.game.physics.enable(this.ballSpr, Phaser.Physics.ARCADE);
     this.heroSpr = this.game.add.sprite(192, this.game.height-96, 'player', this.hero);
     this.heroSpr.anchor.setTo(0.5, 0.5);
+    this.heroSpr.animations.add('idle',[this.hero,this.hero+4,this.hero]);
+    this.heroSpr.animations.add('throw',[this.hero+8]);
+    this.heroSpr.animations.play('idle', 3, true);
     this.barSpr = this.game.add.sprite(112, 100, 'barmeter');
     this.barSpr.anchor.setTo(0.5, 0.5);
     this.barSpr.visible = false;
@@ -37,13 +40,15 @@ HachiBowl.Tutorial.prototype = {
     this.cursorSpr.visible = false;
     this.game.physics.enable(this.cursorSpr, Phaser.Physics.ARCADE);
     this.cursorSpr.body.velocity.x=0;
-    this.leftButton = this.game.add.sprite(64, this.ballSpr.y - 80, 'arrow');
+    this.leftButton = this.game.add.sprite(40, this.ballSpr.y - 80, 'arrow');
     this.leftButton.anchor.setTo(0.5,0.5);
     this.leftButton.visible = false;
-    this.rightButton = this.game.add.sprite(160, this.ballSpr.y - 80, 'arrow');
+    this.leftButton.alpha  = 0.8;
+    this.rightButton = this.game.add.sprite(180, this.ballSpr.y - 80, 'arrow');
     this.rightButton.anchor.setTo(0.5,0.5);
     this.rightButton.scale.x = -1; 
     this.rightButton.visible = false;
+    this.rightButton.alpha  = 0.8;
     this.finger = this.game.add.sprite(this.heroSpr.x, this.heroSpr.y, 'finger', 1);
     
     this.tilewin = 	[
@@ -130,6 +135,7 @@ HachiBowl.Tutorial.prototype = {
         this.highscoreTimer.add(8000, this.changePage, this); 
         this.highscoreTimer.start(); break;
       case 2: 
+        this.heroSpr.animations.stop('idle', true);
         this.tutorialText.setText(glossary.text.tutorialPg2[language]); 
         this.highscoreTimer.add(6000, this.changePage, this); 
         this.highscoreTimer.start(); 
@@ -143,6 +149,8 @@ HachiBowl.Tutorial.prototype = {
         this.tutorialText.setText(glossary.text.tutorialPg3[language]); 
         this.highscoreTimer.add(7000, this.changePage, this); 
         this.highscoreTimer.start(); 
+        this.heroSpr.animations.play('throw', 3, true);
+        this.heroSpr.y-=20;
         var ballVelo = (this.cursorSpr.x - this.barSpr.x);
         if(ballVelo>=-8 && ballVelo<=8) ballVelo = 0;
         this.cursorSpr.body.velocity.x = 0;
