@@ -91,7 +91,7 @@ HachiBowl.Preload.prototype = {
   update: function() {
     if(!!this.ready) {
       //if(isMobile()) {if(AdMob) AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);}
-      //if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
+      if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
       //if (this.cache.isSoundDecoded('bgm1')){
         if (playerData.savedata.firstrun === true) {
           this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");

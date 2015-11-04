@@ -566,6 +566,11 @@ HachiBowl.Game.prototype = {
           this.cancelSound.play();
         }
         currentBGM.stop();
+        if(isMobile()) {
+          if(AdMob) {
+            AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
+          }
+        }
         this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
       }else{
         this.quitButton.show(false);
