@@ -43,6 +43,7 @@ HachiBowl.Preload.prototype = {
     // this.load.tilemap('level2', 'assets/tilemaps/level2.json', null, Phaser.Tilemap.TILED_JSON);
     // this.load.image('gameTiles', 'assets/images/tiles.png');
     this.load.spritesheet('ball', 'assets/images/ball1.png', 24, 24);
+    this.load.spritesheet('block', 'assets/images/blocks.png', 24, 24);
     this.load.spritesheet('bpin', 'assets/images/pin.png', 24, 32);
     this.load.spritesheet('player', 'assets/images/player.png', 64, 64);
     this.load.spritesheet('playerface', 'assets/images/player_portrait.png', 96, 96);
@@ -66,6 +67,7 @@ HachiBowl.Preload.prototype = {
     this.load.bitmapFont('start16', 'assets/fonts/start16.png', 'assets/fonts/start16.fnt');
     this.load.bitmapFont('start36', 'assets/fonts/start36.png', 'assets/fonts/start36.fnt');
     this.load.audio('cancel', 'assets/audio/cancel.wav');
+    this.load.audio('explode', 'assets/audio/explosion.wav');
     this.load.audio('pinhit', 'assets/audio/pinhit.wav');
     this.load.audio('rolling', 'assets/audio/rolling.wav');
     this.load.audio('select', 'assets/audio/select.wav');
@@ -89,14 +91,14 @@ HachiBowl.Preload.prototype = {
   update: function() {
     if(!!this.ready) {
       //if(isMobile()) {if(AdMob) AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);}
-      if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
+      //if (this.cache.isSoundDecoded('bgm1') && this.cache.isSoundDecoded('bgm2')){
       //if (this.cache.isSoundDecoded('bgm1')){
         if (playerData.savedata.firstrun === true) {
           this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Setup");
         } else {
           this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
         }
-      }
+      //}
     }
   },
   

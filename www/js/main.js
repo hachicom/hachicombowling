@@ -58,73 +58,76 @@ var currentHero = '';
 
 var HachiBowl = HachiBowl || {};
 
-document.addEventListener("deviceready", function() {
-  //HIDE SPLASHSCREEN
-  setTimeout(function() {
-      navigator.splashscreen.hide();
-  }, 5000, false);
-  
-  //DEAL WITH APP VISIBILITY
-  document.addEventListener("webkitvisibilitychange", onVisibilityChange, false);
-  function onVisibilityChange(event) {
-    if (event.target.webkitHidden) {
-      HachiBowl.game.paused = true;
-    }
-    else {
-      HachiBowl.game.paused = false;
-    }
-  }
-  
-  //REMOVE BACK BUTTON EXIT
-  document.addEventListener("backbutton", onBackKeyDown, false);
-  function onBackKeyDown(){
-    // game.stop();
-    // navigator.notification.confirm(
-      // 'Sair/Quit?', // message
-      // onConfirm, // callback to invoke with index of button pressed
-      // 'Exit', // title
-      // ['Cancel','Ok'] // buttonLabels
-    // );
-    e.preventDefault();
-  }
-
-  function onConfirm(buttonIndex) {
-    if(buttonIndex == 2){
-      if (navigator && navigator.app) {
-        navigator.app.exitApp();
-      } else if (navigator && navigator.device) {
-        navigator.device.exitApp();
+if(isMobile()){
+  document.addEventListener("deviceready", function() {
+    //HIDE SPLASHSCREEN
+    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 5000, false);
+    
+    //DEAL WITH APP VISIBILITY
+    document.addEventListener("webkitvisibilitychange", onVisibilityChange, false);
+    function onVisibilityChange(event) {
+      if (event.target.webkitHidden) {
+        HachiBowl.game.paused = true;
       }
-      //console.log("exited");
-      window.close();
-    }else game.resume();
-  }
-  
-  //ADMOB CONFIGURATION
-  if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
-  if( /(android)/i.test(navigator.userAgent) ) { 
-    admobid = { // for Android
-        banner: 'ca-app-pub-8006522456285045/7176418810',
-        interstitial: 'ca-app-pub-8006522456285045/8653152014'
-    };
-  }
+      else {
+        HachiBowl.game.paused = false;
+      }
+    }
+    
+    //REMOVE BACK BUTTON EXIT
+    document.addEventListener("backbutton", onBackKeyDown, false);
+    function onBackKeyDown(){
+      // game.stop();
+      // navigator.notification.confirm(
+        // 'Sair/Quit?', // message
+        // onConfirm, // callback to invoke with index of button pressed
+        // 'Exit', // title
+        // ['Cancel','Ok'] // buttonLabels
+      // );
+      e.preventDefault();
+    }
 
-  AdMob.createBanner( {
-      license: 'hachicom@gmail.com/pub-8006522456285045',
-      adId: admobid.banner, 
-      isTesting: true,
-      overlap: true, 
-      offsetTopBar: false, 
-      position: AdMob.AD_POSITION.BOTTOM_CENTER,
-      autoShow: true,
-      bgColor: 'black'
-  } );
-  
-  AdMob.prepareInterstitial({
-      adId: admobid.interstitial,
-      autoShow: false
+    function onConfirm(buttonIndex) {
+      if(buttonIndex == 2){
+        if (navigator && navigator.app) {
+          navigator.app.exitApp();
+        } else if (navigator && navigator.device) {
+          navigator.device.exitApp();
+        }
+        //console.log("exited");
+        window.close();
+      }else game.resume();
+    }
+    
+    //ADMOB CONFIGURATION
+    if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
+    if( /(android)/i.test(navigator.userAgent) ) { 
+      admobid = { // for Android
+          banner: 'ca-app-pub-8006522456285045/7176418810',
+          interstitial: 'ca-app-pub-8006522456285045/8653152014'
+      };
+    }
+
+    AdMob.createBanner( {
+        license: 'hachicom@gmail.com/pub-8006522456285045',
+        adId: admobid.banner, 
+        isTesting: false,
+        overlap: true, 
+        offsetTopBar: false, 
+        position: AdMob.AD_POSITION.BOTTOM_CENTER,
+        autoShow: true,
+        bgColor: 'black'
+    } );
+    
+    AdMob.prepareInterstitial({
+        adId: admobid.interstitial,
+        isTesting: false,
+        autoShow: false
+    });
   });
-});
+}
 
 (function() {
   HachiBowl.game = new Phaser.Game(320, 568, Phaser.AUTO, '');

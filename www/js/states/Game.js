@@ -66,6 +66,12 @@ HachiBowl.Game.prototype = {
       this.bpins.add(bpin);
     }
     
+    //Blocks creation
+    this.block1 = new Block(this.game, 64, this.game.height - 320, 0);
+    this.game.add.existing(this.block1);
+    this.block2 = new Block(this.game, 168, this.game.height - 192, 1);
+    this.game.add.existing(this.block2);
+    
     //Player Input creation    
     this.angleBar = new AngleBar(this.game);
     this.game.add.existing(this.angleBar);
@@ -154,6 +160,7 @@ HachiBowl.Game.prototype = {
      *****************************/
     this.pinSound = this.game.add.audio('pinhit');
     this.rollSound = this.game.add.audio('rolling');
+    this.skullSound = this.game.add.audio('explode');
     this.selectSound = this.game.add.audio('select');
     this.cancelSound = this.game.add.audio('cancel');
     this.powerSound = this.game.add.audio('powerup');
@@ -200,6 +207,11 @@ HachiBowl.Game.prototype = {
     
     if(this.ball.changedDir>=this.ball.maxChangeDir) this.showDpad(false);
     
+    if(this.block1.visible===true && this.block1.gothit === false)
+      if (Phaser.Rectangle.intersects(this.ball.getBounds(), this.block1.getBounds())) {this.hitBlock(this.ball,this.block1)}
+    if(this.block2.visible===true && this.block2.gothit === false)
+      if (Phaser.Rectangle.intersects(this.ball.getBounds(), this.block2.getBounds())) {this.hitBlock(this.ball,this.block2)}
+    
     if(this.ball.onTrack===false && this.gameover===false){
       if(this.pinsHit == 10){
         //strike or spare
@@ -241,8 +253,8 @@ HachiBowl.Game.prototype = {
   render: function(){
     //this.game.debug.text("Hit Total: " + this.pinsHit + " Actual: " + this.lasthit, 0, 10);
     //this.game.debug.text("lasthits: " + this.lasthits[0] + "|" + this.lasthits[1], 0, 20);
-    // this.game.debug.geom( this.leftRect, 'rgba(255,255,0,0.4)' ) ;
-    // this.game.debug.geom( this.rightRect, 'rgba(255,0,255,0.4)' ) ;
+    // this.game.debug.geom( this.ball.getBounds(), 'rgba(255,255,0,0.4)' ) ;
+    // this.game.debug.geom( this.block1.getBounds(), 'rgba(255,0,255,0.4)' ) ;
   },
   
   handlePointerDown: function(pointer){
@@ -264,6 +276,22 @@ HachiBowl.Game.prototype = {
   showDpad(bool){
     this.leftButton.visible = bool;
     this.rightButton.visible = bool;
+  },
+  
+  hitBlock(ball,block){
+    if(ball.body.y >= block.body.y) {
+      if(block.frame == 0){
+        if(sfxOn===true) this.powerSound.play();
+        this.score+=block.hvelo;
+        this.bonusMessage.setText("BLOCK\nBONUS\n"+block.hvelo);
+        this.bonusTimer.start();
+      }else if(block.frame == 1){
+        if(sfxOn===true) this.skullSound.play();
+        if(block.body.x >= 112) ball.body.velocity.x = -160;
+        else ball.body.velocity.x = 160;
+      }
+      block.freeze();
+    }
   },
   
   hitPin: function(body1,body2) {
@@ -305,8 +333,16 @@ HachiBowl.Game.prototype = {
       this.diamondMessageExp.visible = false;
       //this.blinkTween.stop(true);
     }
+    this.block1.reset();
+    this.block2.reset();
+    
     //if last round was a diamond chance round
-    if((this.round-1)%this.diamondround == 0) this.angleBar.cursorspeed += this.difficultspike;
+    if((this.round-1)%this.diamondround == 0) {
+      this.angleBar.cursorspeed += this.difficultspike;
+      var qtdDiamondRnd = (this.round-1)/this.diamondround;
+      if(qtdDiamondRnd == 2) this.block1.visible = true;
+      if(qtdDiamondRnd == 4) this.block2.visible = true;
+    }
   },
   
   checkStrikeScore: function() {
