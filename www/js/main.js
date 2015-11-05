@@ -109,6 +109,10 @@ if(isMobile()){
           interstitial: 'ca-app-pub-8006522456285045/8653152014'
       };
     }
+    
+    document.addEventListener('onAdFailLoad',function(data){
+      alert( data.error + ',' + data.reason );
+    });
 
     AdMob.createBanner( {
         license: 'hachicom@gmail.com/pub-8006522456285045',
