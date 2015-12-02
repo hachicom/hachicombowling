@@ -55,6 +55,8 @@ var vibrationOn = playerData.settings.vibration;
 
 var currentBGM = '';
 var currentHero = '';
+var bgm1cordova = '';
+var bgm2cordova = '';
 
 var HachiBowl = HachiBowl || {};
 
@@ -65,11 +67,11 @@ if(isMobile()){
         navigator.splashscreen.hide();
     }, 5000, false);
     
-    alert('loading sound');
+    //alert('loading sound');
     var bgm1URL = getMediaURL("assets/audio/bgm1.ogg");
-    var bgm1cordova = new Media(bgm1URL, null, mediaError);
+    bgm1cordova = new Media(bgm1URL, null, mediaError);
     var bgm2URL = getMediaURL("assets/audio/bgm2.ogg");
-    var bgm2cordova = new Media(bgm2URL, null, mediaError);
+    bgm2cordova = new Media(bgm2URL, null, mediaError);
   
     function getMediaURL(s) {
       if(/Android/i.test(navigator.userAgent)) return "/android_asset/www/" + s;
