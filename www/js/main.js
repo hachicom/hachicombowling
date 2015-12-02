@@ -71,9 +71,9 @@ if(isMobile()){
     
     //alert('loading sound');
     var bgm1URL = getMediaURL("assets/audio/bgm1.ogg");
-    bgm1cordova = new Media(bgm1URL, null, mediaError);
+    bgm1cordova = new Media(bgm1URL, null, mediaError, loopTrack);
     var bgm2URL = getMediaURL("assets/audio/bgm2.ogg");
-    bgm2cordova = new Media(bgm2URL, null, mediaError);
+    bgm2cordova = new Media(bgm2URL, null, mediaError, loopTrack);
     var bgmSURL = getMediaURL("assets/audio/stats.ogg");
     bgmstatscordova = new Media(bgmSURL, null, mediaError);
   
@@ -83,8 +83,16 @@ if(isMobile()){
     }
     
     function mediaError(e) {
-      alert('Media Error');
-      alert(JSON.stringify(e));
+      console.log('Media Error');
+      console.log(JSON.stringify(e));
+    }
+    
+    function loopTrack(status){
+      if (status === Media.MEDIA_STOPPED) {
+        var posit = currentBGM.getCurrentPosition();
+        var durat = currentBGM.getDuration();
+        if (posit>=durat) currentBGM.play();
+      }
     }
     
     //DEAL WITH APP VISIBILITY
