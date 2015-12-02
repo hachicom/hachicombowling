@@ -45,6 +45,7 @@ HachiBowl.Menu.prototype = {
     if(isMobile()){
       this.bgm1music = bgm1cordova;
       this.bgm2music = bgm2cordova;
+      isPlayingBGM = true;
     }else{
       this.bgm1music = this.game.add.audio('bgm1', 1, true);
       this.bgm2music = this.game.add.audio('bgm2', 1, true);
@@ -152,6 +153,7 @@ HachiBowl.Menu.prototype = {
       currentBGM.stop();
       currentBGM = this.bgm1music;
       currentBGM.play();
+      if(isMobile()) isPlayingBGM = true;
       if(sfxOn===true) this.cancelSound.play();
     }
     if(this.bgmTwoRect.contains(pointer.x,pointer.y)){
@@ -159,11 +161,13 @@ HachiBowl.Menu.prototype = {
       currentBGM.stop();
       currentBGM = this.bgm2music;
       currentBGM.play();
+      if(isMobile()) isPlayingBGM = true;
       if(sfxOn===true) this.cancelSound.play();
     }
     if(this.bgmOffRect.contains(pointer.x,pointer.y)){
       this.bgmval = 'off'; this.bgmCursor.x = 260; 
       currentBGM.stop();
+      if(isMobile()) isPlayingBGM = false;
       if(sfxOn===true) this.cancelSound.play();
     }
     
@@ -192,6 +196,7 @@ HachiBowl.Menu.prototype = {
   
   goBack: function(){
     currentBGM.stop();
+    if(isMobile()) isPlayingBGM = false;
     this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Title");
   },
   

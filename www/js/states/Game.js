@@ -447,6 +447,7 @@ HachiBowl.Game.prototype = {
     //this.score+=this.pinsHit * 10;
     this.gameoverTimer.start();
     currentBGM.stop();
+    if(isMobile()) isPlayingBGM = false;
     if(sfxOn===true) this.overSound.play();
   },
   
@@ -569,6 +570,7 @@ HachiBowl.Game.prototype = {
         if(isMobile()) {
           if(AdMob) {
             AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
+            isPlayingBGM = false;
           }
         }
         this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");

@@ -55,8 +55,10 @@ var vibrationOn = playerData.settings.vibration;
 
 var currentBGM = '';
 var currentHero = '';
+var isPlayingBGM = false;
 var bgm1cordova = '';
 var bgm2cordova = '';
+var bgmstatscordova = '';
 
 var HachiBowl = HachiBowl || {};
 
@@ -72,6 +74,8 @@ if(isMobile()){
     bgm1cordova = new Media(bgm1URL, null, mediaError);
     var bgm2URL = getMediaURL("assets/audio/bgm2.ogg");
     bgm2cordova = new Media(bgm2URL, null, mediaError);
+    var bgmSURL = getMediaURL("assets/audio/stats.ogg");
+    bgmstatscordova = new Media(bgmSURL, null, mediaError);
   
     function getMediaURL(s) {
       if(/Android/i.test(navigator.userAgent)) return "/android_asset/www/" + s;
@@ -88,9 +92,11 @@ if(isMobile()){
     function onVisibilityChange(event) {
       if (event.target.webkitHidden) {
         HachiBowl.game.paused = true;
+        if(isPlayingBGM) currentBGM.pause();
       }
       else {
         HachiBowl.game.paused = false;
+        if(isPlayingBGM) currentBGM.play();
       }
     }
     

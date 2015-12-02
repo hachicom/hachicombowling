@@ -73,10 +73,10 @@ HachiBowl.Preload.prototype = {
     this.load.audio('select', 'assets/audio/select.wav');
     this.load.audio('powerup', 'assets/audio/powerup.wav');
     this.load.audio('coin', 'assets/audio/coin.wav');
+    this.load.audio('over', 'assets/audio/over.ogg');
     if(!isMobile()){
       this.load.audio('bgm1', 'assets/audio/bgm1.ogg');
       this.load.audio('bgm2', 'assets/audio/bgm2.ogg');
-      this.load.audio('over', 'assets/audio/over.ogg');
       this.load.audio('stats', 'assets/audio/stats.ogg');
     }
   },
