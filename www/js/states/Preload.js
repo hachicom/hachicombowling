@@ -85,7 +85,7 @@ HachiBowl.Preload.prototype = {
     //this.asset.cropEnabled = false;
     //this.loadingText.setText('Decoding BGM Files... Please Wait...');
     if(!isMobile()) currentBGM = this.game.add.audio('bgm1', 1, true);
-    else currentBGM = bgm1cordova;
+    //else currentBGM = bgm1cordova;
     // bgmmusic['bgm2'] = this.game.add.audio('bgm2', 1, true);
     // bgmmusic['over'] = this.game.add.audio('bgm2', 1, false);
     // bgmmusic['stats'] = this.game.add.audio('bgm2', 1, true);
@@ -112,13 +112,15 @@ HachiBowl.Preload.prototype = {
   
   onLoadComplete: function() {
     this.preloadBar.visible = false;
-    if(!isMobile()) this.fadeTween.start();
+    this.fadeTween.start();
   },
   
   onFadeEnd: function(){
     this.ready = true;
-    this.loadingText.setText('Decoding BGM Files... Please Wait...');
-    this.blinkTween.start();
+    if(!isMobile()) {
+      this.loadingText.setText('Decoding BGM Files... Please Wait...');
+      this.blinkTween.start();
+    }
   }
 };
 
