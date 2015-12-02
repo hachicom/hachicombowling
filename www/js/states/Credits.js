@@ -11,7 +11,7 @@ HachiBowl.Credits.prototype = {
   create: function() {    
     this.game.stage.backgroundColor = bgcolor1;
     
-    var textspeed = -32;
+    var textspeed = -48;
     
     // this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 20, 'start36', "HACHICOM\nBOWLING", 36);
     // this.titleMessage.align = 'center';
@@ -61,7 +61,7 @@ HachiBowl.Credits.prototype = {
     this.creditText4 = this.game.add.bitmapText(this.game.world.centerX, this.creditText3.y + this.creditText3.height + 36, 'start12', "", 12);
     this.creditText4.align = 'center';
     this.creditText4.setText(
-      '=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\n\nROSEANE ALVES\n\nELTON BATISTA\n\nFELIPE NUNES\n\nFILIPE CIONE\n\n\n\n'
+      '=======================\n\n\n* SPECIAL THANKS *\n\nPRISCILA MARQUETO\n\nROSEANE ALVES\n\nELTON BATISTA\n\nFELIPE NUNES\n\n\n\n'
       +'=======================\n\n\nIN MEMORY OF TWO LOVELY\n\nDOGS, "BABY" AND "MEG"\n\n\nWE WILL MISS YOU'
     );
     this.creditText4.anchor.setTo(0.5,0);

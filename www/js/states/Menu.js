@@ -42,8 +42,13 @@ HachiBowl.Menu.prototype = {
     this.game.stage.backgroundColor = bgcolor2;
     // tempVars
     this.bgmval = 'off'
-    this.bgm1music = this.game.add.audio('bgm1', 1, true);
-    this.bgm2music = this.game.add.audio('bgm2', 1, true);
+    if(isMobile()){
+      this.bgm1music = bgm1cordova;
+      this.bgm2music = bgm2cordova;
+    }else{
+      this.bgm1music = this.game.add.audio('bgm1', 1, true);
+      this.bgm2music = this.game.add.audio('bgm2', 1, true);
+    }
     currentBGM = this.bgm1music;
     if(sfxOn===true) {
       this.bgmval = 'bgm1';

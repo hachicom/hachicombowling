@@ -65,6 +65,21 @@ if(isMobile()){
         navigator.splashscreen.hide();
     }, 5000, false);
     
+    var mp3URL = getMediaURL("assets/audio/bgm1.ogg");
+    var bgm1cordova = new Media(mp3URL, null, mediaError);
+    mp3URL = getMediaURL("assets/audio/bgm2.ogg");
+    var bgm2cordova = new Media(mp3URL, null, mediaError);
+  
+    function getMediaURL(s) {
+      if(device.platform.toLowerCase() === "android") return "/android_asset/www/" + s;
+      return s;
+    }
+    
+    function mediaError(e) {
+      alert('Media Error');
+      alert(JSON.stringify(e));
+    }
+    
     //DEAL WITH APP VISIBILITY
     document.addEventListener("webkitvisibilitychange", onVisibilityChange, false);
     function onVisibilityChange(event) {
@@ -110,9 +125,9 @@ if(isMobile()){
       };
     }
     
-    document.addEventListener('onAdFailLoad',function(data){
-      alert( data.error + ',' + data.reason );
-    });
+    // document.addEventListener('onAdFailLoad',function(data){
+      // alert( data.error + ',' + data.reason );
+    // });
 
     AdMob.createBanner( {
         license: 'hachicom@gmail.com/pub-8006522456285045',
