@@ -65,13 +65,14 @@ if(isMobile()){
         navigator.splashscreen.hide();
     }, 5000, false);
     
+    alert('loading sound');
     var mp3URL = getMediaURL("assets/audio/bgm1.ogg");
     var bgm1cordova = new Media(mp3URL, null, mediaError);
-    mp3URL = getMediaURL("assets/audio/bgm2.ogg");
-    var bgm2cordova = new Media(mp3URL, null, mediaError);
+    // mp3URL = getMediaURL("assets/audio/bgm2.ogg");
+    // var bgm2cordova = new Media(mp3URL, null, mediaError);
   
     function getMediaURL(s) {
-      if(device.platform.toLowerCase() === "android") return "/android_asset/www/" + s;
+      if(/Android/i.test(navigator.userAgent)) return "/android_asset/www/" + s;
       return s;
     }
     
