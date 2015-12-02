@@ -103,8 +103,8 @@ HachiBowl.Highscore.prototype = {
   showTitle: function(){
     this.page++;
     if(this.page==2) {
-      currentBGM.stop();
       if(isMobile()) isPlayingBGM = false;
+      currentBGM.stop();
       this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Title");
     }
     else{

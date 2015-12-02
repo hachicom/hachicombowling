@@ -446,8 +446,8 @@ HachiBowl.Game.prototype = {
     this.angleBar.freeze();
     //this.score+=this.pinsHit * 10;
     this.gameoverTimer.start();
-    currentBGM.stop();
     if(isMobile()) isPlayingBGM = false;
+    currentBGM.stop();
     if(sfxOn===true) this.overSound.play();
   },
   
@@ -566,13 +566,13 @@ HachiBowl.Game.prototype = {
         if(sfxOn===true){
           this.cancelSound.play();
         }
-        currentBGM.stop();
         if(isMobile()) {
           if(AdMob) {
             AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
             isPlayingBGM = false;
           }
         }
+        currentBGM.stop();        
         this.game.plugin.fadeAndPlay("rgb(0,0,0)",1,"Title");
       }else{
         this.quitButton.show(false);

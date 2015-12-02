@@ -89,9 +89,9 @@ if(isMobile()){
     
     function loopTrack(status){
       if (status === Media.MEDIA_STOPPED) {
-        var posit = currentBGM.getCurrentPosition();
-        var durat = currentBGM.getDuration();
-        if (posit>=durat) currentBGM.play();
+        //var posit = currentBGM.getCurrentPosition();
+        //var durat = currentBGM.getDuration();
+        if (isPlayingBGM) currentBGM.play();
       }
     }
     
