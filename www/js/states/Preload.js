@@ -85,7 +85,7 @@ HachiBowl.Preload.prototype = {
     //this.asset.cropEnabled = false;
     //this.loadingText.setText('Decoding BGM Files... Please Wait...');
     if(!isMobile()) currentBGM = this.game.add.audio('bgm1', 1, true);
-    //else currentBGM = bgm1cordova;
+    else currentBGM = bgm1cordova;
     // bgmmusic['bgm2'] = this.game.add.audio('bgm2', 1, true);
     // bgmmusic['over'] = this.game.add.audio('bgm2', 1, false);
     // bgmmusic['stats'] = this.game.add.audio('bgm2', 1, true);

@@ -8,7 +8,7 @@ var Player = function(game, x, y, frame, ball, anglebar) {
   this.originY = y;
 
   // add and play animations
-  this.animations.add('idle',[frame,frame+4,frame]);
+  this.animations.add('idle',[frame,frame+4]);
   this.animations.add('throw',[frame+8]);
   this.animations.play('idle', 3, true);
   

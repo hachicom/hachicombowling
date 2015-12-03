@@ -6,6 +6,7 @@ HachiBowl.Register.prototype = {
   init: function(paramArr) {
     this.score    = paramArr[0];
     this.gamemode = paramArr[1];
+    this.scorepos = paramArr[2]+1;
     
     if(this.gamemode == 'B') {
       this.scoretable = playerData.scoretable.scores;
@@ -55,7 +56,15 @@ HachiBowl.Register.prototype = {
     
     this.nameRegistered = false;
     
-    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 24, 'start36', glossary.UI.nameentry[language], 16);
+    var postext = '';
+    switch(this.scorepos){
+      case 1: postext = glossary.UI.pos1entry[language]; break;
+      case 2: postext = glossary.UI.pos2entry[language]; break;
+      case 3: postext = glossary.UI.pos3entry[language]; break;
+      default: postext = this.scorepos+glossary.UI.posDentry[language]; break;
+    }
+    
+    this.titleMessage = this.game.add.bitmapText(this.game.world.centerX, 24, 'start36', postext+'-'+glossary.UI.nameentry[language], 16);
     this.titleMessage.anchor.setTo(0.5,0);
     
     this.nameText = this.game.add.bitmapText(this.game.world.centerX, 88, 'start16', '', 16);

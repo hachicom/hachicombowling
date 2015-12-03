@@ -74,6 +74,22 @@ var glossary = {
       pt_BR: 'DIGITE NOME',
       en_US: 'ENTER NAME'
     },
+    pos1entry :{ //glossary.UI.pos1entry[language]
+      pt_BR: '1º',
+      en_US: '1st'
+    },
+    pos2entry :{ //glossary.UI.pos2entry[language]
+      pt_BR: '2º',
+      en_US: '2nd'
+    },
+    pos3entry :{ //glossary.UI.pos3entry[language]
+      pt_BR: '3º',
+      en_US: '3rd'
+    },
+    posDentry :{ //glossary.UI.posDentry[language]
+      pt_BR: 'º',
+      en_US: 'th'
+    },
     deletar :{ //glossary.UI.deletar[language]
       pt_BR: '[APAGAR]',
       en_US: '[DELETE]'

@@ -29,7 +29,7 @@ HachiBowl.Tutorial.prototype = {
     this.game.physics.enable(this.ballSpr, Phaser.Physics.ARCADE);
     this.heroSpr = this.game.add.sprite(192, this.game.height-96, 'player', this.hero);
     this.heroSpr.anchor.setTo(0.5, 0.5);
-    this.heroSpr.animations.add('idle',[this.hero,this.hero+4,this.hero]);
+    this.heroSpr.animations.add('idle',[this.hero,this.hero+4]);
     this.heroSpr.animations.add('throw',[this.hero+8]);
     this.heroSpr.animations.play('idle', 3, true);
     this.barSpr = this.game.add.sprite(112, 100, 'barmeter');

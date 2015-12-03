@@ -6,7 +6,7 @@ HachiBowl.Highscore.prototype = {
   init: function(paramArr) {
     //console.dir(paramArr);
     if(typeof paramArr !== 'undefined'){
-      this.blinkpos = paramArr[0];
+      this.blinkpos = paramArr[0]+1;
       this.gamemode = paramArr[1];
     }else{
       this.blinkpos = 0;
@@ -103,8 +103,10 @@ HachiBowl.Highscore.prototype = {
   showTitle: function(){
     this.page++;
     if(this.page==2) {
-      if(isMobile()) isPlayingBGM = false;
-      currentBGM.stop();
+      if(isMobile()) {
+        if(isPlayingBGM) currentBGM.stop();
+        isPlayingBGM = false;
+      }else currentBGM.stop();
       this.game.plugin.fadeAndPlay("rgb(0,0,0)",2,"Title");
     }
     else{

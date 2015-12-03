@@ -92,6 +92,16 @@ HachiBowl.Game.prototype = {
     this.rightButton.alpha  = 0.8;
     this.rightRect = new Phaser.Rectangle(112,this.rightButton.y - 32,112,64);
     
+    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.leftKey.onDown.add(this.handleKeyLeftDown, this);
+    this.aKey = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    this.aKey.onDown.add(this.handleKeyLeftDown, this);
+
+    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    this.rightKey.onDown.add(this.handleKeyRightDown, this);
+    this.sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+    this.sKey.onDown.add(this.handleKeyRightDown, this);
+    
     //Diamond Sticker creation
     this.diamondChanceSpr = this.game.add.sprite(112, this.angleBar.y - 64, 'diamondbig');
     this.diamondChanceSpr.anchor.setTo(0.5,0.5);
@@ -273,6 +283,20 @@ HachiBowl.Game.prototype = {
     }
   },
   
+  handleKeyLeftDown: function(){
+    if(this.leftButton.visible===true) {
+      this.ball.changeDirection('left');
+      if(sfxOn===true) this.cancelSound.play();
+    }
+  },
+  
+  handleKeyRightDown: function(){
+    if(this.rightButton.visible===true) {
+      this.ball.changeDirection('right');
+      if(sfxOn===true) this.cancelSound.play();
+    }
+  },
+  
   showDpad(bool){
     this.leftButton.visible = bool;
     this.rightButton.visible = bool;
@@ -340,8 +364,8 @@ HachiBowl.Game.prototype = {
     if((this.round-1)%this.diamondround == 0) {
       this.angleBar.cursorspeed += this.difficultspike;
       var qtdDiamondRnd = (this.round-1)/this.diamondround;
-      if(qtdDiamondRnd == 2) this.block1.visible = true;
-      if(qtdDiamondRnd == 4) this.block2.visible = true;
+      if(qtdDiamondRnd == 1) this.block1.visible = true;
+      if(qtdDiamondRnd == 2) this.block2.visible = true;
     }
   },
   

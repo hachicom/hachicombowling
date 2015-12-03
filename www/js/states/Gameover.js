@@ -68,13 +68,15 @@ HachiBowl.Gameover.prototype = {
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
       registerName = false;
+      scorepos = 0;
       for(var i=0;i<this.scoretable.length;i++){
         if (this.scoretable[i]<this.finalScore) {
           registerName = true;
+          scorepos = i;
           break;
         }
       }
-      if(registerName === true) this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Register",[this.finalScore,this.gamemode]);
+      if(registerName === true) this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Register",[this.finalScore,this.gamemode,scorepos]);
       else this.game.plugin.fadeAndPlay("rgb(0,0,0)",0.5,"Highscore");
     }
   },
